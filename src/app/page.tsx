@@ -7,7 +7,7 @@ export default function Home() {
 		<>
 			<h1 className='mb-5 text-3xl font-bold underline'>Hello world!</h1>
 			<Link href='/auth/register'>
-				<Button>Авторизоватся</Button>
+				<Button>Register</Button>
 			</Link>
 		</>
 	)
