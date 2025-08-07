@@ -1,5 +1,8 @@
 'use client'
 
+import { useTheme } from 'next-themes'
+import { useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
@@ -9,6 +12,16 @@ import { RegisterScheme, TypeRegisterScheme } from '@/feautures/auth/schemes'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export function RegisterForm() {
+	const [recaptcha, setRecaptcha] = useState<string | null>(null)
+	const { theme } = useTheme()
+
+	const siteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY
+
+	if (!siteKey) {
+		console.log(siteKey)
+		throw new Error('ReCAPTCHA site key is not defined')
+	}
+
 	const form = useForm<TypeRegisterScheme>({
 		resolver: zodResolver(RegisterScheme),
 		defaultValues: {
@@ -20,7 +33,11 @@ export function RegisterForm() {
 	})
 
 	const onSubmit = (values: TypeRegisterScheme) => {
-		console.log(values)
+		if (recaptcha) {
+			console.log(values)
+		} else {
+			throw new Error('ReCAPTCHA флаг должен быть установлен')
+		}
 	}
 
 	return (
@@ -107,6 +124,17 @@ export function RegisterForm() {
 							</FormItem>
 						)}
 					/>
+
+					<div className='flex justify-center'>
+						<ReCAPTCHA
+							sitekey={
+								process.env
+									.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
+							}
+							onChange={setRecaptcha}
+							theme={theme === 'light' ? 'light' : 'dark'}
+						/>
+					</div>
 
 					<Button type='submit'>Подтвердить</Button>
 				</form>
