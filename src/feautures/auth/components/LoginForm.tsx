@@ -5,30 +5,28 @@ import { useForm } from 'react-hook-form'
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 
 import { AuthWrapper } from '@/feautures/auth/components/AuthWrapper'
-import { RegisterScheme, TypeRegisterScheme } from '@/feautures/auth/schemes'
+import { LoginScheme, TypeLoginScheme } from '@/feautures/auth/schemes/login.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-export function RegisterForm() {
-	const form = useForm<TypeRegisterScheme>({
-		resolver: zodResolver(RegisterScheme),
+export function LoginForm() {
+	const form = useForm<TypeLoginScheme>({
+		resolver: zodResolver(LoginScheme),
 		defaultValues: {
-			name: '',
 			email: '',
-			password: '',
-			passwordRepeat: ''
+			password: ''
 		}
 	})
 
-	const onSubmit = (values: TypeRegisterScheme) => {
+	const onSubmit = (values: TypeLoginScheme) => {
 		console.log(values)
 	}
 
 	return (
 		<AuthWrapper
-			heading='Регистрация'
+			heading='Войти'
 			description='Чтобы войти в аккаунт введите ваш email и пароль'
-			backButtonLabel='Уже есть аккаунт? Войти'
-			backButtonHref='/auth/login'
+			backButtonLabel='Еще нет аккаунта? Регистрация'
+			backButtonHref='/auth/register'
 			isShowSocial
 		>
 			<Form {...form}>
@@ -36,24 +34,6 @@ export function RegisterForm() {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className='grid gap-2 space-y-4'
 				>
-					<FormField
-						control={form.control}
-						name='name'
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Имя</FormLabel>
-								<FormControl>
-									<Input
-										placeholder='Имя'
-										type='text'
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
 					<FormField
 						control={form.control}
 						name='email'
@@ -90,25 +70,7 @@ export function RegisterForm() {
 						)}
 					/>
 
-					<FormField
-						control={form.control}
-						name='passwordRepeat'
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Повторите пароль</FormLabel>
-								<FormControl>
-									<Input
-										placeholder='Повторите пароль'
-										type='password'
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<Button type='submit'>Подтвердить</Button>
+					<Button type='submit'>Войти</Button>
 				</form>
 			</Form>
 		</AuthWrapper>
