@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 
 import { AuthWrapper } from '@/feautures/auth/components/AuthWrapper'
+import { useLoginMutation } from '@/feautures/auth/hooks/useLoginMutation'
 import { LoginScheme, TypeLoginScheme } from '@/feautures/auth/schemes/login.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -24,10 +25,11 @@ export function LoginForm() {
 		}
 	})
 
+	const { login, isLoadingLogin } = useLoginMutation()
+
 	const onSubmit = (values: TypeLoginScheme) => {
 		if (recaptcha) {
-			console.log(values)
-			toast.success('Успешный вход!')
+			login({ values, recaptcha })
 		} else {
 			toast.error('Пожалуйста, завершите ReCAPTHA')
 			throw new Error('ReCAPTCHA флаг должен быть установлен')
@@ -55,6 +57,7 @@ export function LoginForm() {
 								<FormLabel>Почта</FormLabel>
 								<FormControl>
 									<Input
+										disabled={isLoadingLogin}
 										placeholder='Почта'
 										type='email'
 										{...field}
@@ -73,6 +76,7 @@ export function LoginForm() {
 								<FormLabel>Пароль</FormLabel>
 								<FormControl>
 									<Input
+										disabled={isLoadingLogin}
 										placeholder='Пароль'
 										type='password'
 										{...field}
@@ -94,7 +98,9 @@ export function LoginForm() {
 						/>
 					</div>
 
-					<Button type='submit'>Войти</Button>
+					<Button disabled={isLoadingLogin} type='submit'>
+						Войти
+					</Button>
 				</form>
 			</Form>
 		</AuthWrapper>

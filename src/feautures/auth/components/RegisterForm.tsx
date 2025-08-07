@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 
 import { AuthWrapper } from '@/feautures/auth/components/AuthWrapper'
+import { useRegisterMutation } from '@/feautures/auth/hooks'
 import { RegisterScheme, TypeRegisterScheme } from '@/feautures/auth/schemes'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -26,9 +27,11 @@ export function RegisterForm() {
 		}
 	})
 
+	const { register, isLoadingRegister } = useRegisterMutation()
+
 	const onSubmit = (values: TypeRegisterScheme) => {
 		if (recaptcha) {
-			console.log(values)
+			register({ values, recaptcha })
 			toast.success('Успешная регистрация!')
 		} else {
 			toast.error('Пожалуйста, завершите ReCAPTHA')
@@ -59,6 +62,7 @@ export function RegisterForm() {
 									<Input
 										placeholder='Имя'
 										type='text'
+										disabled={isLoadingRegister}
 										{...field}
 									/>
 								</FormControl>
@@ -77,6 +81,7 @@ export function RegisterForm() {
 									<Input
 										placeholder='Почта'
 										type='email'
+										disabled={isLoadingRegister}
 										{...field}
 									/>
 								</FormControl>
@@ -95,6 +100,7 @@ export function RegisterForm() {
 									<Input
 										placeholder='Пароль'
 										type='password'
+										disabled={isLoadingRegister}
 										{...field}
 									/>
 								</FormControl>
@@ -113,6 +119,7 @@ export function RegisterForm() {
 									<Input
 										placeholder='Повторите пароль'
 										type='password'
+										disabled={isLoadingRegister}
 										{...field}
 									/>
 								</FormControl>
@@ -132,7 +139,9 @@ export function RegisterForm() {
 						/>
 					</div>
 
-					<Button type='submit'>Подтвердить</Button>
+					<Button disabled={isLoadingRegister} type='submit'>
+						Подтвердить
+					</Button>
 				</form>
 			</Form>
 		</AuthWrapper>
