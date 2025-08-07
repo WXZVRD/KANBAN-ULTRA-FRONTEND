@@ -1,7 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -9,28 +9,26 @@ import { toast } from 'sonner'
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 
 import { AuthWrapper } from '@/feautures/auth/components/AuthWrapper'
-import { useLoginMutation } from '@/feautures/auth/hooks/useLoginMutation'
-import { LoginScheme, TypeLoginScheme } from '@/feautures/auth/schemes/login.scheme'
+import { useNewPasswordMutation } from '@/feautures/auth/hooks/useNewPasswordMutation'
+import { NewPasswordScheme, TypeNewPasswordScheme } from '@/feautures/auth/schemes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
 
-export function LoginForm() {
+function NewPasswordForm() {
 	const [recaptcha, setRecaptcha] = useState<string | null>(null)
 	const { theme } = useTheme()
 
-	const form = useForm<TypeLoginScheme>({
-		resolver: zodResolver(LoginScheme),
+	const form = useForm<TypeNewPasswordScheme>({
+		resolver: zodResolver(NewPasswordScheme),
 		defaultValues: {
-			email: '',
 			password: ''
 		}
 	})
 
-	const { login, isLoadingLogin } = useLoginMutation()
+	const { newPassword, isNewLoading } = useNewPasswordMutation()
 
-	const onSubmit = (values: TypeLoginScheme) => {
+	const onSubmit = (values: TypeNewPasswordScheme) => {
 		if (recaptcha) {
-			login({ values, recaptcha })
+			newPassword({ values, recaptcha })
 		} else {
 			toast.error('Пожалуйста, завершите ReCAPTHA')
 			throw new Error('ReCAPTCHA флаг должен быть установлен')
@@ -39,11 +37,10 @@ export function LoginForm() {
 
 	return (
 		<AuthWrapper
-			heading='Войти'
-			description='Чтобы войти в аккаунт введите ваш email и пароль'
-			backButtonLabel='Еще нет аккаунта? Регистрация'
-			backButtonHref='/auth/register'
-			isShowSocial
+			heading='Новый пароль'
+			description='Придумайте новый пароль для вашего аккаунта'
+			backButtonLabel='Войти в аккаунт'
+			backButtonHref='/auth/login'
 		>
 			<Form {...form}>
 				<form
@@ -52,42 +49,15 @@ export function LoginForm() {
 				>
 					<FormField
 						control={form.control}
-						name='email'
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Почта</FormLabel>
-								<FormControl>
-									<Input
-										disabled={isLoadingLogin}
-										placeholder='Почта'
-										type='email'
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<FormField
-						control={form.control}
 						name='password'
 						render={({ field }) => (
 							<FormItem>
-								<div className='item-center flex justify-between'>
-									<FormLabel>Пароль</FormLabel>
-									<Link
-										href='/auth/reset-password'
-										className='ml-auto inline-block text-sm underline'
-									>
-										Забыли пароль?
-									</Link>
-								</div>
+								<FormLabel>Пароль</FormLabel>
 								<FormControl>
 									<Input
-										disabled={isLoadingLogin}
 										placeholder='Пароль'
 										type='password'
+										disabled={isNewLoading}
 										{...field}
 									/>
 								</FormControl>
@@ -107,11 +77,13 @@ export function LoginForm() {
 						/>
 					</div>
 
-					<Button disabled={isLoadingLogin} type='submit'>
-						Войти
+					<Button disabled={isNewLoading} type='submit'>
+						Подтвердить
 					</Button>
 				</form>
 			</Form>
 		</AuthWrapper>
 	)
 }
+
+export default NewPasswordForm
