@@ -1,5 +1,3 @@
-import { toast } from 'sonner'
-
 import { toastMessageHandler } from '@/shared/utils'
 
 import { TypeRegisterScheme } from '@/feautures/auth/schemes'
@@ -17,14 +15,14 @@ export function useRegisterMutation() {
 			recaptcha: string
 		}) => authService.register(values, recaptcha),
 		onSuccess(data) {
-			if (data.message) {
+			toastMessageHandler(data.data)
+			/*if (data.message) {
 				toastMessageHandler(data)
-			} else {
-				toast.success('Успешная регистрация', {
+			}*/
+			/*toast.success('Успешная регистрация', {
 					description:
 						'Подтвердите почту. Сообщение было отправлено на ваш почтовый адресс.'
-				})
-			}
+				})*/
 		},
 		onError(error: Error) {
 			toastMessageHandler(error)
