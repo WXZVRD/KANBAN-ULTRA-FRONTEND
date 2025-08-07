@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 
@@ -14,13 +15,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 export function RegisterForm() {
 	const [recaptcha, setRecaptcha] = useState<string | null>(null)
 	const { theme } = useTheme()
-
-	const siteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY
-
-	if (!siteKey) {
-		console.log(siteKey)
-		throw new Error('ReCAPTCHA site key is not defined')
-	}
 
 	const form = useForm<TypeRegisterScheme>({
 		resolver: zodResolver(RegisterScheme),
@@ -35,7 +29,9 @@ export function RegisterForm() {
 	const onSubmit = (values: TypeRegisterScheme) => {
 		if (recaptcha) {
 			console.log(values)
+			toast.success('Успешная регистрация!')
 		} else {
+			toast.error('Пожалуйста, завершите ReCAPTHA')
 			throw new Error('ReCAPTCHA флаг должен быть установлен')
 		}
 	}

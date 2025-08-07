@@ -1,6 +1,10 @@
 'use client'
 
+import { useTheme } from 'next-themes'
+import { useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 
@@ -9,6 +13,9 @@ import { LoginScheme, TypeLoginScheme } from '@/feautures/auth/schemes/login.sch
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export function LoginForm() {
+	const [recaptcha, setRecaptcha] = useState<string | null>(null)
+	const { theme } = useTheme()
+
 	const form = useForm<TypeLoginScheme>({
 		resolver: zodResolver(LoginScheme),
 		defaultValues: {
@@ -18,7 +25,13 @@ export function LoginForm() {
 	})
 
 	const onSubmit = (values: TypeLoginScheme) => {
-		console.log(values)
+		if (recaptcha) {
+			console.log(values)
+			toast.success('Успешный вход!')
+		} else {
+			toast.error('Пожалуйста, завершите ReCAPTHA')
+			throw new Error('ReCAPTCHA флаг должен быть установлен')
+		}
 	}
 
 	return (
@@ -69,6 +82,17 @@ export function LoginForm() {
 							</FormItem>
 						)}
 					/>
+
+					<div className='flex justify-center'>
+						<ReCAPTCHA
+							sitekey={
+								process.env
+									.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
+							}
+							onChange={setRecaptcha}
+							theme={theme === 'light' ? 'light' : 'dark'}
+						/>
+					</div>
 
 					<Button type='submit'>Войти</Button>
 				</form>

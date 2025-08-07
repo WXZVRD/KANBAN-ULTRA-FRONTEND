@@ -1,3 +1,5 @@
+'use client'
+
 import { Toaster } from '@/shared/components/ui'
 
 export function ToastProvider() {
