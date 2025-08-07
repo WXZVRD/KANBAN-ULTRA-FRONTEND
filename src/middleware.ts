@@ -14,6 +14,10 @@ export default function middleware(request: NextRequest) {
 
 		return NextResponse.next()
 	}
+
+	if (!session) {
+		return NextResponse.redirect(new URL('/auth/login', url))
+	}
 }
 
 export const config = {
