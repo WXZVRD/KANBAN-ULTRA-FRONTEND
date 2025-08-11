@@ -1,3 +1,5 @@
+'use client'
+
 import { Context, createContext, JSX, PropsWithChildren, useState } from 'react'
 
 import { IUser } from '@/feautures/auth/types'
