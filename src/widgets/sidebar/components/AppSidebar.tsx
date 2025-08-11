@@ -16,15 +16,16 @@ import {
 	SidebarHeader
 } from '@/shared/components/ui'
 
+import { useAuth } from '@/feautures/auth/hooks/useAuth'
+import { useGetAllUserProjects } from '@/feautures/project/hooks/useGetAllUserProjects'
 import Link from 'next/link'
 
 export function AppSidebar() {
-	// Тут можешь подгружать проекты с API
-	const projects = [
-		{ id: '1', name: 'Kanban Board', href: '/projects/1' },
-		{ id: '2', name: 'E-commerce App', href: '/projects/2' },
-		{ id: '3', name: 'Portfolio Website', href: '/projects/3' }
-	]
+	const { user } = useAuth()
+
+	const { projects, isProjectsLoading } = useGetAllUserProjects(user?.id)
+
+	if (!user) return null
 
 	return (
 		<Sidebar variant='inset' className='w-[250px] shrink-0 border-r'>
@@ -40,15 +41,28 @@ export function AppSidebar() {
 						<CollapsibleContent>
 							<SidebarGroupContent>
 								<div className='flex flex-col gap-1'>
-									{projects.map(project => (
-										<Link
-											key={project.id}
-											href={project.href}
-											className='hover:bg-accent hover:text-accent-foreground rounded-md px-2 py-1 text-sm'
-										>
-											{project.name}
-										</Link>
-									))}
+									{isProjectsLoading && (
+										<span className='text-muted-foreground text-sm'>
+											Loading...
+										</span>
+									)}
+
+									{!isProjectsLoading && !projects && (
+										<span className='text-muted-foreground mt-3 mb-5 text-sm'>
+											You have no projects yet
+										</span>
+									)}
+
+									{!isProjectsLoading &&
+										projects?.map(project => (
+											<Link
+												key={project.id}
+												href={`/projects/${project.id}`}
+												className='hover:bg-accent hover:text-accent-foreground rounded-md px-2 py-1 text-sm'
+											>
+												{project.name}
+											</Link>
+										))}
 
 									<Button
 										variant='outline'
