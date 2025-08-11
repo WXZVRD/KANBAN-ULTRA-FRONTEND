@@ -14,12 +14,14 @@ export function MainProvider({ children }: PropsWithChildren): JSX.Element {
 			<AuthProvider>
 				<SidebarProvider defaultOpen={true}>
 					<ThemeProvider attribute='class' defaultTheme='light'>
-						<AppSidebar />
-						<main>
-							<SidebarTrigger />
-							<ToastProvider />
-							{children}
-						</main>
+						<div className='flex min-h-screen w-full overflow-x-hidden'>
+							<AppSidebar />
+							<div className='flex-1 overflow-x-hidden'>
+								<SidebarTrigger />
+								<ToastProvider />
+								{children}
+							</div>
+						</div>
 					</ThemeProvider>
 				</SidebarProvider>
 			</AuthProvider>

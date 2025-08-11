@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { ToggleTheme } from '@/shared/components/ui'
 import { MainProvider } from '@/shared/providers'
 import '@/shared/styles/globals.css'
+
+import { SITE_NAME } from '@/constants/seo.constants'
 import { Geist, Geist_Mono } from 'next/font/google'
 
 const geistSans = Geist({
@@ -17,8 +19,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	title: {
-		absolute: 'WXZVRD KANBAN ULTRA',
-		template: '%s | WXZVRD KANBAN ULTRA'
+		absolute: SITE_NAME,
+		template: `%s | ${SITE_NAME}`
 	},
 	description:
 		'Pet project with full powered from init to deploy by Nick "WXZVRD" Persiya fullstack'
@@ -37,7 +39,6 @@ export default function RootLayout({
 				<MainProvider>
 					<div className='relative flex min-h-screen'>
 						<ToggleTheme />
-						{/* <SideBarWrapper /> */}
 						<div className='item-center flex h-screen w-full w-screen flex-col items-center justify-center'>
 							{children}
 						</div>
