@@ -4,6 +4,7 @@ import { ToggleTheme } from '@/shared/components/ui'
 import { MainProvider } from '@/shared/providers'
 import '@/shared/styles/globals.css'
 
+import { SideBarWrapper } from '@/widgets/sidebar/components'
 import { Geist, Geist_Mono } from 'next/font/google'
 
 const geistSans = Geist({
@@ -36,8 +37,9 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<MainProvider>
-					<div className='relative flex min-h-screen flex-col'>
+					<div className='relative flex min-h-screen'>
 						<ToggleTheme />
+						<SideBarWrapper />
 						<div className='item-center flex h-screen w-full w-screen flex-col items-center justify-center'>
 							{children}
 						</div>

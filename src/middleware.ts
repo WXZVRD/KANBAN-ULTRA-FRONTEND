@@ -7,6 +7,8 @@ export default function middleware(request: NextRequest) {
 
 	const isAuthPage: boolean = url.includes('/auth')
 
+	console.log('session: ', session)
+
 	if (isAuthPage) {
 		if (session) {
 			return NextResponse.redirect(new URL('/dashboard/settings', url))
