@@ -31,7 +31,7 @@ export function useLoginMutation(
 				setIsShowTwoFactor(true)
 			} else {
 				toast.success('Успешный вход!')
-				//router.push('/dashboard/settings')
+				router.push('/dashboard/settings')
 			}
 		},
 		onError(error: Error) {

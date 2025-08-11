@@ -17,3 +17,6 @@ export {
 export * from './input'
 export * from './sonner'
 export * from './loader'
+export * from './avatar'
+export * from './skeleton'
+export * from './switch'
