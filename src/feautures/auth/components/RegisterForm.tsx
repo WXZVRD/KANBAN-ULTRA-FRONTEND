@@ -32,7 +32,6 @@ export function RegisterForm() {
 	const onSubmit = (values: TypeRegisterScheme) => {
 		if (recaptcha) {
 			register({ values, recaptcha })
-			toast.success('Успешная регистрация!')
 		} else {
 			toast.error('Пожалуйста, завершите ReCAPTHA')
 			throw new Error('ReCAPTCHA флаг должен быть установлен')
