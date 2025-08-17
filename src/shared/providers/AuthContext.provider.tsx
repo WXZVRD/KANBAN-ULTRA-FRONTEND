@@ -1,12 +1,14 @@
 'use client'
 
-import { Context, createContext, JSX, PropsWithChildren, useState } from 'react'
+import { Context, createContext, JSX, PropsWithChildren } from 'react'
+
+import { useProfile } from '@/shared/hooks'
 
 import { IUser } from '@/feautures/auth/types'
 
 interface AuthContextType {
 	user: IUser | null
-	setUser: (user: any) => void
+	isLoading: boolean
 }
 
 export const AuthContext: Context<AuthContextType | undefined> = createContext<
@@ -14,10 +16,10 @@ export const AuthContext: Context<AuthContextType | undefined> = createContext<
 >(undefined)
 
 export function AuthProvider({ children }: PropsWithChildren): JSX.Element {
-	const [user, setUser] = useState<IUser | null>(null)
+	const { user, isLoading } = useProfile()
 
 	return (
-		<AuthContext.Provider value={{ user, setUser }}>
+		<AuthContext.Provider value={{ user, isLoading }}>
 			{children}
 		</AuthContext.Provider>
 	)

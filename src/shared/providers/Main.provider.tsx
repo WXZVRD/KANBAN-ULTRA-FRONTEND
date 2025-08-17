@@ -2,7 +2,8 @@
 
 import { JSX, type PropsWithChildren } from 'react'
 
-import { SidebarProvider, SidebarTrigger } from '@/shared/components/ui'
+import { SidebarProvider } from '@/shared/components/ui'
+import { AnimatedBG } from '@/shared/components/ui/AnimatedBG'
 import { AuthProvider, TanstackQueryProvider, ThemeProvider } from '@/shared/providers'
 import { ToastProvider } from '@/shared/providers/Toast.provider'
 
@@ -12,14 +13,15 @@ export function MainProvider({ children }: PropsWithChildren): JSX.Element {
 	return (
 		<TanstackQueryProvider>
 			<AuthProvider>
-				<SidebarProvider defaultOpen={true}>
-					<ThemeProvider attribute='class' defaultTheme='light'>
-						<AppSidebar />
-						<main>
-							<SidebarTrigger />
-							<ToastProvider />
-							{children}
-						</main>
+				<SidebarProvider defaultOpen={false}>
+					<ThemeProvider attribute='class' defaultTheme='dark'>
+						<div className='flex min-h-screen w-full overflow-x-hidden'>
+							<AppSidebar />
+							<div className='flex-1 overflow-x-hidden'>
+								<ToastProvider />
+								<AnimatedBG>{children}</AnimatedBG>
+							</div>
+						</div>
 					</ThemeProvider>
 				</SidebarProvider>
 			</AuthProvider>

@@ -1,19 +1,99 @@
+'use client'
+
+import { ChevronDown, Plus } from 'lucide-react'
+
 import {
+	Button,
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
 	Sidebar,
 	SidebarContent,
 	SidebarFooter,
 	SidebarGroup,
+	SidebarGroupContent,
+	SidebarGroupLabel,
 	SidebarHeader
 } from '@/shared/components/ui'
 
+import { DASBOARD_PAGES } from '@/config/pages-url.config'
+import { useAuth } from '@/feautures/auth/hooks/useAuth'
+import { useGetAllUserProjects } from '@/feautures/project/hooks/useGetAllUserProjects'
+import { ProjectListItem } from '@/widgets/sidebar/components/ProjectListItem'
+import Link from 'next/link'
+
 export function AppSidebar() {
+	const { user } = useAuth()
+
+	const { projects, isProjectsLoading } = useGetAllUserProjects(user?.id)
+
+	console.log('projects', projects)
+	console.log('user: ', user)
+
+	if (!user) return null
+
 	return (
-		<Sidebar className='relative'>
-			<SidebarHeader />
+		<Sidebar
+			variant='inset'
+			className='relation w-[250px] shrink-0 border-r'
+		>
+			<SidebarHeader>
+				<Collapsible defaultOpen className='group/collapsible'>
+					<SidebarGroup>
+						<SidebarGroupLabel asChild>
+							<CollapsibleTrigger>
+								Projects
+								<ChevronDown className='ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180' />
+							</CollapsibleTrigger>
+						</SidebarGroupLabel>
+						<CollapsibleContent>
+							<SidebarGroupContent>
+								<div className='flex flex-col gap-1'>
+									{isProjectsLoading && (
+										<span className='text-muted-foreground text-sm'>
+											Loading...
+										</span>
+									)}
+
+									{!isProjectsLoading && !projects && (
+										<span className='text-muted-foreground mt-3 mb-5 text-sm'>
+											You have no projects yet
+										</span>
+									)}
+
+									{!isProjectsLoading &&
+										projects?.map(project => (
+											<ProjectListItem
+												key={project.id}
+												id={project.id}
+												title={project.title}
+											/>
+										))}
+
+									<Button
+										variant='outline'
+										size='sm'
+										className='mt-2 flex items-center gap-1'
+									>
+										<Plus className='h-4 w-4' />
+										<Link
+											href={DASBOARD_PAGES.PROJECT_CREATE}
+										>
+											Create project
+										</Link>
+									</Button>
+								</div>
+							</SidebarGroupContent>
+						</CollapsibleContent>
+					</SidebarGroup>
+				</Collapsible>
+			</SidebarHeader>
+
 			<SidebarContent>
 				<SidebarGroup />
 				<SidebarGroup />
 			</SidebarContent>
+
 			<SidebarFooter />
 		</Sidebar>
 	)
