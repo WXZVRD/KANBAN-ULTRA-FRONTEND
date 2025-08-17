@@ -19,6 +19,7 @@ import {
 import { DASBOARD_PAGES } from '@/config/pages-url.config'
 import { useAuth } from '@/feautures/auth/hooks/useAuth'
 import { useGetAllUserProjects } from '@/feautures/project/hooks/useGetAllUserProjects'
+import { ProjectListItem } from '@/widgets/sidebar/components/ProjectListItem'
 import Link from 'next/link'
 
 export function AppSidebar() {
@@ -26,12 +27,16 @@ export function AppSidebar() {
 
 	const { projects, isProjectsLoading } = useGetAllUserProjects(user?.id)
 
-	console.log(projects)
+	console.log('projects', projects)
+	console.log('user: ', user)
 
 	if (!user) return null
 
 	return (
-		<Sidebar variant='inset' className='w-[250px] shrink-0 border-r'>
+		<Sidebar
+			variant='inset'
+			className='relation w-[250px] shrink-0 border-r'
+		>
 			<SidebarHeader>
 				<Collapsible defaultOpen className='group/collapsible'>
 					<SidebarGroup>
@@ -58,13 +63,11 @@ export function AppSidebar() {
 
 									{!isProjectsLoading &&
 										projects?.map(project => (
-											<Link
+											<ProjectListItem
 												key={project.id}
-												href={`/projects/${project.id}`}
-												className='hover:bg-accent hover:text-accent-foreground rounded-md px-2 py-1 text-sm'
-											>
-												{project.title}
-											</Link>
+												id={project.id}
+												title={project.title}
+											/>
 										))}
 
 									<Button
