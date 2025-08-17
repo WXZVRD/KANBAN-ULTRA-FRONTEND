@@ -26,6 +26,8 @@ export function AppSidebar() {
 
 	const { projects, isProjectsLoading } = useGetAllUserProjects(user?.id)
 
+	console.log(projects)
+
 	if (!user) return null
 
 	return (
@@ -61,7 +63,7 @@ export function AppSidebar() {
 												href={`/projects/${project.id}`}
 												className='hover:bg-accent hover:text-accent-foreground rounded-md px-2 py-1 text-sm'
 											>
-												{project.name}
+												{project.title}
 											</Link>
 										))}
 
