@@ -33,10 +33,7 @@ export function AppSidebar() {
 	if (!user) return null
 
 	return (
-		<Sidebar
-			variant='inset'
-			className='relation w-[250px] shrink-0 border-r'
-		>
+		<Sidebar variant='inset' className='w-[250px] shrink-0 border-r'>
 			<SidebarHeader>
 				<Collapsible defaultOpen className='group/collapsible'>
 					<SidebarGroup>
