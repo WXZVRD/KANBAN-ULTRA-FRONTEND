@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { ToggleTheme } from '@/shared/components/ui'
+import { SidebarTrigger, ToggleTheme } from '@/shared/components/ui'
 import { MainProvider } from '@/shared/providers'
 import '@/shared/styles/globals.css'
 
@@ -39,6 +39,7 @@ export default function RootLayout({
 				<MainProvider>
 					<div className='relative flex min-h-screen'>
 						<ToggleTheme />
+						<SidebarTrigger />
 						<div className='item-center flex h-screen w-full w-screen flex-col items-center justify-center'>
 							{children}
 						</div>
