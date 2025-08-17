@@ -16,6 +16,7 @@ import {
 	SidebarHeader
 } from '@/shared/components/ui'
 
+import { DASBOARD_PAGES } from '@/config/pages-url.config'
 import { useAuth } from '@/feautures/auth/hooks/useAuth'
 import { useGetAllUserProjects } from '@/feautures/project/hooks/useGetAllUserProjects'
 import Link from 'next/link'
@@ -70,7 +71,11 @@ export function AppSidebar() {
 										className='mt-2 flex items-center gap-1'
 									>
 										<Plus className='h-4 w-4' />
-										Create project
+										<Link
+											href={DASBOARD_PAGES.PROJECT_CREATE}
+										>
+											Create project
+										</Link>
 									</Button>
 								</div>
 							</SidebarGroupContent>
