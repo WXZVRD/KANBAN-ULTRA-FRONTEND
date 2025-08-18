@@ -6,6 +6,7 @@ import { Button, Card, CardHeader, CardTitle, Separator } from '@/shared/compone
 
 import { ProjectSettingsDropdown } from '@/feautures/project/components/ProjectSettingsDropdown'
 import { useGetById } from '@/feautures/project/hooks/useGetById'
+import { useProjectView } from '@/feautures/project/providers/ProjectView.provider'
 import Link from 'next/link'
 
 interface IProjectHeaderProps {
@@ -14,6 +15,7 @@ interface IProjectHeaderProps {
 
 export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 	const { currentProject, isProjectLoading } = useGetById(projectId)
+	const { view, setView } = useProjectView()
 
 	if (isProjectLoading) {
 		return (
@@ -44,11 +46,19 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 			</CardHeader>
 
 			<div className='flex items-center gap-2'>
-				<Button size='sm' variant='outline'>
+				<Button
+					size='sm'
+					variant='outline'
+					onClick={() => setView('columns')}
+				>
 					<LayoutGrid className='mr-1 h-4 w-4' />
 					Колонки
 				</Button>
-				<Button size='sm' variant='outline'>
+				<Button
+					size='sm'
+					variant='outline'
+					onClick={() => setView('table')}
+				>
 					<Table className='mr-1 h-4 w-4' />
 					Таблица
 				</Button>

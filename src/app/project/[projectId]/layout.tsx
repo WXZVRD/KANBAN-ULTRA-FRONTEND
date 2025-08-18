@@ -1,23 +1,32 @@
 'use client'
 
+import React, { PropsWithChildren } from 'react'
+
+import { ProjectViewProvider } from '@/feautures/project/providers/ProjectView.provider'
 import { ProjectHeader } from '@/widgets/ProjectHeader/components/ProjectHeader'
 import { useSelectedLayoutSegments } from 'next/navigation'
+
+interface Props {
+	params: Promise<{ projectId: string }>
+}
 
 export default function ProjectLayout({
 	children,
 	params
-}: Readonly<{
-	children: React.ReactNode
-	params: { projectId: string }
-}>) {
+}: PropsWithChildren<Props>) {
 	const segments = useSelectedLayoutSegments()
 	const isEditPage = segments.includes('edit')
 
-	return (
-		<div className='flex flex-col gap-4'>
-			{!isEditPage && <ProjectHeader projectId={params.projectId} />}
+	const resolvedParams = React.use(params)
+	const { projectId } = resolvedParams
 
-			<div>{children}</div>
-		</div>
+	return (
+		<ProjectViewProvider>
+			<div className='flex flex-col gap-4'>
+				{!isEditPage && <ProjectHeader projectId={projectId} />}
+
+				<div>{children}</div>
+			</div>
+		</ProjectViewProvider>
 	)
 }
