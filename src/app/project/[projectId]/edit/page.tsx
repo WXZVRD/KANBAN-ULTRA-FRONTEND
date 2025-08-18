@@ -16,5 +16,9 @@ export default function EditProjectPage({
 	const resolvedParams = React.use<Props>(params)
 	const { projectId } = resolvedParams
 
-	return <EditProjectForm projectId={projectId} />
+	return (
+		<div className='my-auto flex justify-center'>
+			<EditProjectForm projectId={projectId} />
+		</div>
+	)
 }
