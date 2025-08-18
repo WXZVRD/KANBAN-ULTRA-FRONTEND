@@ -33,7 +33,7 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 
 	return (
 		<Card className='flex flex-col gap-2 p-4 shadow-md'>
-			<CardHeader className='flex items-center'>
+			<CardHeader className='mb-2 flex items-center'>
 				<CardTitle className='text-lg font-bold'>
 					{currentProject.title}
 				</CardTitle>
