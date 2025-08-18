@@ -1,12 +1,6 @@
 'use client'
 
-import { Metadata } from 'next'
-
 import { useProjectView } from '@/feautures/project/providers/ProjectView.provider'
-
-const metadata: Metadata = {
-	title: 'sad'
-}
 
 export default function ProjectPage() {
 	const { view } = useProjectView()
