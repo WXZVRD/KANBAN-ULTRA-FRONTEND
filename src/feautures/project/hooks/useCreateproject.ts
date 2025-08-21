@@ -19,7 +19,7 @@ export function useCreateproject() {
 				toast.success('Проект создан', {
 					description: `Проект «${data.title}» успешно создан`
 				})
-				router.push(`/projects/${data.id}`)
+				router.push(`/project/${data.id}`)
 			},
 			onError(error) {
 				toastMessageHandler(error)

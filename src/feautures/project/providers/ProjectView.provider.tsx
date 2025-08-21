@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from 'react'
 
-type ViewMode = 'columns' | 'table'
+export type ViewMode = 'columns' | 'table'
 
 interface ProjectViewContextType {
 	view: ViewMode
