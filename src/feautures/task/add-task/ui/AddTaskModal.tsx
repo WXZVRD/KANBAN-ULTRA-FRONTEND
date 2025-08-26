@@ -65,7 +65,7 @@ export function TaskModal({ columnId }: ITaskModal) {
 	}
 
 	return (
-		<div className='p-2'>
+		<>
 			<Button className='mb-3 w-full' onClick={e => setOpen(true)}>
 				Создать задачу
 			</Button>
@@ -156,6 +156,6 @@ export function TaskModal({ columnId }: ITaskModal) {
 					</Form>
 				</DialogContent>
 			</Dialog>
-		</div>
+		</>
 	)
 }

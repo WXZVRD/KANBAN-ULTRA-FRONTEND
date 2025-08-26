@@ -85,7 +85,7 @@ export function ColumnView({ columns }: IColumnView) {
 											ref={provided.innerRef}
 											{...provided.draggableProps}
 											{...provided.dragHandleProps}
-											className='h-full'
+											className='h-full flex-1 overflow-y-auto'
 										>
 											<ColumnCard column={col} />
 										</div>
@@ -95,7 +95,7 @@ export function ColumnView({ columns }: IColumnView) {
 
 							{provided.placeholder}
 
-							{columns.length < 6 && (
+							{columns.length < 5 && (
 								<AddColumnButton
 									columnsLength={columns.length}
 								/>

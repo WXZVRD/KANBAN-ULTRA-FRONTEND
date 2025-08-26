@@ -62,7 +62,7 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 				<ColumnCardSettings title={title} projectId={projectId} />
 			</CardHeader>
 
-			<CardContent className='flex-1 overflow-y-auto'>
+			<CardContent className='flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
 				<Droppable droppableId={columnId}>
 					{provided => (
 						<div

@@ -19,7 +19,7 @@ export function TaskWrapperContent({ columnId, tasks }: ITaskWrapperContent) {
 				>
 					<TaskModal columnId={columnId} />
 
-					<div className='space-y-3'>
+					<div className='max-h-[62vh] space-y-3'>
 						{tasks.map((task, index) => (
 							<Draggable
 								key={task.id}

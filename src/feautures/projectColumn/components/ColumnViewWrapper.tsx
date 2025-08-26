@@ -19,7 +19,6 @@ export function ColumnViewWrapper({ view, projectId }: IColumnView) {
 
 	return (
 		<>
-			<h1 className='text-xl font-semibold'>I COLUMN VIEW</h1>
 			<div className='p-4'>
 				{view === 'columns' ? (
 					<ColumnView columns={projectColumns} />
