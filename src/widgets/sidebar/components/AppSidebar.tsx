@@ -27,9 +27,6 @@ export function AppSidebar() {
 
 	const { projects, isProjectsLoading } = useGetAllUserProjects(user?.id)
 
-	console.log('projects', projects)
-	console.log('user: ', user)
-
 	if (!user) return null
 
 	return (

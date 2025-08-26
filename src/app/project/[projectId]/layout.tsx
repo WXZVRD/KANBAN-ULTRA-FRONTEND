@@ -22,7 +22,7 @@ export default function ProjectLayout({
 
 	return (
 		<ProjectViewProvider>
-			<div className='flex flex-col gap-4'>
+			<div className='flex max-h-screen flex-col gap-4 overflow-hidden'>
 				{!isEditPage && <ProjectHeader projectId={projectId} />}
 
 				<div>{children}</div>

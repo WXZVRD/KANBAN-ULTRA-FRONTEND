@@ -1,24 +1,20 @@
 import { useState } from 'react'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
+import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 
+import { IColumn } from '@/entities/column/model/types'
 import { ColumnCardSettings } from '@/entities/column/ui/ColumnCardSettings'
+import { TaskWrapperContent } from '@/entities/task/ui/TaskWrapperContent'
 import { useRenameColumn } from '@/feautures/projectColumn/rename-column/model/useRenameColumn'
+import { Droppable } from '@hello-pangea/dnd'
 
 interface ColumnCardProps {
-	columnId: string
-	title: string
-	projectId: string
-	children?: React.ReactNode
+	column: IColumn
 }
 
-export const ColumnCard = ({
-	columnId,
-	title,
-	projectId,
-	children
-}: ColumnCardProps) => {
-	const { renameColumn, isNameChanging } = useRenameColumn()
+export const ColumnCard = ({ column }: ColumnCardProps) => {
+	const { renameColumn } = useRenameColumn()
+	const { projectId, order, title, id: columnId } = column
 
 	const [isEditing, setIsEditing] = useState(false)
 	const [newTitle, setNewTitle] = useState<string>(title)
@@ -33,19 +29,8 @@ export const ColumnCard = ({
 		}
 	}
 
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter') {
-			e.currentTarget.blur()
-		}
-		if (e.key === 'Escape') {
-			renameColumn({ columnId, title: newTitle })
-			setNewTitle(title)
-			setIsEditing(false)
-		}
-	}
-
 	return (
-		<Card className='w-80 flex-shrink-0'>
+		<Card className='flex h-full max-h-[100vh] w-80 flex-shrink-0 flex-col'>
 			<CardHeader className='flex justify-between'>
 				{isEditing ? (
 					<input
@@ -54,21 +39,46 @@ export const ColumnCard = ({
 						autoFocus
 						onChange={e => setNewTitle(e.target.value)}
 						onBlur={handleBlur}
-						onKeyDown={handleKeyDown}
 					/>
 				) : (
 					<CardTitle
-						className='cursor-pointer'
-						onClick={() => setIsEditing(true)}
+						className='flex cursor-pointer items-center gap-2'
+						onClick={e => {
+							e.stopPropagation()
+							setIsEditing(true)
+						}}
 					>
 						{title}
+						{column.tasks.length > 0 && (
+							<Badge
+								variant='secondary'
+								className='ml-2 rounded-sm px-3 py-0 text-xs'
+							>
+								{column.tasks.length}
+							</Badge>
+						)}
 					</CardTitle>
 				)}
-				<div className=''>
-					<ColumnCardSettings title={title} projectId={projectId} />
-				</div>
+				<ColumnCardSettings title={title} projectId={projectId} />
 			</CardHeader>
-			<CardContent>{children}</CardContent>
+
+			<CardContent className='flex-1 overflow-y-auto'>
+				<Droppable droppableId={columnId}>
+					{provided => (
+						<div
+							ref={provided.innerRef}
+							{...provided.droppableProps}
+							className='space-y-2'
+						>
+							<TaskWrapperContent
+								tasks={column.tasks}
+								columnId={columnId}
+							/>
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</CardContent>
 		</Card>
 	)
 }

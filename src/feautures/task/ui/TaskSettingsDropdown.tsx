@@ -2,20 +2,23 @@ import { MoreVertical } from 'lucide-react'
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/components/ui'
 
-import { useDeleteColumn } from '@/feautures/projectColumn/delete-column/model/useDeleteColumn'
+import { useDeleteTask } from '@/feautures/task/delete-task/model/useDeleteTask.mutation'
+import { useParams } from 'next/navigation'
 
-interface IColumnCardSettings {
-	title: string
-	projectId: string
+interface ITaskSettingsDropdown {
+	taskId: string
 }
 
-export function ColumnCardSettings({ title, projectId }: IColumnCardSettings) {
-	const { deleteColumn } = useDeleteColumn()
+export function TaskSettingsDropdown({ taskId }: ITaskSettingsDropdown) {
+	const { deleteTask } = useDeleteTask()
+
+	const params = useParams<{ projectId: string }>()
+	const projectId = params.projectId
 
 	function handleDelete() {
-		deleteColumn({
-			title,
-			projectId
+		deleteTask({
+			projectId: projectId,
+			taskId: taskId
 		})
 	}
 
