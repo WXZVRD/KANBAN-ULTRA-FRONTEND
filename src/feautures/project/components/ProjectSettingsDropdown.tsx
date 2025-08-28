@@ -38,7 +38,11 @@ export function ProjectSettingsDropdown({
 					Редактировать
 				</DropdownMenuItem>
 				{showAddMemberButton && (
-					<DropdownMenuItem onClick={() => console.log(projectId)}>
+					<DropdownMenuItem
+						onClick={() =>
+							router.push(`/project/${projectId}/add-member`)
+						}
+					>
 						Добавить участника
 					</DropdownMenuItem>
 				)}
