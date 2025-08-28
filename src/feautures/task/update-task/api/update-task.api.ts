@@ -1,7 +1,6 @@
 import api from '@/shared/api/axios'
 
 import { TaskPriority } from '@/entities/task/types/priority.enum'
-import { TaskPriority } from '@/entities/task/types/priority.enum'
 
 export interface IUpdateTaskDTO {
 	id: string

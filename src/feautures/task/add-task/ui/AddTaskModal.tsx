@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -27,53 +27,90 @@ import { TaskPriority } from '@/entities/task/types/priority.enum'
 import { ProjectMemberSelector } from '@/feautures/member/project-member-selector/ui/ProjectMemberSelector'
 import { createTaskScheme, TypeCreateTaskScheme } from '@/feautures/task/add-task/model/AddTask.scheme'
 import { useAddTaskMutation } from '@/feautures/task/add-task/model/useAddTask.mutation'
+import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
+import { useUpdateTask } from '@/feautures/task/update-task/model/useUpdateTask'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams } from 'next/navigation'
 
 interface ITaskModal {
 	columnId: string
+	initialValues?: IUpdateTaskDTO
 }
 
-export function TaskModal({ columnId }: ITaskModal) {
+export function TaskModal({ columnId, initialValues }: ITaskModal) {
 	const [open, setOpen] = useState(false)
 
 	const params = useParams<{ projectId: string }>()
 	const projectId = params.projectId
 
+	const isEditMode = !!initialValues
+
 	const form = useForm<TypeCreateTaskScheme>({
 		resolver: zodResolver(createTaskScheme),
-		defaultValues: {
-			title: '',
-			priority: TaskPriority.MEDIUM,
-			assigneeId: undefined
-		}
+		defaultValues: isEditMode
+			? {
+					title: initialValues.title,
+					priority: initialValues.priority,
+					assigneeId: initialValues.assigneeId
+				}
+			: {
+					title: '',
+					priority: TaskPriority.MEDIUM,
+					assigneeId: undefined
+				}
 	})
 
+	useEffect(() => {
+		if (isEditMode) {
+			form.reset({
+				title: initialValues.title,
+				priority: initialValues.priority,
+				assigneeId: initialValues.assigneeId
+			})
+		}
+	}, [isEditMode, initialValues, form])
+
 	const { createTask } = useAddTaskMutation()
+	const { updateTask } = useUpdateTask()
 
 	const onSubmit = (values: TypeCreateTaskScheme) => {
+		if (!isEditMode) {
+			createTask({
+				projectId,
+				title: values.title,
+				priority: values.priority,
+				assigneeId: values.assigneeId,
+				columnId
+			})
+		} else {
+			updateTask({
+				columnId,
+				projectId,
+				title: values.title,
+				priority: values.priority,
+				assigneeId: values.assigneeId,
+				id: initialValues.id
+			})
+		}
+
 		setOpen(false)
 		form.reset()
-		console.log(values)
-		createTask({
-			projectId: projectId,
-			title: values.title,
-			priority: values.priority,
-			assigneeId: values.assigneeId,
-			columnId: columnId
-		})
 	}
 
 	return (
 		<>
-			<Button className='mb-3 w-full' onClick={e => setOpen(true)}>
-				Создать задачу
+			<Button className='mb-3 w-full' onClick={() => setOpen(true)}>
+				{isEditMode ? 'Редактировать' : 'Создать задачу'}
 			</Button>
 
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>Новая задача</DialogTitle>
+						<DialogTitle>
+							{isEditMode
+								? 'Редактировать задачу'
+								: 'Новая задача'}
+						</DialogTitle>
 					</DialogHeader>
 
 					<Form {...form}>
@@ -124,7 +161,7 @@ export function TaskModal({ columnId }: ITaskModal) {
 										<FormLabel>Приоритет</FormLabel>
 										<Select
 											onValueChange={field.onChange}
-											defaultValue={field.value}
+											value={field.value}
 										>
 											<FormControl>
 												<SelectTrigger>
@@ -150,7 +187,7 @@ export function TaskModal({ columnId }: ITaskModal) {
 							/>
 
 							<Button type='submit' className='w-full'>
-								Создать
+								{isEditMode ? 'Сохранить изменения' : 'Создать'}
 							</Button>
 						</form>
 					</Form>

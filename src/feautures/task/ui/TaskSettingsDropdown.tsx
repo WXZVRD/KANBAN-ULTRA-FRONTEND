@@ -2,14 +2,20 @@ import { MoreVertical } from 'lucide-react'
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/components/ui'
 
+import { TaskModal } from '@/feautures/task/add-task/ui/AddTaskModal'
 import { useDeleteTask } from '@/feautures/task/delete-task/model/useDeleteTask.mutation'
+import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
 import { useParams } from 'next/navigation'
 
 interface ITaskSettingsDropdown {
-	taskId: string
+	columnId: string
+	taskData: IUpdateTaskDTO
 }
 
-export function TaskSettingsDropdown({ taskId }: ITaskSettingsDropdown) {
+export function TaskSettingsDropdown({
+	taskData,
+	columnId
+}: ITaskSettingsDropdown) {
 	const { deleteTask } = useDeleteTask()
 
 	const params = useParams<{ projectId: string }>()
@@ -18,7 +24,7 @@ export function TaskSettingsDropdown({ taskId }: ITaskSettingsDropdown) {
 	function handleDelete() {
 		deleteTask({
 			projectId: projectId,
-			taskId: taskId
+			taskId: taskData.id
 		})
 	}
 
@@ -30,6 +36,9 @@ export function TaskSettingsDropdown({ taskId }: ITaskSettingsDropdown) {
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>
+				<DropdownMenuItem onSelect={e => e.preventDefault()}>
+					<TaskModal columnId={columnId} initialValues={taskData} />
+				</DropdownMenuItem>
 				<DropdownMenuItem onClick={() => handleDelete()}>
 					Удалить
 				</DropdownMenuItem>

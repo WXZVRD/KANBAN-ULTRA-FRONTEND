@@ -35,6 +35,7 @@ export function TaskWrapperContent({ columnId, tasks }: ITaskWrapperContent) {
 										<TaskCard
 											id={task.id}
 											title={task.title}
+											projectId={task.projectId}
 											assigneeUser={task.assignee}
 											priority={task.priority}
 										/>

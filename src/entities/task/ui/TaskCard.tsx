@@ -10,10 +10,17 @@ interface ITaskCard {
 	id: string
 	title: string
 	assigneeUser: IUser | null
+	projectId: string
 	priority: TaskPriority
 }
 
-export function TaskCard({ id, title, assigneeUser, priority }: ITaskCard) {
+export function TaskCard({
+	id,
+	title,
+	assigneeUser,
+	priority,
+	projectId
+}: ITaskCard) {
 	return (
 		<Card
 			className={cn(
@@ -23,7 +30,16 @@ export function TaskCard({ id, title, assigneeUser, priority }: ITaskCard) {
 			<CardHeader className='p-2'>
 				<CardTitle className='flex items-start justify-between text-sm font-semibold text-gray-900 dark:text-gray-100'>
 					{title}
-					<TaskSettingsDropdown taskId={id} />
+					<TaskSettingsDropdown
+						taskId={id}
+						taskData={{
+							projectId: projectId,
+							title: title,
+							id: id,
+							priority: priority,
+							assigneeId: assigneeUser?.id
+						}}
+					/>
 				</CardTitle>
 			</CardHeader>
 			<CardContent className='flex items-center justify-between p-2 text-sm text-gray-500 dark:text-gray-400'>
