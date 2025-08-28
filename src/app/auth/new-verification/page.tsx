@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import React from 'react'
 
 import { NewVerificationForm } from '@/feautures/auth/components/NewVerificationForm'
 
@@ -7,5 +8,9 @@ const metadata: Metadata = {
 }
 
 export default function NewVerificationPage() {
-	return <NewVerificationForm />
+	return (
+		<div className='flex h-full w-full items-center justify-center'>
+			<NewVerificationForm />
+		</div>
+	)
 }

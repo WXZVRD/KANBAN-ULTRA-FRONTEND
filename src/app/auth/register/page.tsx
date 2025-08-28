@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function RegisterPage() {
-	return <RegisterForm />
+	return (
+		<div className='flex h-full w-full items-center justify-center'>
+			<RegisterForm />
+		</div>
+	)
 }

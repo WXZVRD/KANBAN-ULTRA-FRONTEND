@@ -8,7 +8,7 @@ export function useProfile() {
 			const res = await userService.findProfile()
 			return res
 		},
-		refetchOnWindowFocus: true
+		refetchOnWindowFocus: false
 	})
 
 	return { user: data ?? null, isLoading }

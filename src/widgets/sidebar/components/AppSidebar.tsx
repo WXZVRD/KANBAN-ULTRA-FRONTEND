@@ -13,10 +13,14 @@ import {
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarGroupLabel,
-	SidebarHeader
+	SidebarHeader,
+	SidebarMenu,
+	SidebarMenuItem,
+	SidebarMenuSkeleton
 } from '@/shared/components/ui'
 
 import { DASBOARD_PAGES } from '@/config/pages-url.config'
+import { UserCard } from '@/entities/user/ui/UserCard'
 import { useAuth } from '@/feautures/auth/hooks/useAuth'
 import { useGetAllUserProjects } from '@/feautures/project/hooks/useGetAllUserProjects'
 import { ProjectListItem } from '@/widgets/sidebar/components/ProjectListItem'
@@ -43,11 +47,16 @@ export function AppSidebar() {
 						<CollapsibleContent>
 							<SidebarGroupContent>
 								<div className='flex flex-col gap-1'>
-									{isProjectsLoading && (
-										<span className='text-muted-foreground text-sm'>
-											Loading...
-										</span>
-									)}
+									{isProjectsLoading &&
+										Array.from({ length: 5 }).map(
+											(_, index) => (
+												<SidebarMenuItem key={index}>
+													<SidebarMenuSkeleton
+														showIcon
+													/>
+												</SidebarMenuItem>
+											)
+										)}
 
 									{!isProjectsLoading && !projects && (
 										<span className='text-muted-foreground mt-3 mb-5 text-sm'>
@@ -88,7 +97,21 @@ export function AppSidebar() {
 				<SidebarGroup />
 			</SidebarContent>
 
-			<SidebarFooter />
+			<SidebarFooter>
+				<SidebarMenu>
+					<SidebarMenuItem>
+						<Link href='/dashboard/settings'>
+							<div className='hover:bg-muted/50 cursor-pointer rounded-xl p-4 transition-colors'>
+								<UserCard
+									displayName={user.displayName}
+									picture={user.picture}
+									size='lg'
+								/>
+							</div>
+						</Link>
+					</SidebarMenuItem>
+				</SidebarMenu>
+			</SidebarFooter>
 		</Sidebar>
 	)
 }
