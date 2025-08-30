@@ -9,7 +9,7 @@ import { useParams, useSearchParams } from 'next/navigation'
 export function useConfirmEmail() {
 	const searchParams = useSearchParams()
 	const { projectId } = useParams<{ projectId: string }>()
-	const { confirmInvitation } = useConfirmInviteMutation()
+	const { confirmInvitation } = useConfirmInviteMutation(projectId)
 
 	useEffect(() => {
 		console.log('✅ useConfirmEmail hook triggered')

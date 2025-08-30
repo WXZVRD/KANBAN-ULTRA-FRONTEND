@@ -19,7 +19,7 @@ export class ProjectService {
 	}
 
 	public async create(body: TypeCreateProjectScheme): Promise<any> {
-		const res = await api.post('http://localhost:4000/project/create', body)
+		const res = await api.post('/project/create', body)
 
 		return res.data
 	}

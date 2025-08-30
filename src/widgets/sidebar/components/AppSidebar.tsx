@@ -22,14 +22,19 @@ import {
 import { DASBOARD_PAGES } from '@/config/pages-url.config'
 import { UserCard } from '@/entities/user/ui/UserCard'
 import { useAuth } from '@/feautures/auth/hooks/useAuth'
-import { useGetAllUserProjects } from '@/feautures/project/hooks/useGetAllUserProjects'
+import { useGetAllUserProjects } from '@/feautures/member/get-project-by-member/model/useGetProjectByMemberApi.query'
 import { ProjectListItem } from '@/widgets/sidebar/components/ProjectListItem'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 export function AppSidebar() {
 	const { user } = useAuth()
 
-	const { projects, isProjectsLoading } = useGetAllUserProjects(user?.id)
+	const params = useParams<{ projectId: string }>()
+
+	const { projects, isProjectsLoading } = useGetAllUserProjects(
+		params.projectId
+	)
 
 	if (!user) return null
 
@@ -67,9 +72,9 @@ export function AppSidebar() {
 									{!isProjectsLoading &&
 										projects?.map(project => (
 											<ProjectListItem
-												key={project.id}
-												id={project.id}
-												title={project.title}
+												key={project.project.id}
+												id={project.project.id}
+												title={project.project.title}
 											/>
 										))}
 
