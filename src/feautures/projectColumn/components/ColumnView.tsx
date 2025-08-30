@@ -85,7 +85,7 @@ export function ColumnView({ columns }: IColumnView) {
 											ref={provided.innerRef}
 											{...provided.draggableProps}
 											{...provided.dragHandleProps}
-											className='h-full flex-1 overflow-y-auto'
+											className='h-full overflow-y-auto'
 										>
 											<ColumnCard column={col} />
 										</div>

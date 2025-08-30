@@ -7,6 +7,7 @@ export interface ITask {
 	description: string
 	priority: TaskPriority
 
+	columnId: string
 	projectId: string
 	assignee: IUser | null
 

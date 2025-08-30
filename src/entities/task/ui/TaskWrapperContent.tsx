@@ -1,6 +1,5 @@
 import { ITask } from '@/entities/task/types/task.interface'
 import { TaskCard } from '@/entities/task/ui/TaskCard'
-import { TaskModal } from '@/feautures/task/add-task/ui/AddTaskModal'
 import { Draggable, Droppable } from '@hello-pangea/dnd'
 
 interface ITaskWrapperContent {
@@ -17,8 +16,6 @@ export function TaskWrapperContent({ columnId, tasks }: ITaskWrapperContent) {
 					ref={provided.innerRef}
 					{...provided.droppableProps}
 				>
-					<TaskModal columnId={columnId} />
-
 					<div className='max-h-[62vh] space-y-3'>
 						{tasks.map((task, index) => (
 							<Draggable
@@ -34,6 +31,7 @@ export function TaskWrapperContent({ columnId, tasks }: ITaskWrapperContent) {
 									>
 										<TaskCard
 											id={task.id}
+											columnId={task.columnId}
 											title={task.title}
 											projectId={task.projectId}
 											assigneeUser={task.assignee}
@@ -43,7 +41,6 @@ export function TaskWrapperContent({ columnId, tasks }: ITaskWrapperContent) {
 								)}
 							</Draggable>
 						))}
-
 						{provided.placeholder}
 					</div>
 				</div>

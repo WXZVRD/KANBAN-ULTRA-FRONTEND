@@ -1,10 +1,16 @@
 import { MoreVertical } from 'lucide-react'
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/components/ui'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+	Separator
+} from '@/shared/components/ui'
 
-import { TaskModal } from '@/feautures/task/add-task/ui/AddTaskModal'
 import { useDeleteTask } from '@/feautures/task/delete-task/model/useDeleteTask.mutation'
 import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
+import { UpdateTaskModal } from '@/feautures/task/update-task/ui/UpdateTaskModal'
 import { useParams } from 'next/navigation'
 
 interface ITaskSettingsDropdown {
@@ -37,8 +43,12 @@ export function TaskSettingsDropdown({
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>
 				<DropdownMenuItem onSelect={e => e.preventDefault()}>
-					<TaskModal columnId={columnId} initialValues={taskData} />
+					<UpdateTaskModal
+						columnId={columnId}
+						initialValues={taskData}
+					/>
 				</DropdownMenuItem>
+				<Separator />
 				<DropdownMenuItem onClick={() => handleDelete()}>
 					Удалить
 				</DropdownMenuItem>

@@ -59,7 +59,11 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 						)}
 					</CardTitle>
 				)}
-				<ColumnCardSettings title={title} projectId={projectId} />
+				<ColumnCardSettings
+					title={title}
+					projectId={projectId}
+					columnId={column.id}
+				/>
 			</CardHeader>
 
 			<CardContent className='flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import {
 	Button,
@@ -29,56 +29,62 @@ import {
 
 import { TaskPriority } from '@/entities/task/types/priority.enum'
 import { ProjectMemberSelector } from '@/feautures/member/project-member-selector/ui/ProjectMemberSelector'
-import { createTaskScheme, TypeCreateTaskScheme } from '@/feautures/task/add-task/model/AddTask.scheme'
-import { useAddTaskMutation } from '@/feautures/task/add-task/model/useAddTask.mutation'
+import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
+import { TypeUpdateTaskScheme, updateTaskScheme } from '@/feautures/task/update-task/model/UpdateTask.scheme'
+import { useUpdateTask } from '@/feautures/task/update-task/model/useUpdateTask'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams } from 'next/navigation'
 
-interface CreateTaskModalProps {
+interface UpdateTaskModalProps {
 	columnId: string
+	initialValues: IUpdateTaskDTO
 }
 
-export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
+export function UpdateTaskModal({
+	initialValues,
+	columnId
+}: UpdateTaskModalProps) {
 	const params = useParams<{ projectId: string }>()
 	const projectId = params.projectId
-	const { createTask } = useAddTaskMutation()
+	const { updateTask } = useUpdateTask()
 
 	const [open, setOpen] = useState(false)
 
-	const form = useForm<TypeCreateTaskScheme>({
-		resolver: zodResolver(createTaskScheme),
+	const form = useForm<TypeUpdateTaskScheme>({
+		resolver: zodResolver(updateTaskScheme),
 		defaultValues: {
 			title: '',
 			priority: TaskPriority.MEDIUM,
-			assigneeId: undefined
+			assigneeId: ''
 		}
 	})
 
-	const onSubmit = (values: TypeCreateTaskScheme) => {
-		createTask({
+	const onSubmit: SubmitHandler<TypeUpdateTaskScheme> = values => {
+		updateTask({
+			id: initialValues.id,
 			projectId,
-			columnId,
+			columnId: columnId,
 			title: values.title,
 			priority: values.priority,
 			assigneeId: values.assigneeId
 		})
-
-		form.reset()
 		setOpen(false)
 	}
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button size='sm' variant='ghost'>
-					Создать задачу
+				<Button variant='ghost' className='border-none bg-none'>
+					Редактировать задачу
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Новая задача</DialogTitle>
-					<DialogDescription>Впишите новую задачу.</DialogDescription>
+					<DialogTitle>Редактировать задачу</DialogTitle>
+					<DialogDescription>
+						Измените данные задачи и сохраните.
+					</DialogDescription>
 				</DialogHeader>
 
 				<Form {...form}>
@@ -155,7 +161,7 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 						/>
 
 						<Button type='submit' className='w-full'>
-							Создать
+							Сохранить изменения
 						</Button>
 					</form>
 				</Form>

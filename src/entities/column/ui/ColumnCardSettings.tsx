@@ -1,15 +1,27 @@
 import { MoreVertical } from 'lucide-react'
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/components/ui'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+	Separator
+} from '@/shared/components/ui'
 
 import { useDeleteColumn } from '@/feautures/projectColumn/delete-column/model/useDeleteColumn'
+import { CreateTaskModal } from '@/feautures/task/add-task/ui/AddTaskModal'
 
 interface IColumnCardSettings {
+	columnId: string
 	title: string
 	projectId: string
 }
 
-export function ColumnCardSettings({ title, projectId }: IColumnCardSettings) {
+export function ColumnCardSettings({
+	title,
+	projectId,
+	columnId
+}: IColumnCardSettings) {
 	const { deleteColumn } = useDeleteColumn()
 
 	function handleDelete() {
@@ -27,6 +39,10 @@ export function ColumnCardSettings({ title, projectId }: IColumnCardSettings) {
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>
+				<DropdownMenuItem onSelect={e => e.preventDefault()}>
+					<CreateTaskModal columnId={columnId} />
+				</DropdownMenuItem>
+				<Separator />
 				<DropdownMenuItem onClick={() => handleDelete()}>
 					Удалить
 				</DropdownMenuItem>
