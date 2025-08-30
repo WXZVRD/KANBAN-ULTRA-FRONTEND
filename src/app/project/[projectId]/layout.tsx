@@ -2,6 +2,7 @@
 
 import React, { PropsWithChildren } from 'react'
 
+import { useConfirmEmail } from '@/feautures/member/add-member/hooks/useConfirmEmail.hook'
 import { ProjectViewProvider } from '@/feautures/project/providers/ProjectView.provider'
 import { ProjectHeader } from '@/widgets/ProjectHeader/components/ProjectHeader'
 import { useSelectedLayoutSegments } from 'next/navigation'
@@ -19,6 +20,8 @@ export default function ProjectLayout({
 
 	const resolvedParams = React.use(params)
 	const { projectId } = resolvedParams
+
+	useConfirmEmail()
 
 	return (
 		<ProjectViewProvider>

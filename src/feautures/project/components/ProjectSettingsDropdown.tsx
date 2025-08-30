@@ -8,6 +8,7 @@ import {
 	Separator
 } from '@/shared/components/ui'
 
+import { AddMemberModal } from '@/feautures/member/add-member/ui/AddMemberModal'
 import { useDeleteProject } from '@/feautures/project/hooks/useDeleteProject'
 import { useRouter } from 'next/navigation'
 
@@ -38,12 +39,8 @@ export function ProjectSettingsDropdown({
 					Редактировать
 				</DropdownMenuItem>
 				{showAddMemberButton && (
-					<DropdownMenuItem
-						onClick={() =>
-							router.push(`/project/${projectId}/add-member`)
-						}
-					>
-						Добавить участника
+					<DropdownMenuItem onClick={e => e.preventDefault()}>
+						<AddMemberModal projectId={projectId} />
 					</DropdownMenuItem>
 				)}
 				<Separator />
