@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import React from 'react'
 
 import { ResetPasswordForm } from '@/feautures/auth/components'
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function ResetPasswordPage() {
-	return <ResetPasswordForm />
+	return (
+		<div className='flex h-full w-full items-center justify-center'>
+			<ResetPasswordForm />
+		</div>
+	)
 }

@@ -3,6 +3,12 @@ export enum UserRole {
 	ADMIN = 'ADMIN'
 }
 
+export enum MemberRole {
+	ADMIN = 'admin',
+	MEMBER = 'member',
+	VISITOR = 'visitor'
+}
+
 export enum AuthMehods {
 	CREDENTIALS = 'CREDENTIALS',
 	GOOGLE = 'GOOGLE',

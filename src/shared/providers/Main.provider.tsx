@@ -13,11 +13,11 @@ export function MainProvider({ children }: PropsWithChildren): JSX.Element {
 	return (
 		<TanstackQueryProvider>
 			<AuthProvider>
-				<SidebarProvider defaultOpen={false}>
+				<SidebarProvider defaultOpen={true}>
 					<ThemeProvider attribute='class' defaultTheme='dark'>
-						<div className='flex min-h-screen w-full overflow-x-hidden'>
+						<div className='flex min-h-screen w-full'>
 							<AppSidebar />
-							<div className='flex-1 overflow-x-hidden'>
+							<div className='flex-1'>
 								<ToastProvider />
 								<AnimatedBG>{children}</AnimatedBG>
 							</div>

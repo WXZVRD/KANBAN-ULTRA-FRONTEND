@@ -1,13 +1,14 @@
-import { Metadata } from 'next'
+'use client'
 
-
-
-
-
-const metadata: Metadata = {
-	title: 'sad'
-}
+import { useProjectView } from '@/feautures/project/providers/ProjectView.provider'
+import { ColumnViewWrapper } from '@/feautures/projectColumn/components/ColumnViewWrapper'
+import { useParams } from 'next/navigation'
 
 export default function ProjectPage() {
-	return <h1>Project page</h1>
+	const { view } = useProjectView()
+
+	const params = useParams<{ projectId: string }>()
+	const projectId = params.projectId
+
+	return <ColumnViewWrapper view={view} projectId={projectId} />
 }

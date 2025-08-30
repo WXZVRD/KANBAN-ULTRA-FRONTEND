@@ -37,10 +37,10 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<MainProvider>
-					<div className='relative flex min-h-screen'>
+					<div className='flex h-screen max-h-screen w-full flex-col overflow-hidden'>
 						<ToggleTheme />
 						<SidebarTrigger />
-						<div className='item-center flex h-screen w-full w-screen flex-col items-center justify-center'>
+						<div className='flex h-screen w-full flex-col overflow-y-auto px-4 py-6'>
 							{children}
 						</div>
 					</div>

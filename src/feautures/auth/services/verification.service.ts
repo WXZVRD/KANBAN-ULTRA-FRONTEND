@@ -1,8 +1,8 @@
-import axios from '@/shared/api/axios'
+import api from '@/shared/api/axios'
 
 export class VerificationService {
 	public async newVerification(token: string | null) {
-		const response = await axios.post('/auth/email-confirmation', { token })
+		const response = await api.post('/auth/email-confirmation', { token })
 
 		return response
 	}

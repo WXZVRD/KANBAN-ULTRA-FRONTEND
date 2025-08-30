@@ -1,19 +1,17 @@
-import axios from 'axios'
+import api from '@/shared/api/axios'
 
 import { TypeCreateProjectScheme } from '@/feautures/project/schemes/CreateProject.scheme'
 import { TypeEditProjectScheme } from '@/feautures/project/schemes/EditProject.scheme'
 
 export class ProjectService {
 	public async getAllByUserId(userId: string): Promise<any[] | null> {
-		const res = await axios.get('http://localhost:4000/project/getByUser')
+		const res = await api.get('/project/getByUser')
 
 		return res.data
 	}
 
 	public async getById(projectId: string): Promise<any> {
-		const res = await axios.get(
-			`http://localhost:4000/project/${projectId}`
-		)
+		const res = await api.get(`/project/${projectId}`)
 
 		console.log('RES SERVICE: ', res.data)
 
@@ -21,26 +19,20 @@ export class ProjectService {
 	}
 
 	public async create(body: TypeCreateProjectScheme): Promise<any> {
-		const res = await axios.post(
-			'http://localhost:4000/project/create',
-			body
-		)
+		const res = await api.post('/project/create', body)
 
 		return res.data
 	}
 
 	public async delete(projectId: string): Promise<any> {
-		await axios.delete(`http://localhost:4000/project/${projectId}`)
+		await api.delete(`/project/${projectId}`)
 	}
 
 	public async edit(
 		projectId: string,
 		body: TypeEditProjectScheme
 	): Promise<any> {
-		const res = await axios.patch(
-			`http://localhost:4000/project/${projectId}`,
-			body
-		)
+		const res = await api.patch(`/project/${projectId}`, body)
 
 		return res.data
 	}

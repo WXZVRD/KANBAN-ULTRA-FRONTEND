@@ -23,7 +23,7 @@ export function AnimatedBG({ children }: PropsWithChildren) {
 				className={`animate-float-slow absolute bottom-[-10rem] left-1/4 h-72 w-72 rounded-full opacity-20 blur-2xl ${isLight ? 'bg-gray-600' : 'bg-gray-400'}`}
 			/>
 
-			<div className='relative z-10'>{children}</div>
+			<div className='relative z-10 w-full'>{children}</div>
 
 			<style jsx>{`
 				.animate-float {
