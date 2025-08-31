@@ -4,12 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 export function useGetById(projectId: string) {
 	const { data: currentProject, isLoading: isProjectLoading } = useQuery({
 		queryKey: ['project-edit', projectId],
-		queryFn: async () => {
-			const res = await projectService.getById(projectId)
-			console.log('projectId: ', projectId)
-			console.log('RES TANSTACK: ', res)
-			return res
-		},
+		queryFn: async () => await projectService.getById(projectId),
 		enabled: !!projectId
 	})
 

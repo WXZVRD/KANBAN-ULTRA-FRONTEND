@@ -3,11 +3,13 @@
 import { BarChart3, LayoutGrid, Loader, Table } from 'lucide-react'
 
 import { Button, Card, CardHeader, CardTitle, Separator } from '@/shared/components/ui'
+import { useProjectView } from '@/shared/hooks/useProjectView.hook'
 
 import { ProjectSettingsDropdown } from '@/feautures/project/components/ProjectSettingsDropdown'
 import { useGetById } from '@/feautures/project/hooks/useGetById'
-import { useProjectView } from '@/feautures/project/providers/ProjectView.provider'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { MdCardMembership } from 'react-icons/md'
 
 interface IProjectHeaderProps {
 	projectId: string
@@ -15,7 +17,9 @@ interface IProjectHeaderProps {
 
 export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 	const { currentProject, isProjectLoading } = useGetById(projectId)
-	const { view, setView } = useProjectView()
+	const { setView } = useProjectView()
+
+	const route = useRouter()
 
 	if (isProjectLoading) {
 		return (
@@ -49,7 +53,10 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 				<Button
 					size='sm'
 					variant='outline'
-					onClick={() => setView('columns')}
+					onClick={() => {
+						route.push(`/project/${projectId}`)
+						setView('columns')
+					}}
 				>
 					<LayoutGrid className='mr-1 h-4 w-4' />
 					Колонки
@@ -57,7 +64,10 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 				<Button
 					size='sm'
 					variant='outline'
-					onClick={() => setView('table')}
+					onClick={() => {
+						route.push(`/project/${projectId}`)
+						setView('table')
+					}}
 				>
 					<Table className='mr-1 h-4 w-4' />
 					Таблица
@@ -65,10 +75,16 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 
 				<Separator orientation='vertical' className='h-6' />
 
-				<Link href={`/projects/${projectId}/stats`}>
+				<Link href={`/project/${projectId}/statistic`}>
 					<Button size='sm' variant='secondary'>
 						<BarChart3 className='mr-1 h-4 w-4' />
 						Статистика
+					</Button>
+				</Link>
+				<Link href={`/project/${projectId}/members`}>
+					<Button size='sm' variant='secondary'>
+						<MdCardMembership className='mr-1 h-4 w-4' />
+						Управление участниками
 					</Button>
 				</Link>
 			</div>

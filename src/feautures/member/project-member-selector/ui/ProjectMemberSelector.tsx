@@ -34,21 +34,27 @@ export function ProjectMemberSelector({
 			<SelectContent>
 				{isProjectMembersLoading ? (
 					<Loader />
-				) : (
+				) : projectMembers && projectMembers.length > 0 ? (
 					<SelectGroup>
 						<SelectLabel>Участники проекта</SelectLabel>
-						{projectMembers.map(member => (
-							<SelectItem
-								key={member.user.id}
-								value={member.user.id}
-							>
-								<UserCard
-									displayName={member.user.displayName}
-									picture={member.user.picture}
-								/>
-							</SelectItem>
-						))}
+						{projectMembers
+							.filter(member => !!member.user)
+							.map(member => (
+								<SelectItem
+									key={member.user!.id}
+									value={member.user!.id}
+								>
+									<UserCard
+										displayName={member.user!.displayName}
+										picture={member.user!.picture}
+									/>
+								</SelectItem>
+							))}
 					</SelectGroup>
+				) : (
+					<div className='text-muted-foreground p-2 text-center'>
+						Участники отсутствуют
+					</div>
 				)}
 			</SelectContent>
 		</Select>

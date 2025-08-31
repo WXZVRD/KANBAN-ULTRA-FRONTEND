@@ -1,11 +1,13 @@
 import { getProjectMembersApi } from '@/entities/member/api/get-project-members.api'
+import { IMember } from '@/entities/member/types/member.interface'
 import { useQuery } from '@tanstack/react-query'
 
 export function useGetProjectMembersQuery(projectId: string) {
-	const { data: projectMembers, isPending: isProjectMembersLoading } =
+	const { data: projectMembers = [], isPending: isProjectMembersLoading } =
 		useQuery({
 			queryKey: ['project-members'],
-			queryFn: async () => await getProjectMembersApi(projectId),
+			queryFn: async (): Promise<IMember[]> =>
+				await getProjectMembersApi(projectId),
 			enabled: !!projectId,
 			retry: false,
 			refetchOnWindowFocus: false,

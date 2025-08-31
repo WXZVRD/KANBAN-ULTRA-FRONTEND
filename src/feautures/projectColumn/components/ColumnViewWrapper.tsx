@@ -1,6 +1,6 @@
 import { Loader } from '@/shared/components/ui'
+import { ViewMode } from '@/shared/providers/ProjectView.provider'
 
-import { ViewMode } from '@/feautures/project/providers/ProjectView.provider'
 import { ColumnView } from '@/feautures/projectColumn/components/ColumnView'
 import { ListView } from '@/feautures/projectColumn/components/ListView'
 import { useColumnsByProject } from '@/feautures/projectColumn/hooks/useColumnsByProject'
@@ -16,6 +16,8 @@ export function ColumnViewWrapper({ view, projectId }: IColumnView) {
 	if (isColumnsLoading) {
 		return <Loader />
 	}
+
+	console.log(projectColumns)
 
 	return (
 		<>

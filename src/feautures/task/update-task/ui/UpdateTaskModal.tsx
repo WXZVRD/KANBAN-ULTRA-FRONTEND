@@ -52,10 +52,10 @@ export function UpdateTaskModal({
 
 	const form = useForm<TypeUpdateTaskScheme>({
 		resolver: zodResolver(updateTaskScheme),
-		defaultValues: {
-			title: '',
-			priority: TaskPriority.MEDIUM,
-			assigneeId: ''
+		values: {
+			title: initialValues.title || '',
+			priority: initialValues.priority,
+			assigneeId: initialValues.assigneeId || ''
 		}
 	})
 
@@ -74,7 +74,11 @@ export function UpdateTaskModal({
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button variant='ghost' className='border-none bg-none'>
+				<Button
+					className='p-0 text-sm font-normal'
+					size='sm'
+					variant='ghost'
+				>
 					Редактировать задачу
 				</Button>
 			</DialogTrigger>
