@@ -74,7 +74,11 @@ export function UpdateTaskModal({
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button variant='ghost' className='border-none bg-none'>
+				<Button
+					className='p-0 text-sm font-normal'
+					size='sm'
+					variant='ghost'
+				>
 					Редактировать задачу
 				</Button>
 			</DialogTrigger>

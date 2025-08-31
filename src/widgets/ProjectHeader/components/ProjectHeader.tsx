@@ -8,6 +8,7 @@ import { useProjectView } from '@/shared/hooks/useProjectView.hook'
 import { ProjectSettingsDropdown } from '@/feautures/project/components/ProjectSettingsDropdown'
 import { useGetById } from '@/feautures/project/hooks/useGetById'
 import Link from 'next/link'
+import { MdCardMembership } from 'react-icons/md'
 
 interface IProjectHeaderProps {
 	projectId: string
@@ -69,6 +70,12 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 					<Button size='sm' variant='secondary'>
 						<BarChart3 className='mr-1 h-4 w-4' />
 						Статистика
+					</Button>
+				</Link>
+				<Link href={`/project/${projectId}/members`}>
+					<Button size='sm' variant='secondary'>
+						<MdCardMembership className='mr-1 h-4 w-4' />
+						Управление участниками
 					</Button>
 				</Link>
 			</div>

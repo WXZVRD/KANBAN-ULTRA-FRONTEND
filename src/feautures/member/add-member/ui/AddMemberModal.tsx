@@ -67,7 +67,11 @@ export function AddMemberModal({ projectId }: AddMemberModalProps) {
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button size='sm' variant='ghost'>
+				<Button
+					className='p-0 text-sm font-normal'
+					size='sm'
+					variant='ghost'
+				>
 					Добавить участника
 				</Button>
 			</DialogTrigger>
