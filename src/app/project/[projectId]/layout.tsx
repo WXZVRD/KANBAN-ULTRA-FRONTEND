@@ -2,8 +2,9 @@
 
 import React, { PropsWithChildren } from 'react'
 
+import { ProjectViewProvider } from '@/shared/providers/ProjectView.provider'
+
 import { useConfirmEmail } from '@/feautures/member/add-member/hooks/useConfirmEmail.hook'
-import { ProjectViewProvider } from '@/feautures/project/providers/ProjectView.provider'
 import { ProjectHeader } from '@/widgets/ProjectHeader/components/ProjectHeader'
 import { useSelectedLayoutSegments } from 'next/navigation'
 

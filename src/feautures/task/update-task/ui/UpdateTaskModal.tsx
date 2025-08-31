@@ -52,10 +52,10 @@ export function UpdateTaskModal({
 
 	const form = useForm<TypeUpdateTaskScheme>({
 		resolver: zodResolver(updateTaskScheme),
-		defaultValues: {
-			title: '',
-			priority: TaskPriority.MEDIUM,
-			assigneeId: ''
+		values: {
+			title: initialValues.title || '',
+			priority: initialValues.priority,
+			assigneeId: initialValues.assigneeId || ''
 		}
 	})
 

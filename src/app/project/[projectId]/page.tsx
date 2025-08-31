@@ -1,6 +1,7 @@
 'use client'
 
-import { useProjectView } from '@/feautures/project/providers/ProjectView.provider'
+import { useProjectView } from '@/shared/hooks/useProjectView.hook'
+
 import { ColumnViewWrapper } from '@/feautures/projectColumn/components/ColumnViewWrapper'
 import { useParams } from 'next/navigation'
 

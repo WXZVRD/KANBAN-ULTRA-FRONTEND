@@ -3,10 +3,10 @@
 import { BarChart3, LayoutGrid, Loader, Table } from 'lucide-react'
 
 import { Button, Card, CardHeader, CardTitle, Separator } from '@/shared/components/ui'
+import { useProjectView } from '@/shared/hooks/useProjectView.hook'
 
 import { ProjectSettingsDropdown } from '@/feautures/project/components/ProjectSettingsDropdown'
 import { useGetById } from '@/feautures/project/hooks/useGetById'
-import { useProjectView } from '@/feautures/project/providers/ProjectView.provider'
 import Link from 'next/link'
 
 interface IProjectHeaderProps {
@@ -15,7 +15,7 @@ interface IProjectHeaderProps {
 
 export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 	const { currentProject, isProjectLoading } = useGetById(projectId)
-	const { view, setView } = useProjectView()
+	const { setView } = useProjectView()
 
 	if (isProjectLoading) {
 		return (

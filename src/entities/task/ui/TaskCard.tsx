@@ -1,8 +1,9 @@
-import { Avatar, AvatarFallback, AvatarImage, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 import { PriorityBadge } from '@/shared/components/ui/priority-badge'
 import { cn } from '@/shared/utils'
 
 import { TaskPriority } from '@/entities/task/types/priority.enum'
+import { UserTaskAvatar } from '@/entities/user/ui/UserTaskAvatar'
 import { IUser } from '@/feautures/auth/types'
 import { TaskSettingsDropdown } from '@/feautures/task/ui/TaskSettingsDropdown'
 
@@ -45,18 +46,7 @@ export function TaskCard({
 				</CardTitle>
 			</CardHeader>
 			<CardContent className='flex items-center justify-between p-2 text-sm text-gray-500 dark:text-gray-400'>
-				<Avatar>
-					{assigneeUser ? (
-						<>
-							<AvatarImage src={assigneeUser.picture} />
-							<AvatarFallback>
-								{assigneeUser.displayName.slice(0, 1)}
-							</AvatarFallback>
-						</>
-					) : (
-						<AvatarFallback>?</AvatarFallback>
-					)}
-				</Avatar>
+				<UserTaskAvatar assignee={assigneeUser} />
 				<PriorityBadge priority={priority} />
 			</CardContent>
 		</Card>
