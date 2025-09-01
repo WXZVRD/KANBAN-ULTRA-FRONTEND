@@ -1,3 +1,4 @@
+import { APP_ROUTES } from '@/shared/config/routes'
 import { toastMessageHandler } from '@/shared/utils'
 
 import { TypeRegisterScheme } from '@/feautures/auth/schemes'
@@ -19,14 +20,7 @@ export function useRegisterMutation() {
 		}) => authService.register(values, recaptcha),
 		onSuccess(data) {
 			toastMessageHandler(data.data)
-			router.push('/auth/login')
-			/*if (data.message) {
-				toastMessageHandler(data)
-			}*/
-			/*toast.success('Успешная регистрация', {
-					description:
-						'Подтвердите почту. Сообщение было отправлено на ваш почтовый адресс.'
-				})*/
+			router.push(APP_ROUTES.AUTH.LOGIN)
 		},
 		onError(error: Error) {
 			toastMessageHandler(error)

@@ -3,6 +3,7 @@
 import { BarChart3, LayoutGrid, Loader, Table } from 'lucide-react'
 
 import { Button, Card, CardHeader, CardTitle, Separator } from '@/shared/components/ui'
+import { APP_ROUTES } from '@/shared/config/routes'
 import { useProjectView } from '@/shared/hooks/useProjectView.hook'
 
 import { ProjectSettingsDropdown } from '@/feautures/project/components/ProjectSettingsDropdown'
@@ -54,7 +55,7 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 					size='sm'
 					variant='outline'
 					onClick={() => {
-						route.push(`/project/${projectId}`)
+						route.push(APP_ROUTES.PROJECTS.CURRENT(projectId))
 						setView('columns')
 					}}
 				>
@@ -65,7 +66,7 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 					size='sm'
 					variant='outline'
 					onClick={() => {
-						route.push(`/project/${projectId}`)
+						route.push(APP_ROUTES.PROJECTS.CURRENT(projectId))
 						setView('table')
 					}}
 				>
@@ -75,13 +76,13 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 
 				<Separator orientation='vertical' className='h-6' />
 
-				<Link href={`/project/${projectId}/statistic`}>
+				<Link href={APP_ROUTES.PROJECTS.STATISTIC(projectId)}>
 					<Button size='sm' variant='secondary'>
 						<BarChart3 className='mr-1 h-4 w-4' />
 						Статистика
 					</Button>
 				</Link>
-				<Link href={`/project/${projectId}/members`}>
+				<Link href={APP_ROUTES.PROJECTS.MEMBERS(projectId)}>
 					<Button size='sm' variant='secondary'>
 						<MdCardMembership className='mr-1 h-4 w-4' />
 						Управление участниками

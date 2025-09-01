@@ -18,6 +18,7 @@ import {
 	SidebarMenuItem,
 	SidebarMenuSkeleton
 } from '@/shared/components/ui'
+import { APP_ROUTES } from '@/shared/config/routes'
 
 import { DASBOARD_PAGES } from '@/config/pages-url.config'
 import { UserCard } from '@/entities/user/ui/UserCard'
@@ -105,7 +106,7 @@ export function AppSidebar() {
 			<SidebarFooter>
 				<SidebarMenu>
 					<SidebarMenuItem>
-						<Link href='/dashboard/settings'>
+						<Link href={APP_ROUTES.DASHBOARD_SETTINGS}>
 							<div className='hover:bg-muted/50 cursor-pointer rounded-xl p-4 transition-colors'>
 								<UserCard
 									displayName={user.displayName}

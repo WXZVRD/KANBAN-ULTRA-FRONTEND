@@ -7,6 +7,7 @@ import {
 	DropdownMenuTrigger,
 	Separator
 } from '@/shared/components/ui'
+import { APP_ROUTES } from '@/shared/config/routes'
 
 import { AddMemberModal } from '@/feautures/member/add-member/ui/AddMemberModal'
 import { useDeleteProject } from '@/feautures/project/hooks/useDeleteProject'
@@ -34,7 +35,9 @@ export function ProjectSettingsDropdown({
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>
 				<DropdownMenuItem
-					onClick={() => router.push(`/project/${projectId}/edit`)}
+					onClick={() =>
+						router.push(APP_ROUTES.PROJECTS.EDIT(projectId))
+					}
 				>
 					Редактировать
 				</DropdownMenuItem>

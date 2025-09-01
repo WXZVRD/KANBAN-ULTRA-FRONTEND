@@ -1,5 +1,6 @@
 import { toast } from 'sonner'
 
+import { APP_ROUTES } from '@/shared/config/routes'
 import { toastMessageHandler } from '@/shared/utils'
 
 import { TypeCreateProjectScheme } from '@/feautures/project/schemes/CreateProject.scheme'
@@ -19,7 +20,7 @@ export function useCreateproject() {
 				toast.success('Проект создан', {
 					description: `Проект «${data.title}» успешно создан`
 				})
-				router.push(`/project/${data.id}`)
+				router.push(APP_ROUTES.PROJECTS.CURRENT(data.id))
 			},
 			onError(error) {
 				toastMessageHandler(error)

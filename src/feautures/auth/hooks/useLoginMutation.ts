@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { toast } from 'sonner'
 
+import { APP_ROUTES } from '@/shared/config/routes'
 import { toastMessageHandler } from '@/shared/utils'
 
 import { TypeLoginScheme } from '@/feautures/auth/schemes'
@@ -31,7 +32,7 @@ export function useLoginMutation(
 				setIsShowTwoFactor(true)
 			} else {
 				toast.success('Успешный вход!')
-				router.push('/dashboard/settings')
+				router.push(APP_ROUTES.DASHBOARD_SETTINGS)
 			}
 		},
 		onError(error: Error) {

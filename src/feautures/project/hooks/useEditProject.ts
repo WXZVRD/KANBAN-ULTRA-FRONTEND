@@ -1,5 +1,6 @@
 import { toast } from 'sonner'
 
+import { APP_ROUTES } from '@/shared/config/routes'
 import { toastMessageHandler } from '@/shared/utils'
 
 import { TypeEditProjectScheme } from '@/feautures/project/schemes/EditProject.scheme'
@@ -24,7 +25,7 @@ export function useUpdateProject() {
 				toast.success('Проект обновлён', {
 					description: `Проект «${data.title}» успешно обновлён`
 				})
-				router.push(`/project/${data.id}`)
+				router.push(APP_ROUTES.PROJECTS.CURRENT(data.id))
 			},
 			onError(error) {
 				toastMessageHandler(error)

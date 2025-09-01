@@ -1,5 +1,6 @@
 import { toast } from 'sonner'
 
+import { APP_ROUTES } from '@/shared/config/routes'
 import { toastMessageHandler } from '@/shared/utils'
 
 import { authService } from '@/feautures/auth/services'
@@ -14,7 +15,7 @@ export function useLogoutMutation() {
 		mutationFn: () => authService.logout(),
 		onSuccess() {
 			toast.success('Вы успешно вышли из системы')
-			router.push('/auth/login')
+			router.push(APP_ROUTES.AUTH.LOGIN)
 		},
 		onError(error) {
 			toastMessageHandler(error)

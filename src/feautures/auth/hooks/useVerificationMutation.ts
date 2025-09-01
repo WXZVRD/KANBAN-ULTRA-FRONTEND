@@ -1,5 +1,7 @@
 import { toast } from 'sonner'
 
+import { APP_ROUTES } from '@/shared/config/routes'
+
 import { verificationService } from '@/feautures/auth/services'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
@@ -13,10 +15,10 @@ export function useVerificationMutation() {
 			verificationService.newVerification(token),
 		onSuccess: () => {
 			toast.success('Почта успешно подтверждена.')
-			router.push('/dashboard/settings')
+			router.push(APP_ROUTES.DASHBOARD_SETTINGS)
 		},
 		onError: () => {
-			router.push('/auth/login')
+			router.push(APP_ROUTES.AUTH.LOGIN)
 		}
 	})
 

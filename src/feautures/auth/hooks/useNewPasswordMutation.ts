@@ -1,5 +1,6 @@
 import { toast } from 'sonner'
 
+import { APP_ROUTES } from '@/shared/config/routes'
 import { toastMessageHandler } from '@/shared/utils'
 
 import { TypeNewPasswordScheme } from '@/feautures/auth/schemes'
@@ -24,7 +25,7 @@ export function useNewPasswordMutation() {
 			toast.success('Пароль успешно изменён', {
 				description: 'Теперь вы можете войти в свой аккаунт.'
 			})
-			router.push('/dashboard/settings')
+			router.push(APP_ROUTES.DASHBOARD_SETTINGS)
 		},
 		onError(error) {
 			toastMessageHandler(error)
