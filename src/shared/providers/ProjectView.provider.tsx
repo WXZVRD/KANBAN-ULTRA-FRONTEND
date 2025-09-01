@@ -2,6 +2,7 @@
 
 import React, { ReactNode, createContext, useEffect, useState } from 'react'
 
+import { STORAGE_KEYS } from '@/shared/config/storage'
 import { getLSData, setLSData } from '@/shared/utils/localStorage.utils'
 
 export type ViewMode = 'columns' | 'table'
@@ -21,18 +22,18 @@ interface ProjectViewProviderProps {
 
 export function ProjectViewProvider({ children }: ProjectViewProviderProps) {
 	const [view, setViewState] = useState<ViewMode>(() => {
-		const saved = getLSData<ViewMode>('project_view')
+		const saved = getLSData<ViewMode>(STORAGE_KEYS.PROJECT_VIEW)
 		return saved ?? 'table'
 	})
 
 	const setView = (mode: ViewMode) => {
 		setViewState(mode)
-		setLSData('project_view', mode)
+		setLSData(STORAGE_KEYS.PROJECT_VIEW, mode)
 	}
 
 	useEffect(() => {
 		const handleStorage = (event: StorageEvent) => {
-			if (event.key === 'project_view' && event.newValue) {
+			if (event.key === STORAGE_KEYS.PROJECT_VIEW && event.newValue) {
 				setViewState(event.newValue as ViewMode)
 			}
 		}
