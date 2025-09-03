@@ -2,7 +2,7 @@ import { toast } from 'sonner'
 
 import { APP_ROUTES } from '@/shared/consts/routes'
 
-import { newVerification } from '@/feautures/auth/api'
+import { newVerification } from '@/feautures/auth'
 import { useMutation } from '@tanstack/react-query'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { useRouter } from 'next/navigation'

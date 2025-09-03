@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
 import React from 'react'
 
-import { ResetPasswordForm } from '../../../feautures/auth/ui'
-import { ResetPasswordForm } from '../../../feautures/auth/ui'
+import { ResetPasswordForm } from '@/feautures/auth'
 
 export const metadata: Metadata = {
 	title: 'Востановление пароля'
