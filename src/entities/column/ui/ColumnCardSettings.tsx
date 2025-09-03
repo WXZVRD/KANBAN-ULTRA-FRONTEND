@@ -22,10 +22,10 @@ export function ColumnCardSettings({
 	projectId,
 	columnId
 }: IColumnCardSettings) {
-	const { deleteColumn } = useDeleteColumn()
+	const { deleteColumnMutation } = useDeleteColumn()
 
-	function handleDelete() {
-		deleteColumn({
+	function handleDelete(): void {
+		deleteColumnMutation({
 			title,
 			projectId
 		})

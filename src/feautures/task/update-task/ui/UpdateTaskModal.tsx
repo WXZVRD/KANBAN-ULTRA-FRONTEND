@@ -27,11 +27,11 @@ import {
 	DialogTrigger
 } from '@/shared/components/ui/dialog'
 
+import { IUpdateTaskDTO } from '@/entities/task/api/dto/update-task.dto'
 import { TaskPriority } from '@/entities/task/types/priority.enum'
 import { ProjectMemberSelector } from '@/feautures/member/project-member-selector/ui/ProjectMemberSelector'
-import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
-import { TypeUpdateTaskScheme, updateTaskScheme } from '@/feautures/task/update-task/model/UpdateTask.scheme'
 import { useUpdateTask } from '@/feautures/task/update-task/model/useUpdateTask'
+import { TypeUpdateTaskScheme, updateTaskScheme } from '@/feautures/task/update-task/schemes/UpdateTask.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams } from 'next/navigation'
 
@@ -46,7 +46,8 @@ export function UpdateTaskModal({
 }: UpdateTaskModalProps) {
 	const params = useParams<{ projectId: string }>()
 	const projectId = params.projectId
-	const { updateTask } = useUpdateTask()
+
+	const { updateTaskMutation } = useUpdateTask()
 
 	const [open, setOpen] = useState(false)
 
@@ -60,7 +61,7 @@ export function UpdateTaskModal({
 	})
 
 	const onSubmit: SubmitHandler<TypeUpdateTaskScheme> = values => {
-		updateTask({
+		updateTaskMutation({
 			id: initialValues.id,
 			projectId,
 			columnId: columnId,

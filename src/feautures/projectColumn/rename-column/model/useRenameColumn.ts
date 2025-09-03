@@ -2,21 +2,22 @@ import { toast } from 'sonner'
 
 import { toastMessageHandler } from '@/shared/utils'
 
+import { IColumn } from '@/entities/column/types/column.interface'
 import { IRenameColumnDTO, renameColumnApi } from '@/feautures/projectColumn/rename-column/api/renameColumn.api'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useRenameColumn() {
-	const queryClient = useQueryClient()
+	const queryClient: QueryClient = useQueryClient()
 
 	const { mutate: renameColumn, isPending: isNameChanging } = useMutation({
 		mutationKey: ['rename-column'],
-		mutationFn: async (data: IRenameColumnDTO) =>
+		mutationFn: async (data: IRenameColumnDTO): Promise<IColumn> =>
 			await renameColumnApi(data),
-		onSuccess() {
+		onSuccess(): void {
 			toast.success('Таблица успешно переименованна!')
 			queryClient.invalidateQueries({ queryKey: ['project-columns'] })
 		},
-		onError: err => {
+		onError: (err: Error): void => {
 			toastMessageHandler(err)
 		}
 	})

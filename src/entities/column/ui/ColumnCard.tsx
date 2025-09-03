@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 
-import { IColumn } from '@/entities/column/model/types'
+import { IColumn } from '@/entities/column/types/column.interface'
 import { ColumnCardSettings } from '@/entities/column/ui/ColumnCardSettings'
-import { TaskWrapperContent } from '@/entities/task/ui/TaskWrapperContent'
 import { useRenameColumn } from '@/feautures/projectColumn/rename-column/model/useRenameColumn'
+import { TaskColumnList } from '@/widgets/task/ui/TaskColumnList'
 import { Droppable } from '@hello-pangea/dnd'
 
 interface ColumnCardProps {
@@ -30,7 +30,7 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 	}
 
 	return (
-		<Card className='flex h-full max-h-[100vh] w-80 flex-shrink-0 flex-col'>
+		<Card className='flex h-full max-h-[100vh] w-full flex-shrink-0 flex-col'>
 			<CardHeader className='flex justify-between'>
 				{isEditing ? (
 					<input
@@ -74,7 +74,7 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 							{...provided.droppableProps}
 							className='space-y-2'
 						>
-							<TaskWrapperContent
+							<TaskColumnList
 								tasks={column.tasks}
 								columnId={columnId}
 							/>

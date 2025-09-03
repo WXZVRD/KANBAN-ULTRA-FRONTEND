@@ -3,8 +3,8 @@ import { PriorityBadge } from '@/shared/components/ui/priority-badge'
 import { cn } from '@/shared/utils'
 
 import { TaskPriority } from '@/entities/task/types/priority.enum'
-import { UserTaskAvatar } from '@/entities/user/ui/UserTaskAvatar'
-import { IUser } from '@/feautures/auth/types'
+import { TaskAuthorCard } from '@/entities/task/ui/TaskAuthorCard'
+import { IUser } from '@/entities/user/types/user.interface'
 import { TaskSettingsDropdown } from '@/feautures/task/ui/TaskSettingsDropdown'
 
 interface ITaskCard {
@@ -46,7 +46,7 @@ export function TaskCard({
 				</CardTitle>
 			</CardHeader>
 			<CardContent className='flex items-center justify-between p-2 text-sm text-gray-500 dark:text-gray-400'>
-				<UserTaskAvatar assignee={assigneeUser} />
+				<TaskAuthorCard assignee={assigneeUser} />
 				<PriorityBadge priority={priority} />
 			</CardContent>
 		</Card>

@@ -3,15 +3,13 @@
 import { useMemo, useState } from 'react'
 
 import { Checkbox, Loader, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui'
+import { useSelectableTable } from '@/shared/hooks'
 
-import { useGetProjectMembersQuery } from '@/entities/member/model/useGetProjectMembers.mutation'
-import { UserCard } from '@/entities/user/ui/UserCard'
-import { MemberRole } from '@/feautures/auth/types'
-import { useChangeRoleMutation } from '@/feautures/member/chage-role/model/useChangeRole.mutation'
-import { MemberRoleSelector } from '@/feautures/member/chage-role/ui/MemberRoleSelector'
-import { useDeleteProjectMemberMutation } from '@/feautures/member/delete-member/model/useDeleteProjectMember.mutation'
+import { MemberRole, useGetProjectMembersQuery } from '@/entities/member'
+import { UserCard } from '@/entities/user'
+import { MemberRoleSelector, useChangeRoleMutation } from '@/feautures/member/chage-role'
+import { useDeleteProjectMemberMutation } from '@/feautures/member/delete-member'
 import { MembersToolbar } from '@/feautures/member/toolbar/ui/MemberToolbar'
-import { useSelectableTable } from '@/feautures/table/hooks/useSelectableTable'
 
 interface IMemberListTable {
 	projectId: string

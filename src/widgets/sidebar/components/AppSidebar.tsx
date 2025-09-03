@@ -18,12 +18,11 @@ import {
 	SidebarMenuItem,
 	SidebarMenuSkeleton
 } from '@/shared/components/ui'
-import { APP_ROUTES } from '@/shared/config/routes'
+import { APP_ROUTES } from '@/shared/consts/routes'
 
-import { DASBOARD_PAGES } from '@/config/pages-url.config'
 import { UserCard } from '@/entities/user/ui/UserCard'
 import { useAuth } from '@/feautures/auth/hooks/useAuth'
-import { useGetAllUserProjects } from '@/feautures/member/get-project-by-member/model/useGetProjectByMemberApi.query'
+import { useGetAllUserProjects } from '@/feautures/member/project-member-selector/model/useGetProjectByMemberApi.query'
 import { ProjectListItem } from '@/widgets/sidebar/components/ProjectListItem'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -85,9 +84,7 @@ export function AppSidebar() {
 										className='mt-2 flex items-center gap-1'
 									>
 										<Plus className='h-4 w-4' />
-										<Link
-											href={DASBOARD_PAGES.PROJECT_CREATE}
-										>
+										<Link href={APP_ROUTES.PROJECTS.CREATE}>
 											Create project
 										</Link>
 									</Button>

@@ -3,11 +3,11 @@
 import { BarChart3, LayoutGrid, Loader, Table } from 'lucide-react'
 
 import { Button, Card, CardHeader, CardTitle, Separator } from '@/shared/components/ui'
-import { APP_ROUTES } from '@/shared/config/routes'
+import { APP_ROUTES } from '@/shared/consts/routes'
 import { useProjectView } from '@/shared/hooks/useProjectView.hook'
 
-import { ProjectSettingsDropdown } from '@/feautures/project/components/ProjectSettingsDropdown'
 import { useGetById } from '@/feautures/project/hooks/useGetById'
+import { ProjectSettingsDropdown } from '@/feautures/project/ui/ProjectSettingsDropdown'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { MdCardMembership } from 'react-icons/md'

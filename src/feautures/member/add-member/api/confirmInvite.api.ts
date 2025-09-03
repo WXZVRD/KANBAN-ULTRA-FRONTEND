@@ -1,6 +1,7 @@
 import api from '@/shared/api/axios'
+import { API_ENDPOINTS } from '@/shared/consts'
 
-import { MemberRole } from '@/feautures/auth/types'
+import { MemberRole } from '@/entities/member'
 
 export interface IConfirmInviteDTO {
 	token: string
@@ -13,10 +14,11 @@ export async function confirmInvite({
 	memberRole,
 	projectId
 }: IConfirmInviteDTO): Promise<void> {
-	const res = await api.post(`project/${projectId}/membership/take-invite`, {
-		token,
-		memberRole
-	})
-
-	return res.data
+	await api.post<void>(
+		API_ENDPOINTS.PROJECT.MEMBERSHIP.TAKE_INVITE(projectId),
+		{
+			token,
+			memberRole
+		}
+	)
 }

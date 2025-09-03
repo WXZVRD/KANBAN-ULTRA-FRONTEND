@@ -4,7 +4,7 @@ import { Context, createContext, JSX, PropsWithChildren } from 'react'
 
 import { useProfile } from '@/shared/hooks'
 
-import { IUser } from '@/feautures/auth/types'
+import { IUser } from '@/entities/user/types/user.interface'
 
 interface AuthContextType {
 	user: IUser | null

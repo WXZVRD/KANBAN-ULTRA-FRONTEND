@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { RegisterForm } from '@/feautures/auth/components'
+import { RegisterForm } from '../../../feautures/auth/ui'
 
 export const metadata: Metadata = {
 	title: 'Регистрация',

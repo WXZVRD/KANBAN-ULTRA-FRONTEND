@@ -2,7 +2,7 @@
 
 import React, { ReactNode, createContext, useEffect, useState } from 'react'
 
-import { STORAGE_KEYS } from '@/shared/config/storage'
+import { STORAGE_KEYS } from '@/shared/consts/storage'
 import { getLSData, setLSData } from '@/shared/utils/localStorage.utils'
 
 export type ViewMode = 'columns' | 'table'

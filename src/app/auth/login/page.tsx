@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { LoginForm } from '@/feautures/auth/components'
+import { LoginForm } from '../../../feautures/auth/ui'
 
 export const metadata: Metadata = {
 	title: 'Вход',

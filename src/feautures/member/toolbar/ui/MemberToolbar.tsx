@@ -1,15 +1,15 @@
 import { Filter, Search, Trash2 } from 'lucide-react'
 
-import { Button } from '@/shared/components/ui/button'
 import {
+	Button,
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuTrigger
-} from '@/shared/components/ui/dropdown-menu'
-import { Input } from '@/shared/components/ui/input'
+	DropdownMenuTrigger,
+	Input
+} from '@/shared/components/ui'
 
-import { MemberRole } from '@/feautures/auth/types'
+import { MemberRole } from '@/entities/member'
 
 interface MembersToolbarProps {
 	search: string

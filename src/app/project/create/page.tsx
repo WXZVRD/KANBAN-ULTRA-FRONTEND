@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { CreateProjectForm } from '@/feautures/project/components/CreateProjectForm'
+import { CreateProjectForm } from '@/feautures/project/create-project/ui/CreateProjectForm'
 
 export const metadata: Metadata = {
 	title: 'Создание проекта'

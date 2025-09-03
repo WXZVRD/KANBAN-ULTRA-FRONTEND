@@ -1,6 +1,6 @@
 import { type Metadata } from 'next'
 
-import { SettingsForm } from '@/feautures/user/components'
+import { SettingsForm } from '../../../feautures/user/ui'
 
 export const metadata: Metadata = {
 	title: 'Настройки профиля'

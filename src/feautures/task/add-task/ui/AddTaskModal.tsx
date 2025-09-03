@@ -29,8 +29,8 @@ import {
 
 import { TaskPriority } from '@/entities/task/types/priority.enum'
 import { ProjectMemberSelector } from '@/feautures/member/project-member-selector/ui/ProjectMemberSelector'
-import { createTaskScheme, TypeCreateTaskScheme } from '@/feautures/task/add-task/model/AddTask.scheme'
 import { useAddTaskMutation } from '@/feautures/task/add-task/model/useAddTask.mutation'
+import { createTaskScheme, TypeCreateTaskScheme } from '@/feautures/task/add-task/schemes/AddTask.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams } from 'next/navigation'
 
@@ -41,7 +41,7 @@ interface CreateTaskModalProps {
 export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 	const params = useParams<{ projectId: string }>()
 	const projectId = params.projectId
-	const { createTask } = useAddTaskMutation()
+	const { createTaskMutation } = useAddTaskMutation()
 
 	const [open, setOpen] = useState(false)
 
@@ -55,7 +55,7 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 	})
 
 	const onSubmit = (values: TypeCreateTaskScheme) => {
-		createTask({
+		createTaskMutation({
 			projectId,
 			columnId,
 			title: values.title,

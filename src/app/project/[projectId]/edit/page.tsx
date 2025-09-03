@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { EditProjectForm } from '@/feautures/project/components/EditProjectForm'
+import { EditProjectForm } from '@/feautures/project/edit-project/ui/EditProjectForm'
 
 interface Props {
 	projectId: string

@@ -1,6 +1,6 @@
-import { APP_ROUTES } from '@/shared/config/routes'
+import { APP_ROUTES } from '@/shared/consts/routes'
 
-import { ProjectSettingsDropdown } from '@/feautures/project/components/ProjectSettingsDropdown'
+import { ProjectSettingsDropdown } from '@/feautures/project/ui/ProjectSettingsDropdown'
 import Link from 'next/link'
 
 interface IProjectListItemProps {

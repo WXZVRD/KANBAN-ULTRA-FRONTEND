@@ -2,21 +2,22 @@ import { toast } from 'sonner'
 
 import { toastMessageHandler } from '@/shared/utils'
 
-import { IUpdateTaskDTO, UpdateTaskApi } from '@/feautures/task/update-task/api/update-task.api'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { ITask, IUpdateTaskDTO, updateTask } from '@/entities/task'
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useUpdateTask() {
-	const queryClient = useQueryClient()
+	const queryClient: QueryClient = useQueryClient()
 
-	const { mutate: updateTask } = useMutation({
+	const { mutate: updateTaskMutation } = useMutation({
 		mutationKey: ['update-task'],
-		mutationFn: async (data: IUpdateTaskDTO) => await UpdateTaskApi(data),
-		onSuccess: () => {
+		mutationFn: async (data: IUpdateTaskDTO): Promise<ITask> =>
+			await updateTask(data),
+		onSuccess: (): void => {
 			queryClient.invalidateQueries(['project-columns'])
 			toast.success('Задача обновлена.')
 		},
-		onError: error => toastMessageHandler(error)
+		onError: (error: Error) => toastMessageHandler(error)
 	})
 
-	return { updateTask }
+	return { updateTaskMutation }
 }

@@ -27,9 +27,9 @@ import {
 	DialogTrigger
 } from '@/shared/components/ui/dialog'
 
-import { MemberRole } from '@/feautures/auth/types'
-import { addMemberScheme, TypeAddMemberScheme } from '@/feautures/member/add-member/model/add-member.scheme'
+import { MemberRole } from '@/entities/member/types/member-role.enum'
 import { useAddMember } from '@/feautures/member/add-member/model/useAddMember.mutation'
+import { addMemberScheme, TypeAddMemberScheme } from '@/feautures/member/add-member/schemes/add-member.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 interface AddMemberModalProps {
@@ -39,7 +39,7 @@ interface AddMemberModalProps {
 export function AddMemberModal({ projectId }: AddMemberModalProps) {
 	const [open, setOpen] = useState(false)
 
-	const { addMember } = useAddMember()
+	const { addMemberMutation } = useAddMember()
 
 	const form = useForm<TypeAddMemberScheme>({
 		resolver: zodResolver(addMemberScheme),
@@ -50,11 +50,7 @@ export function AddMemberModal({ projectId }: AddMemberModalProps) {
 	})
 
 	const onSubmit = (values: TypeAddMemberScheme) => {
-		console.log('values: ', values)
-		console.log('values: ', JSON)
-		console.log('values: ', values)
-
-		addMember({
+		addMemberMutation({
 			projectId,
 			memberRole: values.memberRole,
 			email: values.email

@@ -2,21 +2,22 @@ import { toast } from 'sonner'
 
 import { toastMessageHandler } from '@/shared/utils'
 
-import { AddTaskApi, IAddTaskDTO } from '@/feautures/task/add-task/api/add-task.api'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { createTask, IAddTaskDTO, ITask } from '@/entities/task'
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useAddTaskMutation() {
-	const queryClient = useQueryClient()
+	const queryClient: QueryClient = useQueryClient()
 
-	const { mutate: createTask } = useMutation({
+	const { mutate: createTaskMutation } = useMutation({
 		mutationKey: ['add-task'],
-		mutationFn: async (data: IAddTaskDTO) => await AddTaskApi(data),
-		onSuccess: () => {
+		mutationFn: async (data: IAddTaskDTO): Promise<ITask> =>
+			await createTask(data),
+		onSuccess: (): void => {
 			toast.success(`Задача была успешно создана!`)
 			queryClient.invalidateQueries({ queryKey: ['project-columns'] })
 		},
-		onError: error => toastMessageHandler(error)
+		onError: (error: Error) => toastMessageHandler(error)
 	})
 
-	return { createTask }
+	return { createTaskMutation }
 }

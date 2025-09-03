@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import React from 'react'
 
-import { NewVerificationForm } from '@/feautures/auth/components/NewVerificationForm'
+import { NewVerificationForm } from '@/feautures/auth/ui/forms/NewVerificationForm'
 
 const metadata: Metadata = {
 	title: 'Верификация'

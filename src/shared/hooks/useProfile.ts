@@ -1,13 +1,11 @@
-import { userService } from '@/feautures/user/services'
+import { IUser } from '@/entities/user/types/user.interface'
+import { findProfile } from '@/feautures/profile/api/profile.api'
 import { useQuery } from '@tanstack/react-query'
 
 export function useProfile() {
 	const { data, isLoading } = useQuery({
 		queryKey: ['profile'],
-		queryFn: async () => {
-			const res = await userService.findProfile()
-			return res
-		},
+		queryFn: async (): Promise<IUser> => await findProfile(),
 		refetchOnWindowFocus: false
 	})
 

@@ -1,5 +1,5 @@
 import { Button } from '@/shared/components/ui'
-import { APP_ROUTES } from '@/shared/config/routes'
+import { APP_ROUTES } from '@/shared/consts/routes'
 
 import Link from 'next/link'
 

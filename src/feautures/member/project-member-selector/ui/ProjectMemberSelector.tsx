@@ -9,8 +9,8 @@ import {
 	SelectValue
 } from '@/shared/components/ui'
 
-import { useGetProjectMembersQuery } from '@/entities/member/model/useGetProjectMembers.mutation'
-import { UserCard } from '@/entities/user/ui/UserCard'
+import { useGetProjectMembersQuery } from '@/entities/member/'
+import { UserCard } from '@/entities/user/'
 
 interface IProjectMemberSelector {
 	projectId: string

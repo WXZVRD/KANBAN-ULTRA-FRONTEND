@@ -1,6 +1,6 @@
 import React from 'react'
 
-import NewPasswordForm from '@/feautures/auth/components/NewPasswordForm'
+import NewPasswordForm from '@/feautures/auth/ui/forms/NewPasswordForm'
 
 function NewPasswordPage() {
 	return (
