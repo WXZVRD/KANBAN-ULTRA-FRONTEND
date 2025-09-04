@@ -19,8 +19,6 @@
  ![Themes & i18n](./assets/7-presentation.gif)  | Русский: Табличный вид канбан доски, статистика и аналитика. <br> English: Table view of kanban board, statistics and analytics.                  |
  ![Themes & i18n](./assets/8-presentation.gif)  | Русский: Админ панель управления участниками. <br> English: Administrator control panel for participants.                                         |
 
-> 💡 Совет: Старайся делать GIF маленького размера (<5–6 МБ), чтобы README грузился быстро.
-
 ## 📌 О проекте / About the Project
 
 **Русский:**  
