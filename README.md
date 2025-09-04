@@ -5,6 +5,22 @@
 
 ---
 
+## 🎬 Демонстрация проекта / Project Demo
+
+Ниже представлены основные функции проекта в действии.
+
+ GIF                                            | Описание / Description                                                                                                                            |
+------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+ ![Drag & Drop](./assets/1-presentation.gif)    | Русский: OAuth вторизация. <br> English: OAuth authorization.                                                                                     |
+| ![Task CRUD](./assets/2-presentation.gif)      | Русский: Стандартный вход, сброс пароля с кодом по почте. <br> English: Standard login, password reset with code by mail.                         |
+| ![Invite Members](./assets/3-presentation.gif) | Русский: Вход с кодом двухфакторной аутентификаций. <br> English: Login with two-factor authentication code.                                      |
+ ![Analytics](./assets/4-presentation.gif)      | Русский: Презентация канбан доски, ДрагНДроп и созданение колонок. <br> English: Presentation of Kanban board, DragNdrop and creation of columns. |
+ ![Themes & i18n](./assets/6-presentation.gif)  | Русский: Презентация канбан доски, ДрагНДроп и созданение колонок. <br> Presentation of Kanban board, DragNdrop and creation of columns.          |
+ ![Themes & i18n](./assets/7-presentation.gif)  | Русский: Табличный вид канбан доски, статистика и аналитика. <br> English: Table view of kanban board, statistics and analytics.                  |
+ ![Themes & i18n](./assets/8-presentation.gif)  | Русский: Админ панель управления участниками. <br> English: Administrator control panel for participants.                                         |
+
+> 💡 Совет: Старайся делать GIF маленького размера (<5–6 МБ), чтобы README грузился быстро.
+
 ## 📌 О проекте / About the Project
 
 **Русский:**  
