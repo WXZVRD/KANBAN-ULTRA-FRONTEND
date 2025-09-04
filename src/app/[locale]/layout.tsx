@@ -37,7 +37,7 @@ export default async function RootLayout({
 		messages = (
 			await import(`../../shared/locales/messages/${locale}.json`)
 		).default
-	} catch (error) {
+	} catch {
 		notFound()
 	}
 

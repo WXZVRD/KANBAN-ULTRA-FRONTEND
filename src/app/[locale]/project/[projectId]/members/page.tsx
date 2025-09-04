@@ -1,4 +1,4 @@
-import { MemberListTable } from '@/feautures/member/member-table/ui/MemberListTable'
+import { MemberListTable } from '@/feautures/member'
 
 interface IMemberPage {
 	params: {
