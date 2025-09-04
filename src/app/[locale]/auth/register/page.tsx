@@ -1,16 +1,16 @@
 import { Metadata } from 'next'
 
-import { LoginForm } from '../../../feautures/auth/ui'
+import { RegisterForm } from '@/feautures/auth'
 
 export const metadata: Metadata = {
-	title: 'Вход',
+	title: 'Регистрация',
 	description: ''
 }
 
-export default function LoginPage() {
+export default function RegisterPage() {
 	return (
 		<div className='flex h-full w-full items-center justify-center'>
-			<LoginForm />
+			<RegisterForm />
 		</div>
 	)
 }

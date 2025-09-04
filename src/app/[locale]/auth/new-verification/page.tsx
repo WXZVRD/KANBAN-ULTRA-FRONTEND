@@ -1,10 +1,13 @@
 import { Metadata } from 'next'
 import React from 'react'
 
+import { SITE_NAME } from '@/shared/consts'
+
 import { NewVerificationForm } from '@/feautures/auth/ui/forms/NewVerificationForm'
 
-const metadata: Metadata = {
-	title: 'Верификация'
+export const metadata: Metadata = {
+	title: `Верификация | ${SITE_NAME}`,
+	description: 'Подтвердите ваш аккаунт, чтобы получить доступ к приложению.'
 }
 
 export default function NewVerificationPage() {
