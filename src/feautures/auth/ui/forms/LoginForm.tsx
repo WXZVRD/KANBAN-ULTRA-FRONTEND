@@ -37,7 +37,6 @@ export function LoginForm() {
 	)
 
 	const onSubmit = (values: TypeLoginScheme): void => {
-		console.log(isShowTwoFactor)
 		if (recaptcha) {
 			login({ values, recaptcha })
 		} else {

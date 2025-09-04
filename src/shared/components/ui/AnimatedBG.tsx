@@ -1,28 +1,11 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { PropsWithChildren, useEffect } from 'react'
+import { PropsWithChildren } from 'react'
 
 export function AnimatedBG({ children }: PropsWithChildren) {
 	const { theme } = useTheme()
 	const isLight = theme === 'light'
-
-	// Лог при каждом рендере
-	console.log('[AnimatedBG] render, theme =', theme, '| isLight =', isLight)
-
-	// Лог при первом монтировании
-	useEffect(() => {
-		console.log('[AnimatedBG] mounted')
-
-		return () => {
-			console.log('[AnimatedBG] unmounted')
-		}
-	}, [])
-
-	// Лог при смене темы
-	useEffect(() => {
-		console.log('[AnimatedBG] theme changed:', theme)
-	}, [theme])
 
 	return (
 		<div

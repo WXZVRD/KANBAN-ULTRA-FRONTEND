@@ -2,7 +2,6 @@
 
 import { BarChart3, LayoutGrid, Loader, Table } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useEffect } from 'react'
 
 import { Button, Card, CardHeader, CardTitle, Separator } from '@/shared/components/ui'
 import { APP_ROUTES } from '@/shared/consts/routes.constant'
@@ -22,27 +21,6 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 	const { currentProject, isProjectLoading } = useGetById(projectId)
 	const { setView } = useProjectView()
 	const route = useRouter()
-
-	useEffect(() => {
-		console.log('[ProjectHeader] mounted with projectId:', projectId)
-		return () => {
-			console.log('[ProjectHeader] unmounted')
-		}
-	}, [projectId])
-
-	useEffect(() => {
-		console.log('[ProjectHeader] isProjectLoading:', isProjectLoading)
-	}, [isProjectLoading])
-
-	useEffect(() => {
-		console.log('[ProjectHeader] currentProject:', currentProject)
-	}, [currentProject])
-
-	console.log('[ProjectHeader] render with props:', {
-		projectId,
-		isProjectLoading,
-		currentProject
-	})
 
 	const t = useTranslations()
 
@@ -79,7 +57,6 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 					size='sm'
 					variant='outline'
 					onClick={() => {
-						console.log('[ProjectHeader] switch to columns view')
 						route.push(APP_ROUTES.PROJECTS.CURRENT(projectId))
 						setView('columns')
 					}}
@@ -92,7 +69,6 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 					size='sm'
 					variant='outline'
 					onClick={() => {
-						console.log('[ProjectHeader] switch to table view')
 						route.push(APP_ROUTES.PROJECTS.CURRENT(projectId))
 						setView('table')
 					}}
