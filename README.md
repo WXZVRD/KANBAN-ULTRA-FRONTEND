@@ -90,17 +90,4 @@ verification. Users can log in via username/password or social networks. The pro
 - Context API
 - Hello-Pangea DnD
 - FSD architecture
-
-*(Backend и база данных реализованы отдельно, можно добавить в отдельный README для бекенда)*
-
----
-
-## 🚀 Запуск проекта локально / Run Locally
-
-**Русский:**
-
-```bash
-git clone <repo-url>
-cd frontend
-npm install
-npm run dev
+- Docker
