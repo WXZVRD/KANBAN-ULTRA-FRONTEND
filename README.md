@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KANBAN-ULTRA
 
-## Getting Started
+**Русский:** Прогрессивная канбан-доска для эффективного управления проектами и задачами.  
+**English:** Progressive Kanban board for efficient project and task management.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎬 Демонстрация проекта / Project Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ниже представлены основные функции проекта в действии.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ GIF                                            | Описание / Description                                                                                                                            |
+------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+ ![Drag & Drop](./assets/1-presentation.gif)    | Русский: OAuth вторизация. <br> English: OAuth authorization.                                                                                     |
+| ![Task CRUD](./assets/2-presentation.gif)      | Русский: Стандартный вход, сброс пароля с кодом по почте. <br> English: Standard login, password reset with code by mail.                         |
+| ![Invite Members](./assets/3-presentation.gif) | Русский: Вход с кодом двухфакторной аутентификаций. <br> English: Login with two-factor authentication code.                                      |
+ ![Analytics](./assets/4-presentation.gif)      | Русский: Презентация канбан доски, ДрагНДроп и созданение колонок. <br> English: Presentation of Kanban board, DragNdrop and creation of columns. |
+ ![Themes & i18n](./assets/6-presentation.gif)  | Русский: Презентация канбан доски, ДрагНДроп и созданение колонок. <br> Presentation of Kanban board, DragNdrop and creation of columns.          |
+ ![Themes & i18n](./assets/7-presentation.gif)  | Русский: Табличный вид канбан доски, статистика и аналитика. <br> English: Table view of kanban board, statistics and analytics.                  |
+ ![Themes & i18n](./assets/8-presentation.gif)  | Русский: Админ панель управления участниками. <br> English: Administrator control panel for participants.                                         |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📌 О проекте / About the Project
 
-## Learn More
+**Русский:**  
+KANBAN-ULTRA — это современная канбан-доска с прогрессивными методами авторизации: двухфакторная аутентификация,
+подтверждение аккаунта по почте. Можно входить через логин и пароль или социальные сети. Проект позволяет:
 
-To learn more about Next.js, take a look at the following resources:
+- Добавлять участников по почте с приглашениями.
+- Использовать драг-н-дроп для задач и колонок.
+- Гибко управлять проектами и участниками.
+- Отслеживать аналитику и статистику проектов.
+- Менять вид с канбан-доски на таблицу.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**English:**  
+KANBAN-ULTRA is a modern Kanban board with advanced authentication methods: two-factor authentication, email
+verification. Users can log in via username/password or social networks. The project allows you to:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Invite participants by email.
+- Use drag-and-drop for tasks and columns.
+- Flexibly manage projects and team members.
+- Track project analytics and statistics.
+- Switch between Kanban view and table view.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ✨ Фичи / Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Русский:**
+
+- Добавление участников с приглашением по почте
+- Двухфакторная аутентификация
+- Подтверждение аккаунта по почте
+- Аутентификация через логин/пароль и социальные сети (Google, Яндекс)
+- Drag & Drop для задач и колонок
+- Расширенная аналитика и статистика проекта
+- Кеширование данных
+- SSR рендеринг
+- Смена тем оформления
+- Локализация интерфейса
+- Полный функционал канбан-доски
+
+**English:**
+
+- Invite participants via email
+- Two-factor authentication
+- Email verification
+- Login via username/password or social networks (Google, Yandex)
+- Drag & Drop for tasks and columns
+- Advanced project analytics and statistics
+- Data caching
+- Server-side rendering (SSR)
+- Theme switching
+- Interface localization
+- Full Kanban board functionality
+
+---
+
+## 🛠 Использованные технологии / Tech Stack
+
+**Frontend:**
+
+- Next.js
+- Axios
+- TanStack Query
+- i18n (react-i18next)
+- Shadcn UI
+- React Hook Form + Zod
+- Context API
+- Hello-Pangea DnD
+- FSD architecture
+- Docker

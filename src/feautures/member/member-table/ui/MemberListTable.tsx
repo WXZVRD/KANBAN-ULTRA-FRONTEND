@@ -1,17 +1,19 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
 
 import { Checkbox, Loader, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui'
+import { useSelectableTableHook } from '@/shared/hooks'
 
-import { useGetProjectMembersQuery } from '@/entities/member/model/useGetProjectMembers.mutation'
-import { UserCard } from '@/entities/user/ui/UserCard'
-import { MemberRole } from '@/feautures/auth/types'
-import { useChangeRoleMutation } from '@/feautures/member/chage-role/model/useChangeRole.mutation'
-import { MemberRoleSelector } from '@/feautures/member/chage-role/ui/MemberRoleSelector'
-import { useDeleteProjectMemberMutation } from '@/feautures/member/delete-member/model/useDeleteProjectMember.mutation'
-import { MembersToolbar } from '@/feautures/member/toolbar/ui/MemberToolbar'
-import { useSelectableTable } from '@/feautures/table/hooks/useSelectableTable'
+import { MemberRole, useGetProjectMembersQuery } from '@/entities/member'
+import { UserCard } from '@/entities/user'
+import {
+	MemberRoleSelector,
+	MembersToolbar,
+	useChangeRoleMutation,
+	useDeleteProjectMemberMutation
+} from '@/feautures/member'
 
 interface IMemberListTable {
 	projectId: string
@@ -22,7 +24,7 @@ export function MemberListTable({ projectId }: IMemberListTable) {
 		useGetProjectMembersQuery(projectId)
 
 	const { selectAll, selectedIds, isSelected, hasSelected, toggleItem } =
-		useSelectableTable(projectMembers)
+		useSelectableTableHook(projectMembers)
 
 	const { changeRole } = useChangeRoleMutation()
 	const { deleteMembers } = useDeleteProjectMemberMutation()
@@ -48,6 +50,8 @@ export function MemberListTable({ projectId }: IMemberListTable) {
 
 		return result
 	}, [projectMembers, roleFilter, search])
+
+	const t = useTranslations()
 
 	return (
 		<>
@@ -77,9 +81,9 @@ export function MemberListTable({ projectId }: IMemberListTable) {
 								onCheckedChange={selectAll}
 							/>
 						</TableHead>
-						<TableHead>Участник</TableHead>
-						<TableHead>Роль</TableHead>
-						<TableHead>Почта</TableHead>
+						<TableHead>{t('TableData.member')}</TableHead>
+						<TableHead>{t('TableData.role')}</TableHead>
+						<TableHead>{t('TableData.email')}</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -126,7 +130,7 @@ export function MemberListTable({ projectId }: IMemberListTable) {
 					) : (
 						<TableRow>
 							<TableCell colSpan={4} className='text-center'>
-								Нет участников, подходящих под фильтры
+								{t('TableData.noFilter')}
 							</TableCell>
 						</TableRow>
 					)}

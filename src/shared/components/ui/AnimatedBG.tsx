@@ -7,8 +7,6 @@ export function AnimatedBG({ children }: PropsWithChildren) {
 	const { theme } = useTheme()
 	const isLight = theme === 'light'
 
-	console.log('theme', theme)
-
 	return (
 		<div
 			className={`relative flex min-h-screen w-full items-center justify-center overflow-hidden transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`}

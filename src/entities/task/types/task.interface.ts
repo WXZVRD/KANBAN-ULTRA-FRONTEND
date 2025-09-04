@@ -1,5 +1,5 @@
-import { TaskPriority } from '@/entities/task/types/priority.enum'
-import { IUser } from '@/feautures/auth/types'
+import { TaskPriority } from '@/entities/task'
+import { IUser } from '@/entities/user/types/user.interface'
 
 export interface ITask {
 	id: string

@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -27,11 +28,11 @@ import {
 	DialogTrigger
 } from '@/shared/components/ui/dialog'
 
+import { IUpdateTaskDTO } from '@/entities/task/api/dto/update-task.dto'
 import { TaskPriority } from '@/entities/task/types/priority.enum'
 import { ProjectMemberSelector } from '@/feautures/member/project-member-selector/ui/ProjectMemberSelector'
-import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
-import { TypeUpdateTaskScheme, updateTaskScheme } from '@/feautures/task/update-task/model/UpdateTask.scheme'
 import { useUpdateTask } from '@/feautures/task/update-task/model/useUpdateTask'
+import { TypeUpdateTaskScheme, updateTaskScheme } from '@/feautures/task/update-task/schemes/UpdateTask.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams } from 'next/navigation'
 
@@ -46,9 +47,12 @@ export function UpdateTaskModal({
 }: UpdateTaskModalProps) {
 	const params = useParams<{ projectId: string }>()
 	const projectId = params.projectId
-	const { updateTask } = useUpdateTask()
+
+	const { updateTaskMutation } = useUpdateTask()
 
 	const [open, setOpen] = useState(false)
+
+	const t = useTranslations()
 
 	const form = useForm<TypeUpdateTaskScheme>({
 		resolver: zodResolver(updateTaskScheme),
@@ -60,7 +64,7 @@ export function UpdateTaskModal({
 	})
 
 	const onSubmit: SubmitHandler<TypeUpdateTaskScheme> = values => {
-		updateTask({
+		updateTaskMutation({
 			id: initialValues.id,
 			projectId,
 			columnId: columnId,
@@ -79,15 +83,15 @@ export function UpdateTaskModal({
 					size='sm'
 					variant='ghost'
 				>
-					Редактировать задачу
+					{t('TaskUpdateModal.title')}
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Редактировать задачу</DialogTitle>
+					<DialogTitle>{t('TaskUpdateModal.title')}</DialogTitle>
 					<DialogDescription>
-						Измените данные задачи и сохраните.
+						{t('TaskUpdateModal.description')}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -101,10 +105,14 @@ export function UpdateTaskModal({
 							name='title'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Название</FormLabel>
+									<FormLabel>
+										{t('TaskUpdateModal.name')}
+									</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='Например: Купить хлеб'
+											placeholder={t(
+												'TaskUpdateModal.nameDescription'
+											)}
 											{...field}
 										/>
 									</FormControl>
@@ -118,7 +126,9 @@ export function UpdateTaskModal({
 							name='assigneeId'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Исполнитель</FormLabel>
+									<FormLabel>
+										{t('TaskUpdateModal.assignee')}
+									</FormLabel>
 									<FormControl>
 										<ProjectMemberSelector
 											projectId={projectId}
@@ -136,14 +146,20 @@ export function UpdateTaskModal({
 							name='priority'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Приоритет</FormLabel>
+									<FormLabel>
+										{t('TaskUpdateModal.priority')}
+									</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										value={field.value}
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder='Выберите приоритет' />
+												<SelectValue
+													placeholder={t(
+														'TaskUpdateModal.priorityDescription'
+													)}
+												/>
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -165,7 +181,7 @@ export function UpdateTaskModal({
 						/>
 
 						<Button type='submit' className='w-full'>
-							Сохранить изменения
+							{t('TaskUpdateModal.submit')}
 						</Button>
 					</form>
 				</Form>

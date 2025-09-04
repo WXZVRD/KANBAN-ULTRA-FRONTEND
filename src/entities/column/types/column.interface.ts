@@ -1,11 +1,11 @@
-import { ITask } from '@/entities/task/types/task.interface'
+import { ITask } from '@/entities/task'
 
 export interface IColumn {
 	id: string
 	title: string
 	order: number
 
-	tasks: ITask
+	tasks: ITask[]
 
 	projectId: string
 

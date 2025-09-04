@@ -1,8 +1,10 @@
+'use client'
+
 import { useState } from 'react'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui'
 
-import { MemberRole } from '@/feautures/auth/types'
+import { MemberRole } from '@/entities/member'
 
 interface IMemberRoleSelector {
 	value: MemberRole

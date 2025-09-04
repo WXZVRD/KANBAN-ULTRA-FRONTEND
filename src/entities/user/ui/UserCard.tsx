@@ -1,8 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui'
-
-
-
-
+import { shortenerText } from '@/shared/utils'
 
 type UserCardProps = {
 	displayName: string
@@ -37,7 +34,7 @@ export function UserCard({ picture, displayName, size = 'sm' }: UserCardProps) {
 				<AvatarImage src={picture} alt={displayName} />
 				<AvatarFallback>{displayName[0]?.toUpperCase()}</AvatarFallback>
 			</Avatar>
-			<span className={text}>{displayName}</span>
+			<span className={text}>{shortenerText(10, displayName)}</span>
 		</div>
 	)
 }

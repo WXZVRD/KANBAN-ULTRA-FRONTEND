@@ -1,4 +1,5 @@
 import { MoreVertical } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
 	DropdownMenu,
@@ -7,7 +8,8 @@ import {
 	DropdownMenuTrigger,
 	Separator
 } from '@/shared/components/ui'
-import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
+
+import { IUpdateTaskDTO } from '@/entities/task/api/dto/update-task.dto'
 import { UpdateTaskModal } from '@/feautures/task/update-task/ui/UpdateTaskModal'
 
 interface IMemberSettingsDropdown {
@@ -19,6 +21,8 @@ export function MemberSettingsDropdown({
 	taskData,
 	columnId
 }: IMemberSettingsDropdown) {
+	const t = useTranslations()
+
 	function handleDelete() {}
 
 	return (
@@ -37,7 +41,7 @@ export function MemberSettingsDropdown({
 				</DropdownMenuItem>
 				<Separator />
 				<DropdownMenuItem onClick={() => handleDelete()}>
-					Удалить
+					{t('Actions.delete')}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

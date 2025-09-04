@@ -1,10 +1,12 @@
-import { projectService } from '@/feautures/project/service/project.service'
+import { getAllProjectsByUserId } from '@/entities/project/api/project.api'
+import { IProject } from '@/entities/project/types/project.interface'
 import { useQuery } from '@tanstack/react-query'
 
 export function useGetAllUserProjects(userId: string | undefined) {
-	const { data: projects, isPending: isProjectsLoading } = useQuery({
+	const { data, isPending: isProjectsLoading } = useQuery({
 		queryKey: ['user-projects'],
-		queryFn: async () => await projectService.getAllByUserId(userId!),
+		queryFn: async (): Promise<IProject[]> =>
+			await getAllProjectsByUserId(),
 		enabled: !!userId,
 		retry: false,
 		refetchOnWindowFocus: false,
@@ -12,5 +14,5 @@ export function useGetAllUserProjects(userId: string | undefined) {
 		staleTime: Infinity
 	})
 
-	return { projects, isProjectsLoading }
+	return { projects: data ?? null, isProjectsLoading }
 }

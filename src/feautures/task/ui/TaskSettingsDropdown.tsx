@@ -1,4 +1,5 @@
 import { MoreVertical } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
 	DropdownMenu,
@@ -8,8 +9,8 @@ import {
 	Separator
 } from '@/shared/components/ui'
 
+import { IUpdateTaskDTO } from '@/entities/task/api/dto/update-task.dto'
 import { useDeleteTask } from '@/feautures/task/delete-task/model/useDeleteTask.mutation'
-import { IUpdateTaskDTO } from '@/feautures/task/update-task/api/update-task.api'
 import { UpdateTaskModal } from '@/feautures/task/update-task/ui/UpdateTaskModal'
 import { useParams } from 'next/navigation'
 
@@ -22,13 +23,15 @@ export function TaskSettingsDropdown({
 	taskData,
 	columnId
 }: ITaskSettingsDropdown) {
-	const { deleteTask } = useDeleteTask()
+	const { deleteTaskMutation } = useDeleteTask()
+
+	const t = useTranslations()
 
 	const params = useParams<{ projectId: string }>()
 	const projectId = params.projectId
 
 	function handleDelete() {
-		deleteTask({
+		deleteTaskMutation({
 			projectId: projectId,
 			taskId: taskData.id
 		})
@@ -50,7 +53,7 @@ export function TaskSettingsDropdown({
 				</DropdownMenuItem>
 				<Separator />
 				<DropdownMenuItem onClick={() => handleDelete()}>
-					Удалить
+					{t('Actions.delete')}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

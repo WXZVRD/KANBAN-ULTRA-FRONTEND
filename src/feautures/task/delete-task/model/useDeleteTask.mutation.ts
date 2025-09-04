@@ -2,23 +2,24 @@ import { toast } from 'sonner'
 
 import { toastMessageHandler } from '@/shared/utils'
 
-import { deleteTaskApi, IDeleteTaskDTO } from '@/feautures/task/delete-task/api/delete-task.api'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { IDeleteTaskDTO } from '@/entities/task/api/dto/delete-task.dto'
+import { deleteTask } from '@/entities/task/api/task.api'
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useDeleteTask() {
-	const queryClient = useQueryClient()
+	const queryClient: QueryClient = useQueryClient()
 
-	const { mutate: deleteTask } = useMutation<void, Error, IDeleteTaskDTO>({
+	const { mutate: deleteTaskMutation } = useMutation({
 		mutationKey: ['delete-task'],
-		mutationFn: async (data: IDeleteTaskDTO) => {
-			return await deleteTaskApi(data)
+		mutationFn: async (data: IDeleteTaskDTO): Promise<void> => {
+			await deleteTask(data)
 		},
-		onSuccess: () => {
+		onSuccess: (): void => {
 			toast.success('Задача успешно удалена!')
 			queryClient.invalidateQueries({ queryKey: ['project-columns'] })
 		},
-		onError: error => toastMessageHandler(error)
+		onError: (error: Error) => toastMessageHandler(error)
 	})
 
-	return { deleteTask }
+	return { deleteTaskMutation }
 }

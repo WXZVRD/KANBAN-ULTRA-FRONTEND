@@ -10,8 +10,9 @@ import { Separator } from '@/shared/components/ui/separator'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/shared/components/ui/sheet'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/components/ui/tooltip'
-import { useIsMobile } from '@/shared/hooks/use-mobile'
+import { useIsMobile } from '@/shared/hooks/use-mobile.hook'
 import { cn } from '@/shared/utils'
+
 import { Slot } from '@radix-ui/react-slot'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'

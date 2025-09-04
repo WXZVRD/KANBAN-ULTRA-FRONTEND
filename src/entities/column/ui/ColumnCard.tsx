@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
+import { useInputWithControls } from '@/shared/hooks'
 
-import { IColumn } from '@/entities/column/model/types'
-import { ColumnCardSettings } from '@/entities/column/ui/ColumnCardSettings'
-import { TaskWrapperContent } from '@/entities/task/ui/TaskWrapperContent'
-import { useRenameColumn } from '@/feautures/projectColumn/rename-column/model/useRenameColumn'
-import { Droppable } from '@hello-pangea/dnd'
+import { ColumnCardSettings, IColumn } from '@/entities/column'
+import { TaskCard } from '@/entities/task'
+import { useRenameColumn } from '@/feautures/projectColumn'
+import { Draggable, Droppable } from '@hello-pangea/dnd'
 
 interface ColumnCardProps {
 	column: IColumn
@@ -14,38 +14,38 @@ interface ColumnCardProps {
 
 export const ColumnCard = ({ column }: ColumnCardProps) => {
 	const { renameColumn } = useRenameColumn()
-	const { projectId, order, title, id: columnId } = column
+	const { projectId, title, id: columnId } = column
 
-	const [isEditing, setIsEditing] = useState(false)
-	const [newTitle, setNewTitle] = useState<string>(title)
+	const t = useTranslations()
 
-	const handleBlur = () => {
-		setIsEditing(false)
-		if (newTitle.trim() && newTitle !== title) {
-			renameColumn({ columnId, title: newTitle })
-		} else {
-			renameColumn({ columnId, title: newTitle })
-			setNewTitle(title)
-		}
-	}
+	const { value, setValue, isEditing, startEditing, handleSave } =
+		useInputWithControls({
+			initialValue: title,
+			onSave: (newTitle: string) => {
+				if (newTitle !== title) {
+					renameColumn({ columnId, title: newTitle })
+				}
+			},
+			onCancel: () => setValue(title)
+		})
 
 	return (
-		<Card className='flex h-full max-h-[100vh] w-80 flex-shrink-0 flex-col'>
+		<Card className='flex h-full max-h-[100vh] w-full flex-shrink-0 flex-col'>
 			<CardHeader className='flex justify-between'>
 				{isEditing ? (
 					<input
 						className='w-full rounded border px-2 py-1 text-sm'
-						value={newTitle}
+						value={value}
 						autoFocus
-						onChange={e => setNewTitle(e.target.value)}
-						onBlur={handleBlur}
+						onChange={e => setValue(e.target.value)}
+						onBlur={handleSave}
 					/>
 				) : (
 					<CardTitle
 						className='flex cursor-pointer items-center gap-2'
 						onClick={e => {
 							e.stopPropagation()
-							setIsEditing(true)
+							startEditing()
 						}}
 					>
 						{title}
@@ -62,23 +62,48 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 				<ColumnCardSettings
 					title={title}
 					projectId={projectId}
-					columnId={column.id}
+					columnId={columnId}
 				/>
 			</CardHeader>
 
-			<CardContent className='flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
-				<Droppable droppableId={columnId}>
+			<CardContent className='min-h-[50px] flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+				<Droppable droppableId={columnId} type='TASK'>
 					{provided => (
 						<div
 							ref={provided.innerRef}
 							{...provided.droppableProps}
-							className='space-y-2'
+							className='min-h-[50px] space-y-2 rounded p-2'
 						>
-							<TaskWrapperContent
-								tasks={column.tasks}
-								columnId={columnId}
-							/>
+							{column.tasks.map((task, index) => (
+								<Draggable
+									key={task.id}
+									draggableId={task.id}
+									index={index}
+								>
+									{provided => (
+										<div
+											ref={provided.innerRef}
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}
+										>
+											<TaskCard
+												id={task.id}
+												columnId={task.columnId}
+												title={task.title}
+												projectId={task.projectId}
+												assigneeUser={task.assignee}
+												priority={task.priority}
+											/>
+										</div>
+									)}
+								</Draggable>
+							))}
 							{provided.placeholder}
+							{column.tasks.length <= 0 && (
+								<div className='py-2 text-center text-gray-400'>
+									{t('Common.awarn')}
+								</div>
+							)}
 						</div>
 					)}
 				</Droppable>

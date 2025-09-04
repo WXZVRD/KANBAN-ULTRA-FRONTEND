@@ -4,8 +4,7 @@ import { JSX, type PropsWithChildren } from 'react'
 
 import { SidebarProvider } from '@/shared/components/ui'
 import { AnimatedBG } from '@/shared/components/ui/AnimatedBG'
-import { AuthProvider, TanstackQueryProvider, ThemeProvider } from '@/shared/providers'
-import { ToastProvider } from '@/shared/providers/Toast.provider'
+import { AuthProvider, TanstackQueryProvider, ThemeProvider, ToastProvider } from '@/shared/providers'
 
 import { AppSidebar } from '@/widgets/sidebar/components/AppSidebar'
 

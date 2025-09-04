@@ -1,22 +1,24 @@
 import { toast } from 'sonner'
 
+import { DeleteResult } from '@/shared/api'
 import { toastMessageHandler } from '@/shared/utils'
 
-import { deleteMemberApi, IDeleteMemberDTO } from '@/feautures/member/delete-member/api/deleteMember.api'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { IDeleteMemberDTO } from '@/entities/member/api/dto/delete-member.dto'
+import { deleteAllMembers } from '@/entities/member/api/member.api'
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useDeleteProjectMemberMutation() {
-	const queryClient = useQueryClient()
+	const queryClient: QueryClient = useQueryClient()
 
 	const { mutate: deleteMembers } = useMutation({
 		mutationKey: ['delete-members'],
-		mutationFn: async (data: IDeleteMemberDTO) =>
-			await deleteMemberApi(data),
-		onSuccess() {
+		mutationFn: async (data: IDeleteMemberDTO): Promise<DeleteResult> =>
+			await deleteAllMembers(data),
+		onSuccess(): void {
 			toast.success('Успешное удаление')
 			queryClient.invalidateQueries(['project-members'])
 		},
-		onError(error) {
+		onError(error: Error): void {
 			toastMessageHandler(error)
 		}
 	})

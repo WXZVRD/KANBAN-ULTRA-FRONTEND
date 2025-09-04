@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -27,9 +28,9 @@ import {
 	DialogTrigger
 } from '@/shared/components/ui/dialog'
 
-import { MemberRole } from '@/feautures/auth/types'
-import { addMemberScheme, TypeAddMemberScheme } from '@/feautures/member/add-member/model/add-member.scheme'
+import { MemberRole } from '@/entities/member/types/member-role.enum'
 import { useAddMember } from '@/feautures/member/add-member/model/useAddMember.mutation'
+import { addMemberScheme, TypeAddMemberScheme } from '@/feautures/member/add-member/schemes/add-member.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 interface AddMemberModalProps {
@@ -39,7 +40,9 @@ interface AddMemberModalProps {
 export function AddMemberModal({ projectId }: AddMemberModalProps) {
 	const [open, setOpen] = useState(false)
 
-	const { addMember } = useAddMember()
+	const { addMemberMutation } = useAddMember()
+
+	const t = useTranslations()
 
 	const form = useForm<TypeAddMemberScheme>({
 		resolver: zodResolver(addMemberScheme),
@@ -50,11 +53,7 @@ export function AddMemberModal({ projectId }: AddMemberModalProps) {
 	})
 
 	const onSubmit = (values: TypeAddMemberScheme) => {
-		console.log('values: ', values)
-		console.log('values: ', JSON)
-		console.log('values: ', values)
-
-		addMember({
+		addMemberMutation({
 			projectId,
 			memberRole: values.memberRole,
 			email: values.email
@@ -72,17 +71,15 @@ export function AddMemberModal({ projectId }: AddMemberModalProps) {
 					size='sm'
 					variant='ghost'
 				>
-					Добавить участника
+					{t('AddMemberModal.trigger')}
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>
-						Добавить нового участника в проект
-					</DialogTitle>
+					<DialogTitle>{t('AddMemberModal.title')}</DialogTitle>
 					<DialogDescription>
-						Введите почту пользователя для его приглашения.
+						{t('AddMemberModal.description')}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -96,10 +93,14 @@ export function AddMemberModal({ projectId }: AddMemberModalProps) {
 							name='email'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Почта</FormLabel>
+									<FormLabel>
+										{t('AddMemberModal.email')}
+									</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='jhon@gmail.com'
+											placeholder={t(
+												'AddMemberModal.emailPlaceholder'
+											)}
 											{...field}
 										/>
 									</FormControl>
@@ -113,25 +114,35 @@ export function AddMemberModal({ projectId }: AddMemberModalProps) {
 							name='memberRole'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Роль</FormLabel>
+									<FormLabel>
+										{t('AddMemberModal.role')}
+									</FormLabel>
 									<FormControl>
 										<Select
 											onValueChange={field.onChange}
 											value={field.value}
 										>
 											<SelectTrigger className='w-[240px]'>
-												<SelectValue placeholder='Select member role' />
+												<SelectValue
+													placeholder={t(
+														'AddMemberModal.rolePlaceholder'
+													)}
+												/>
 											</SelectTrigger>
 											<SelectContent>
 												<SelectItem
 													value={MemberRole.ADMIN}
 												>
-													{MemberRole.ADMIN}
+													{t(
+														`Member.${MemberRole.ADMIN}`
+													)}
 												</SelectItem>
 												<SelectItem
 													value={MemberRole.MEMBER}
 												>
-													{MemberRole.MEMBER}
+													{t(
+														`Member.${MemberRole.MEMBER}`
+													)}
 												</SelectItem>
 											</SelectContent>
 										</Select>
@@ -146,7 +157,7 @@ export function AddMemberModal({ projectId }: AddMemberModalProps) {
 							type='submit'
 							className='w-full'
 						>
-							Пригласить
+							{t('Actions.invite')}
 						</Button>
 					</form>
 				</Form>

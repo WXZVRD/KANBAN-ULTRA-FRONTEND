@@ -1,0 +1,173 @@
+{
+  "User": {
+    "name": "Имя",
+    "email": "Почта",
+    "twoFactorAuth": "Двухфакторная аутентификация",
+    "twoFactorAuthDescription": "Подключите двухфакторную аутентификацию для вашего аккаунта",
+    "unassigned": "Не назначен"
+  },
+  "Actions": {
+    "save": "Сохранить",
+    "logout": "Выйти",
+    "createProject": "Создать проект",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "createTask": "Создать задачу",
+    "invite": "Пригласить"
+  },
+  "Messages": {
+    "noProjects": "У вас пока нет проектов"
+  },
+  "Settings": {
+    "title": "Настройки профиля"
+  },
+  "Common": {
+    "or": "ИЛИ",
+    "awarn": "Перетащи или создай тут задачу"
+  },
+  "Auth": {
+    "login": "Войти",
+    "register": "Регистрация",
+    "recaptchaError": "Пожалуйста, завершите ReCAPTCHA",
+    "heading": "Вход в аккаунт",
+    "description": "Чтобы войти в аккаунт, введите ваш email и пароль",
+    "noAccount": "Еще нет аккаунта? Регистрация",
+    "haveAccount": "Уже есть аккаунт? Войти",
+    "email": "Почта",
+    "password": "Пароль",
+    "forgotPassword": "Забыли пароль?",
+    "repeatPassword": "Повотрите пароль",
+    "twoFactorCode": "Код",
+    "name": "Имя",
+    "submit": "Подтвердить",
+    "passwordReset": {
+      "title": "Сброс пароля",
+      "description": "Для сброса пароля введите свою почту",
+      "email": "Email",
+      "backButtonTitle": "Войти в аккаут"
+    },
+    "newPassword": {
+      "title": "Новый пароль",
+      "description": "Придумайте новый пароль для вашего аккаунта",
+      "backButtonTitle": "Войти в аккаут",
+      "recaptchaError": "Пожалуйста, завершите ReCAPTCHA",
+      "password": "Пароль",
+      "submit": "Подтвердить"
+    }
+  },
+  "Dashboard": {
+    "welcome": "Добро пожаловать, {name}!"
+  },
+  "CreateProjectPage": {
+    "title": "Создание проекта",
+    "description": "Создайте свой проект и настройте его",
+    "access": "Доступ",
+    "accessDescription": "Выберите тип доступа",
+    "projectName": "Нзвание проекта"
+  },
+  "EditProjectPage": {
+    "title": "Редактирование",
+    "description": "отредактируйте проект и заного настройте",
+    "access": "Доступ",
+    "accessDescription": "Выберите тип доступа",
+    "projectName": "Нзвание проекта"
+  },
+  "SideBar": {
+    "title": "Проекты"
+  },
+  "Access": {
+    "public": "Публичный",
+    "private": "Приватный"
+  },
+  "Priority": {
+    "low": "Маленький",
+    "medium": "Средний",
+    "high": "Большой",
+    "urgent": "Срочный",
+    "critical": "Критический"
+  },
+  "TaskCreateModal": {
+    "title": "Новая задача",
+    "description": "Впишите новую задачу.",
+    "name": "Название",
+    "nameDescription": "Например: уйти из семьй за молоком",
+    "assignee": "Исполнитель",
+    "assigneeTitle": "Участники проекта",
+    "assigneeDescription": "Выберите исполнителя",
+    "priority": "Приоритет",
+    "priorityDescription": "Выберите приоритет"
+  },
+  "TaskUpdateModal": {
+    "title": "Редактировать задачу",
+    "description": "Измените данные задачи и сохраните.",
+    "name": "Название",
+    "nameDescription": "Например: уйти из семьй за молоком",
+    "assignee": "Исполнитель",
+    "assigneeTitle": "Участники проекта",
+    "assigneeDescription": "Выберите исполнителя",
+    "priority": "Приоритет",
+    "priorityDescription": "Выберите приоритет",
+    "submit": "Сохранить изменения"
+  },
+  "CreateColumn": {
+    "title": "Название колонки"
+  },
+  "TableData": {
+    "member": "Участник",
+    "role": "Роль",
+    "email": "Почта",
+    "noFilter": "Нет участников, подходящих под фильтры",
+    "memberSearch": "Поиск учатсников..."
+  },
+  "Roles": {
+    "title": "Все роли",
+    "all": "Все",
+    "admin": "Админ",
+    "member": "Участник"
+  },
+  "Member": {
+    "member": "Участник",
+    "admin": "Админ"
+  },
+  "ProjectHeader": {
+    "noData": "Проект не найден",
+    "columns": "Колонки",
+    "table": "Таблица",
+    "stats": "Статистика",
+    "manager": "Управление участниками"
+  },
+  "AddMemberModal": {
+    "trigger": "Добавить участника",
+    "title": "Добавить нового участника в проект",
+    "description": "Введите почту пользователя для его приглашения.",
+    "email": "Почта",
+    "emailPlaceholder": "jhon@gmail.com",
+    "role": "Роль",
+    "rolePlaceholder": "Выберите роль участника",
+    "invite": "Пригласить"
+  },
+  "ListView": {
+    "taskTitle": "Название задачи",
+    "author": "Автор",
+    "priority": "Приоритет",
+    "createdAt": "Дата создания"
+  },
+  "Statistic": {
+    "workload": {
+      "title": "Нагрузка на участников",
+      "noData": "Нет доступной информаций"
+    },
+    "taskPriority": {
+      "title": "Приоритет задач",
+      "noData": "Нет доступной информаций"
+    },
+    "status": {
+      "title": "Статус готовности",
+      "noData": "Нет доступной информаций"
+    },
+    "progress": {
+      "title": "Прогресс всего проекта",
+      "noData": "Нет доступной информаций"
+    }
+  }
+}
