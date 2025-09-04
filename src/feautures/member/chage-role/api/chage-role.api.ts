@@ -1,10 +1,7 @@
-import { AxiosResponse } from 'axios'
-
 import api from '@/shared/api/axios'
-import { API_ENDPOINTS } from '@/shared/consts/api'
+import { API_ENDPOINTS } from '@/shared/consts/api.constant'
 
-import { MemberRole } from '@/entities/member/types/member-role.enum'
-import { IMember } from '@/entities/member/types/member.interface'
+import { IMember, MemberRole } from '@/entities/member'
 
 export interface IChangeRoleDTO {
 	projectId: string
@@ -17,7 +14,7 @@ export async function ChangeRoleApi({
 	projectId,
 	userId
 }: IChangeRoleDTO): Promise<IMember> {
-	const res: AxiosResponse<IMember, any> = await api.patch<IMember>(
+	const res = await api.patch<IMember>(
 		API_ENDPOINTS.PROJECT.MEMBERSHIP.CHANGE_ROLE(projectId),
 		{
 			userId,

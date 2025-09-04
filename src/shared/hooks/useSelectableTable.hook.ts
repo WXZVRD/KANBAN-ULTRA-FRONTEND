@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export function useSelectableTable<T extends { id: string }>(items: T[]) {
+export function useSelectableTableHook<T extends { id: string }>(items: T[]) {
 	const [selectedIds, setSelectedIds] = useState<string[]>([])
 
 	const toggleItem = (id: string) => {

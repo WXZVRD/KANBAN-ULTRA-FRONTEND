@@ -2,7 +2,7 @@
 
 import { Context, createContext, JSX, PropsWithChildren } from 'react'
 
-import { useProfile } from '@/shared/hooks'
+import { useProfileHook } from '@/shared/hooks'
 
 import { IUser } from '@/entities/user/types/user.interface'
 
@@ -16,7 +16,7 @@ export const AuthContext: Context<AuthContextType | undefined> = createContext<
 >(undefined)
 
 export function AuthProvider({ children }: PropsWithChildren): JSX.Element {
-	const { user, isLoading } = useProfile()
+	const { user, isLoading } = useProfileHook()
 
 	return (
 		<AuthContext.Provider value={{ user, isLoading }}>

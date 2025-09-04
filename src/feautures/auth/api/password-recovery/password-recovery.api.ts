@@ -4,7 +4,7 @@ import api from '@/shared/api/axios'
 import { API_ENDPOINTS } from '@/shared/consts'
 
 import { IUser } from '@/entities/user'
-import { TypeNewPasswordScheme, TypeResetPasswordScheme } from '@/feautures/auth/schemes'
+import { TypeNewPasswordScheme, TypeResetPasswordScheme } from '@/feautures/auth'
 
 export async function resetPassword(
 	body: TypeResetPasswordScheme,
@@ -12,7 +12,7 @@ export async function resetPassword(
 ): Promise<AxiosResponse<IUser>> {
 	const headers = recaptcha ? { recaptcha } : undefined
 
-	const response: AxiosResponse<IUser, any> = await api.post<IUser>(
+	const response = await api.post<IUser>(
 		API_ENDPOINTS.AUTH.PASSWORD_RECOVER.RESET,
 		body,
 		{
@@ -30,7 +30,7 @@ export async function newPassword(
 ): Promise<AxiosResponse<IUser>> {
 	const headers = recaptcha ? { recaptcha } : undefined
 
-	const res: AxiosResponse<IUser> = await api.post<IUser>(
+	const res = await api.post<IUser>(
 		API_ENDPOINTS.AUTH.PASSWORD_RECOVER.NEW(token),
 		body,
 		{

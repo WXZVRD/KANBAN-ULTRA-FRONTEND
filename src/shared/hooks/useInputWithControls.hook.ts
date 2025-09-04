@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { useKeyPress } from '@/shared/hooks/useKeyPress.hook'
+import { useKeyPress } from '@/shared/hooks'
 
 interface UseInputWithControlsOptions {
 	initialValue?: string
@@ -12,8 +12,7 @@ interface UseInputWithControlsOptions {
 export function useInputWithControls({
 	initialValue = '',
 	onSave,
-	onCancel,
-	autoFocus = true
+	onCancel
 }: UseInputWithControlsOptions) {
 	const [value, setValue] = useState(initialValue)
 	const [isEditing, setIsEditing] = useState(false)

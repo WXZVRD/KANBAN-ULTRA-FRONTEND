@@ -1,13 +1,8 @@
-import { AxiosResponse } from 'axios'
-
 import { DeleteResult } from '@/shared/api'
 import api from '@/shared/api/axios'
-import { API_ENDPOINTS } from '@/shared/consts/api'
+import { API_ENDPOINTS } from '@/shared/consts/api.constant'
 
-import { IAddTaskDTO } from '@/entities/task/api/dto/add-task.dto'
-import { IDeleteTaskDTO } from '@/entities/task/api/dto/delete-task.dto'
-import { IUpdateTaskDTO } from '@/entities/task/api/dto/update-task.dto'
-import { ITask } from '@/entities/task/types/task.interface'
+import { IAddTaskDTO, IDeleteTaskDTO, ITask, IUpdateTaskDTO } from '@/entities/task'
 
 /**
  * Creates a new task in the specified project
@@ -19,7 +14,7 @@ export async function createTask({
 	assigneeId,
 	priority
 }: IAddTaskDTO): Promise<ITask> {
-	const res: AxiosResponse<ITask> = await api.post<ITask>(
+	const res = await api.post<ITask>(
 		API_ENDPOINTS.PROJECT.TASK.CREATE(projectId),
 		{
 			title,
@@ -40,10 +35,9 @@ export async function deleteTask({
 	taskId,
 	projectId
 }: IDeleteTaskDTO): Promise<DeleteResult> {
-	const res: AxiosResponse<DeleteResult, any> =
-		await api.delete<DeleteResult>(
-			API_ENDPOINTS.PROJECT.TASK.DELETE(projectId, taskId)
-		)
+	const res = await api.delete<DeleteResult>(
+		API_ENDPOINTS.PROJECT.TASK.DELETE(projectId, taskId)
+	)
 
 	return res.data
 }
@@ -61,7 +55,7 @@ export async function updateTask({
 	title,
 	description
 }: IUpdateTaskDTO): Promise<ITask> {
-	const res: AxiosResponse<ITask, any> = await api.patch<ITask>(
+	const res = await api.patch<ITask>(
 		API_ENDPOINTS.PROJECT.TASK.UPDATE(projectId),
 		{
 			id,

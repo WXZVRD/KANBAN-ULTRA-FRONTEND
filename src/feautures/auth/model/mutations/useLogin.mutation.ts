@@ -1,20 +1,14 @@
 import { Dispatch, SetStateAction } from 'react'
 import { toast } from 'sonner'
-
-import { APP_ROUTES } from '@/shared/consts/routes'
 import { toastMessageHandler } from '@/shared/utils'
 
-import { loginAuth } from '@/feautures/auth/api'
-import { TypeLoginScheme } from '@/feautures/auth/schemes'
+import { loginAuth, TypeLoginScheme } from '@/feautures/auth'
 import { useMutation } from '@tanstack/react-query'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-import { useRouter } from 'next/navigation'
 
 export function useLoginMutation(
-	setIsShowTwoFactor: Dispatch<SetStateAction<boolean>>
+	setIsShowTwoFactor: Dispatch<SetStateAction<boolean>>,
+	onSuccessRedirect?: () => void
 ) {
-	const router: AppRouterInstance = useRouter()
-
 	const { mutate: login, isPending: isLoadingLogin } = useMutation({
 		mutationKey: ['login-user'],
 		mutationFn: ({
@@ -30,7 +24,7 @@ export function useLoginMutation(
 				setIsShowTwoFactor(true)
 			} else {
 				toast.success('Успешный вход!')
-				router.push(APP_ROUTES.DASHBOARD_SETTINGS)
+				onSuccessRedirect?.()
 			}
 		},
 		onError(error: Error): void {

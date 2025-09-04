@@ -3,23 +3,19 @@ import { AxiosResponse } from 'axios'
 import api from '@/shared/api/axios'
 import { API_ENDPOINTS } from '@/shared/consts'
 
-import { AuthMehods } from '@/entities/auth/types/auth-methods.enum'
+import { AuthMehods } from '@/entities/auth'
 import { IUser } from '@/entities/user'
-import { TypeLoginScheme, TypeRegisterScheme } from '@/feautures/auth/schemes'
+import { TypeLoginScheme, TypeRegisterScheme } from '@/feautures/auth'
 
 export async function registerAuth(
 	body: TypeRegisterScheme,
 	recaptcha?: string
-): Promise<any> {
+): Promise<AxiosResponse<IUser>> {
 	const headers = recaptcha ? { recaptcha } : undefined
 
-	const response: AxiosResponse<IUser, any> = await api.post<IUser>(
-		API_ENDPOINTS.AUTH.REGISTER,
-		body,
-		{
-			headers: headers
-		}
-	)
+	const response = await api.post<IUser>(API_ENDPOINTS.AUTH.REGISTER, body, {
+		headers: headers
+	})
 
 	return response
 }
@@ -27,18 +23,14 @@ export async function registerAuth(
 export async function loginAuth(
 	body: TypeLoginScheme,
 	recaptcha?: string
-): Promise<any> {
+): Promise<IUser> {
 	const headers = recaptcha ? { recaptcha } : undefined
 
-	const response: AxiosResponse<IUser, any> = await api.post<IUser>(
-		API_ENDPOINTS.AUTH.LOGIN,
-		body,
-		{
-			headers: headers
-		}
-	)
+	const res = await api.post<IUser>(API_ENDPOINTS.AUTH.LOGIN, body, {
+		headers: headers
+	})
 
-	return response.data
+	return res.data
 }
 
 export async function oauthByProvider(
@@ -51,10 +43,8 @@ export async function oauthByProvider(
 	return res.data
 }
 
-export async function logoutAuth(): Promise<any> {
-	const res: AxiosResponse<void, any> = await api.post<void>(
-		API_ENDPOINTS.AUTH.LOGOUT
-	)
+export async function logoutAuth(): Promise<AxiosResponse<void>> {
+	const res = await api.post<void>(API_ENDPOINTS.AUTH.LOGOUT)
 
 	return res
 }

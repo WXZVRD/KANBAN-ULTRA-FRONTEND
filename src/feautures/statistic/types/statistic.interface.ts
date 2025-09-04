@@ -1,15 +1,11 @@
+import { IPriorityStat } from '@/feautures/statistic/priority-chart'
+import { IProgressStat } from '@/feautures/statistic/project-progress/types/progress.interface'
+import { IStatusStat } from '@/feautures/statistic/status-chart/types/status.interface'
+import { IWorkloadStat } from '@/feautures/statistic/workload-chart/types/workload.interface'
+
 export interface StatisticProps {
-	workload: {
-		assignee: { id: string; picture: string; displayName: string } | null
-		taskCount: number
-		percent: number
-	}[]
-	priorities: { priority: string; count: number; percent: number }[]
-	statuses: {
-		columnId: string
-		title: string
-		taskCount: number
-		percent: number
-	}[]
-	progress: { totalTasks: number; doneTasks: number; percent: number }
+	workload: IWorkloadStat[]
+	priorities: IPriorityStat[]
+	statuses: IStatusStat[]
+	progress: IProgressStat
 }

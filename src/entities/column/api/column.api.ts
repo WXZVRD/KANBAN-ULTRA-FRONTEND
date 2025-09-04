@@ -1,17 +1,13 @@
-import { AxiosResponse } from 'axios'
-
 import { DeleteResult } from '@/shared/api'
 import api from '@/shared/api/axios'
-import { API_ENDPOINTS } from '@/shared/consts/api'
+import { API_ENDPOINTS } from '@/shared/consts'
 
-import { ICreateColumnDTO } from '@/entities/column/api/dto/create-column.dto'
-import { IDeleteCollumnDTO } from '@/entities/column/api/dto/delete-column.dto'
-import { IColumn } from '@/entities/column/types/column.interface'
+import { IColumn, ICreateColumnDTO, IDeleteCollumnDTO } from '@/entities/column/'
 
 export async function createColumn(
 	addColumnDTO: ICreateColumnDTO
 ): Promise<IColumn> {
-	const res: AxiosResponse<IColumn, any> = await api.post<IColumn>(
+	const res = await api.post<IColumn>(
 		API_ENDPOINTS.PROJECT.COLUMN.CREATE,
 		addColumnDTO
 	)
@@ -22,7 +18,7 @@ export async function createColumn(
 export async function getColumnByProjectId(
 	projectId: string
 ): Promise<IColumn[]> {
-	const res: AxiosResponse<IColumn[], any> = await api.get<IColumn[]>(
+	const res = await api.get<IColumn[]>(
 		API_ENDPOINTS.PROJECT.COLUMN.GET_BY_RPOJECT_ID(projectId)
 	)
 
@@ -33,13 +29,12 @@ export async function deleteColumn({
 	projectId,
 	title
 }: IDeleteCollumnDTO): Promise<DeleteResult> {
-	const res: AxiosResponse<DeleteResult, any> =
-		await api.delete<DeleteResult>(
-			API_ENDPOINTS.PROJECT.COLUMN.DELETE(projectId),
-			{
-				data: { title }
-			}
-		)
+	const res = await api.delete<DeleteResult>(
+		API_ENDPOINTS.PROJECT.COLUMN.DELETE(projectId),
+		{
+			data: { title }
+		}
+	)
 
 	return res.data
 }

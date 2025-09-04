@@ -1,44 +1,46 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
+const PUBLIC_FILE = /\.(.*)$/
+
 export default function middleware(request: NextRequest) {
-	const { url, cookies } = request
+	const { nextUrl, cookies } = request
+	const session = cookies.get('session')?.value
 
-	console.log('📩 [Middleware] Новый запрос:', {
-		url,
-		cookies: cookies.getAll().map(c => ({ name: c.name, value: c.value }))
-	})
+	const isAuthPage = nextUrl.pathname.startsWith('/auth')
 
-	const session: string | undefined = cookies.get('session')?.value
-	console.log('🔑 [Middleware] Значение session:', session)
+	const locale = cookies.get('NEXT_LOCALE')?.value || 'en'
+	const pathname = nextUrl.pathname
 
-	const isAuthPage: boolean = url.includes('/auth')
-	console.log('📍 [Middleware] Это страница авторизации?', isAuthPage)
+	if (!PUBLIC_FILE.test(pathname) && !pathname.startsWith(`/${locale}`)) {
+		const url = request.nextUrl.clone()
+		url.pathname = `/${locale}${pathname}`
+		return NextResponse.redirect(url)
+	}
 
 	if (isAuthPage) {
 		if (session) {
-			console.log(
-				'✅ [Middleware] Пользователь авторизован, редирект на /dashboard/settings'
+			return NextResponse.redirect(
+				new URL(`/${locale}/dashboard/settings`, request.url)
 			)
-			return NextResponse.redirect(new URL('/dashboard/settings', url))
 		}
-
-		console.log(
-			'ℹ️ [Middleware] Пользователь не авторизован, пропускаем на страницу /auth/*'
-		)
 		return NextResponse.next()
 	}
 
-	if (!session) {
-		console.log('🚫 [Middleware] Нет session, редиректим на /auth/login')
-		return NextResponse.redirect(new URL('/auth/login', url))
+	if (pathname.startsWith(`/${locale}/dashboard`) && !session) {
+		return NextResponse.redirect(
+			new URL(`/${locale}/auth/login`, request.url)
+		)
 	}
 
-	console.log(
-		'✅ [Middleware] Доступ разрешён для авторизованного пользователя'
-	)
+	if (pathname.startsWith(`/${locale}/project`) && !session) {
+		return NextResponse.redirect(
+			new URL(`/${locale}/auth/login`, request.url)
+		)
+	}
+
 	return NextResponse.next()
 }
 
 export const config = {
-	matcher: ['/auth/:path*', '/dashboard/:path*']
+	matcher: ['/((?!_next|.*\\..*).*)']
 }

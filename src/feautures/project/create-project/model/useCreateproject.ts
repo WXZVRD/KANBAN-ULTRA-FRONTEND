@@ -1,6 +1,6 @@
 import { toast } from 'sonner'
 
-import { APP_ROUTES } from '@/shared/consts/routes'
+import { APP_ROUTES } from '@/shared/consts/routes.constant'
 import { toastMessageHandler } from '@/shared/utils'
 
 import { createProject } from '@/entities/project/api/project.api'

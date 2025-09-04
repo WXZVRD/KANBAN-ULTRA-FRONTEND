@@ -1,0 +1,173 @@
+{
+  "User": {
+    "name": "Name",
+    "email": "Email",
+    "twoFactorAuth": "Two-Factor Authentification",
+    "twoFactorAuthDescription": "Enable two-factor authentication for your account",
+    "unassigned": "Unassigned"
+  },
+  "Messages": {
+    "noProjects": "You have no projects yet"
+  },
+  "Actions": {
+    "save": "Save",
+    "logout": "Logout",
+    "createProject": "Create project",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "createTask": "Create task",
+    "invite": "Invite"
+  },
+  "Settings": {
+    "title": "Profile Settings"
+  },
+  "Common": {
+    "or": "OR"
+  },
+  "Auth": {
+    "login": "Login",
+    "register": "Register",
+    "recaptchaError": "Please complete ReCAPTCHA",
+    "heading": "Sign in",
+    "description": "Enter your email and password to sign in",
+    "noAccount": "No account yet? Register",
+    "haveAccount": "Already have? Login",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "repeatPassword": "Repeat password",
+    "twoFactorCode": "Code",
+    "name": "Name",
+    "submit": "Submit",
+    "passwordReset": {
+      "title": "Password reset",
+      "description": "To reset, enter your email",
+      "email": "Email",
+      "backButtonTitle": "Login to account"
+    },
+    "newPassword": {
+      "title": "New Password",
+      "description": "Create a new password for your account.",
+      "backButtonTitle": "Login to account",
+      "recaptchaError": "Please complete the ReCAPTCHA",
+      "password": "Password",
+      "submit": "Submit"
+    }
+  },
+  "Dashboard": {
+    "welcome": "Welcome, {name}!"
+  },
+  "CreateProjectPage": {
+    "title": "Create project",
+    "description": "come up with your own project and customize it",
+    "access": "Access",
+    "accessDescription": "Choose type of access",
+    "projectName": "Project name"
+  },
+  "EditProjectPage": {
+    "title": "Edit the project",
+    "description": "Edit the project and again customize it!",
+    "access": "Access",
+    "accessDescription": "Choose type of access",
+    "projectName": "Project name"
+  },
+  "SideBar": {
+    "title": "Projects"
+  },
+  "Access": {
+    "public": "Public",
+    "private": "Private"
+  },
+  "Priority": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "urgent": "Urgent",
+    "critical": "Critical"
+  },
+  "TaskCreateModal": {
+    "title": "New Task",
+    "description": "Enter a new task.",
+    "name": "Title",
+    "nameDescription": "For example: go out to buy milk",
+    "assignee": "Assignee",
+    "assigneeTitle": "Project members",
+    "assigneeDescription": "Select an assignee",
+    "priority": "Priority",
+    "priorityDescription": "Choose the priority"
+  },
+  "TaskUpdateModal": {
+    "title": "Edit task",
+    "description": "Edit the task.",
+    "name": "Title",
+    "nameDescription": "For example: go out to buy milk",
+    "assignee": "Assignee",
+    "assigneeTitle": "Project members",
+    "assigneeDescription": "Select an assignee",
+    "priority": "Priority",
+    "priorityDescription": "Choose the priority",
+    "submit": "Save changes"
+  },
+  "CreateColumn": {
+    "title": "Column Name"
+  },
+  "TableData": {
+    "member": "Member",
+    "role": "Role",
+    "email": "Email",
+    "noFilter": "No members, that fit the filters",
+    "memberSearch": "Searching for members..."
+  },
+  "Roles": {
+    "title": "All roles",
+    "all": "All",
+    "admin": "Admin",
+    "member": "Member"
+  },
+  "ProjectHeader": {
+    "noData": "Project not found",
+    "columns": "Columns",
+    "table": "Table",
+    "stats": "Statistic",
+    "manager": "Members control"
+  },
+  "Member": {
+    "member": "Member",
+    "admin": "Admin"
+  },
+  "AddMemberModal": {
+    "trigger": "Add member",
+    "title": "Add a new member to the project",
+    "description": "Enter the user's email to invite them.",
+    "email": "Email",
+    "emailPlaceholder": "jhon@gmail.com",
+    "role": "Role",
+    "rolePlaceholder": "Select member role",
+    "invite": "Invite"
+  },
+  "ListView": {
+    "taskTitle": "Task title",
+    "author": "Author",
+    "priority": "Priority",
+    "createdAt": "Created at"
+  },
+  "Statistic": {
+    "workload": {
+      "title": "Workload by Members",
+      "noData": "No data available"
+    },
+    "taskPriority": {
+      "title": "Task priority",
+      "noData": "No data available"
+    },
+    "status": {
+      "title": "Ready status",
+      "noData": "No data available"
+    },
+    "progress": {
+      "title": "Progress of the entire project",
+      "noData": "No data available"
+    }
+  }
+}

@@ -1,21 +1,17 @@
-import { AxiosResponse } from 'axios'
-
 import api from '@/shared/api/axios'
-import { API_ENDPOINTS } from '@/shared/consts/api'
+import { API_ENDPOINTS } from '@/shared/consts/api.constant'
 
-import { IUser } from '@/entities/user/types/user.interface'
-import { TypeSettingsScheme } from '@/feautures/user/schemes'
+import { IUser } from '@/entities/user'
+import { TypeSettingsScheme } from '@/feautures/user'
 
 export async function findProfile(): Promise<IUser> {
-	const response: AxiosResponse<IUser, any> = await api.get<IUser>(
-		API_ENDPOINTS.USER.FIND_PROFILE
-	)
+	const response = await api.get<IUser>(API_ENDPOINTS.USER.FIND_PROFILE)
 
 	return response.data
 }
 
 export async function updateProfile(body: TypeSettingsScheme): Promise<IUser> {
-	const response: AxiosResponse<IUser, any> = await api.patch<IUser>(
+	const response = await api.patch<IUser>(
 		API_ENDPOINTS.USER.UPDATE_PROFILE,
 		body
 	)

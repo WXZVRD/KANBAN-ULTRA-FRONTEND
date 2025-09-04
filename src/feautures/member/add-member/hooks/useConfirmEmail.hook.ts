@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 
-import { MemberRole } from '@/entities/member/types/member-role.enum'
-import { useConfirmInviteMutation } from '@/feautures/member/add-member/model/useConfirmInvite.mutation'
+import { MemberRole } from '@/entities/member'
+import { useConfirmInviteMutation } from '@/feautures/member'
 import { useParams, useSearchParams } from 'next/navigation'
 
 export function useConfirmEmail() {
@@ -21,5 +21,5 @@ export function useConfirmEmail() {
 				token
 			})
 		}
-	}, [searchParams, projectId])
+	}, [confirmInvitation, searchParams, projectId])
 }

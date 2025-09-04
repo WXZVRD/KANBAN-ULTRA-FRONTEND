@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 
 import api from '@/shared/api/axios'
-import { API_ENDPOINTS } from '@/shared/consts/api'
+import { API_ENDPOINTS } from '@/shared/consts/api.constant'
 
 import { IMember } from '@/entities/member/types/member.interface'
 

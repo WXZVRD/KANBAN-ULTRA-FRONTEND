@@ -1,12 +1,8 @@
-import { AxiosResponse } from 'axios'
-
 import { DeleteResult } from '@/shared/api'
 import api from '@/shared/api/axios'
-import { API_ENDPOINTS } from '@/shared/consts/api'
+import { API_ENDPOINTS } from '@/shared/consts/api.constant'
 
-import { ICreateMemberDTO } from '@/entities/member/api/dto/create-member.api'
-import { IDeleteMemberDTO } from '@/entities/member/api/dto/delete-member.dto'
-import { IMember } from '@/entities/member/types/member.interface'
+import { ICreateMemberDTO, IDeleteMemberDTO, IMember } from '@/entities/member'
 
 export async function memberApi(projectId: string): Promise<IMember[]> {
 	const res = await api.get<IMember[]>(
@@ -21,7 +17,7 @@ export async function createMember({
 	email,
 	projectId
 }: ICreateMemberDTO): Promise<boolean> {
-	const res: AxiosResponse<boolean, any> = await api.post<boolean>(
+	const res = await api.post<boolean>(
 		API_ENDPOINTS.PROJECT.MEMBERSHIP.INVITE(projectId),
 		{
 			email,
@@ -36,15 +32,14 @@ export async function deleteAllMembers({
 	ids,
 	projectId
 }: IDeleteMemberDTO): Promise<DeleteResult> {
-	const res: AxiosResponse<DeleteResult, any> =
-		await api.delete<DeleteResult>(
-			API_ENDPOINTS.PROJECT.MEMBERSHIP.DELETE_ALL(projectId),
-			{
-				data: {
-					ids
-				}
+	const res = await api.delete<DeleteResult>(
+		API_ENDPOINTS.PROJECT.MEMBERSHIP.DELETE_ALL(projectId),
+		{
+			data: {
+				ids
 			}
-		)
+		}
+	)
 
 	return res.data
 }

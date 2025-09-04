@@ -1,9 +1,7 @@
-import { AxiosResponse } from 'axios'
-
 import api from '@/shared/api/axios'
-import { API_ENDPOINTS } from '@/shared/consts/api'
+import { API_ENDPOINTS } from '@/shared/consts/api.constant'
 
-import { IColumn } from '@/entities/column/types/column.interface'
+import { IColumn } from '@/entities/column'
 
 export interface IMoveColumnDTO {
 	columnId: string
@@ -14,7 +12,7 @@ export async function MoveColumnApi({
 	columnId,
 	order
 }: IMoveColumnDTO): Promise<IColumn> {
-	const res: AxiosResponse<IColumn, any> = await api.patch<IColumn>(
+	const res = await api.patch<IColumn>(
 		API_ENDPOINTS.PROJECT.COLUMN.MOVE(columnId),
 		{
 			order
