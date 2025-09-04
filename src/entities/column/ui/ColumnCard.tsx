@@ -1,10 +1,12 @@
+import { useTranslations } from 'next-intl'
+
 import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 import { useInputWithControls } from '@/shared/hooks'
 
 import { ColumnCardSettings, IColumn } from '@/entities/column'
+import { TaskCard } from '@/entities/task'
 import { useRenameColumn } from '@/feautures/projectColumn'
-import { TaskColumnList } from '@/widgets/task'
-import { Droppable } from '@hello-pangea/dnd'
+import { Draggable, Droppable } from '@hello-pangea/dnd'
 
 interface ColumnCardProps {
 	column: IColumn
@@ -13,6 +15,8 @@ interface ColumnCardProps {
 export const ColumnCard = ({ column }: ColumnCardProps) => {
 	const { renameColumn } = useRenameColumn()
 	const { projectId, title, id: columnId } = column
+
+	const t = useTranslations()
 
 	const { value, setValue, isEditing, startEditing, handleSave } =
 		useInputWithControls({
@@ -62,19 +66,44 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 				/>
 			</CardHeader>
 
-			<CardContent className='flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
-				<Droppable droppableId={columnId}>
+			<CardContent className='min-h-[50px] flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+				<Droppable droppableId={columnId} type='TASK'>
 					{provided => (
 						<div
 							ref={provided.innerRef}
 							{...provided.droppableProps}
-							className='space-y-2'
+							className='min-h-[50px] space-y-2 rounded p-2'
 						>
-							<TaskColumnList
-								tasks={column.tasks}
-								columnId={columnId}
-							/>
+							{column.tasks.map((task, index) => (
+								<Draggable
+									key={task.id}
+									draggableId={task.id}
+									index={index}
+								>
+									{provided => (
+										<div
+											ref={provided.innerRef}
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}
+										>
+											<TaskCard
+												id={task.id}
+												columnId={task.columnId}
+												title={task.title}
+												projectId={task.projectId}
+												assigneeUser={task.assignee}
+												priority={task.priority}
+											/>
+										</div>
+									)}
+								</Draggable>
+							))}
 							{provided.placeholder}
+							{column.tasks.length <= 0 && (
+								<div className='py-2 text-center text-gray-400'>
+									{t('Common.awarn')}
+								</div>
+							)}
 						</div>
 					)}
 				</Droppable>

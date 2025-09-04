@@ -23,7 +23,8 @@
     "title": "Profile Settings"
   },
   "Common": {
-    "or": "OR"
+    "or": "OR",
+    "awarn": "Drag or create a task here"
   },
   "Auth": {
     "login": "Login",
