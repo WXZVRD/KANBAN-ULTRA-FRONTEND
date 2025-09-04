@@ -1,3 +1,7 @@
 export * from './api/getFullProjectStatistic.api'
 export * from './types/statistic.interface'
 export * from './model/useFullProjectStatistic'
+export * from './workload-chart'
+export * from './status-chart'
+export * from './project-progress'
+export * from './priority-chart'

@@ -1,5 +1,1 @@
-export * from '../model/mutations/useRegister.mutation'
-export * from '../model/mutations/useLogin.mutation'
-export * from '../model/mutations/useVerification.mutation'
-export * from '../model/mutations/useResetPassword.mutation'
-export * from '../model/mutations/useResetPassword.mutation'
+export * from './useAuth'
