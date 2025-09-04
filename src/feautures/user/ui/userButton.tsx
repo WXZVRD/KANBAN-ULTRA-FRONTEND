@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import {
 	Avatar,
 	AvatarFallback,
@@ -10,9 +12,12 @@ import {
 	DropdownMenuTrigger,
 	Skeleton
 } from '@/shared/components/ui'
+import { APP_ROUTES } from '@/shared/consts'
 
 import { IUser } from '@/entities/user/types/user.interface'
 import { useLogoutMutation } from '@/feautures/auth/model/mutations/useLogout.mutation'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { useRouter } from 'next/navigation'
 import { LuLogOut } from 'react-icons/lu'
 
 interface UserButtonProps {
@@ -20,7 +25,12 @@ interface UserButtonProps {
 }
 
 export function UserButton({ user }: UserButtonProps) {
-	const { logout, isLoadingLogout } = useLogoutMutation()
+	const router: AppRouterInstance = useRouter()
+	const t = useTranslations()
+
+	const { logout, isLoadingLogout } = useLogoutMutation(() =>
+		router.push(APP_ROUTES.AUTH.LOGIN)
+	)
 
 	return (
 		<DropdownMenu>
@@ -38,7 +48,7 @@ export function UserButton({ user }: UserButtonProps) {
 					onClick={() => logout()}
 				>
 					<LuLogOut className='mr-2 size-4' />
-					Выйти
+					{t('logout')}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

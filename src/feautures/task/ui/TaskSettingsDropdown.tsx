@@ -1,4 +1,5 @@
 import { MoreVertical } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
 	DropdownMenu,
@@ -23,6 +24,8 @@ export function TaskSettingsDropdown({
 	columnId
 }: ITaskSettingsDropdown) {
 	const { deleteTaskMutation } = useDeleteTask()
+
+	const t = useTranslations()
 
 	const params = useParams<{ projectId: string }>()
 	const projectId = params.projectId
@@ -50,7 +53,7 @@ export function TaskSettingsDropdown({
 				</DropdownMenuItem>
 				<Separator />
 				<DropdownMenuItem onClick={() => handleDelete()}>
-					Удалить
+					{t('Actions.delete')}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

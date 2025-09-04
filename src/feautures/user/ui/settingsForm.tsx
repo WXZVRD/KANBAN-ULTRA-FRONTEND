@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -17,7 +18,7 @@ import {
 	Input,
 	Switch
 } from '@/shared/components/ui'
-import { useProfile } from '@/shared/hooks'
+import { useProfileHook } from '@/shared/hooks'
 
 import { useUpdateProfileMutation } from '@/feautures/profile/model/useUpdateProfileMutation'
 import { SettingsScheme, TypeSettingsScheme } from '@/feautures/user/schemes'
@@ -25,8 +26,10 @@ import { UserButton, UserButtonLoading } from '@/feautures/user/ui/userButton'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export function SettingsForm() {
-	const { user, isLoading } = useProfile()
+	const { user, isLoading } = useProfileHook()
 	const { update, isLoadingUpdate } = useUpdateProfileMutation()
+
+	const t = useTranslations()
 
 	const form = useForm<TypeSettingsScheme>({
 		resolver: zodResolver(SettingsScheme),
@@ -46,7 +49,7 @@ export function SettingsForm() {
 	return (
 		<Card className='w-[400px]'>
 			<CardHeader className='flex flex-row items-center justify-between'>
-				<CardTitle> Настройки профиля </CardTitle>
+				<CardTitle> {t('Settings.title')} </CardTitle>
 				{isLoading ? <UserButtonLoading /> : <UserButton user={user} />}
 			</CardHeader>
 			<CardContent>
@@ -63,10 +66,10 @@ export function SettingsForm() {
 								name='displayName'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Имя</FormLabel>
+										<FormLabel>{t('User.name')}</FormLabel>
 										<FormControl>
 											<Input
-												placeholder='Имя'
+												placeholder={t('User.name')}
 												type='text'
 												disabled={isLoadingUpdate}
 												{...field}
@@ -81,10 +84,10 @@ export function SettingsForm() {
 								name='email'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Почта</FormLabel>
+										<FormLabel>{t('User.email')}</FormLabel>
 										<FormControl>
 											<Input
-												placeholder='Почта'
+												placeholder={t('User.email')}
 												type='email'
 												disabled={isLoadingUpdate}
 												{...field}
@@ -101,12 +104,12 @@ export function SettingsForm() {
 									<FormItem className='flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm'>
 										<div className='space-y-0.5'>
 											<FormLabel>
-												Двухфакторная аутентификация
+												{t('User.twoFactorAuth')}
 											</FormLabel>
 											<FormDescription>
-												Включите двухфакторную
-												аутентификацию для вашей учетной
-												записи
+												{t(
+													'User.twoFactorAuthDescription'
+												)}
 											</FormDescription>
 										</div>
 										<FormControl>
@@ -119,7 +122,7 @@ export function SettingsForm() {
 								)}
 							/>
 							<Button disabled={isLoadingUpdate} type='submit'>
-								Сохранить
+								{t('Actions.save')}
 							</Button>
 						</form>
 					</Form>

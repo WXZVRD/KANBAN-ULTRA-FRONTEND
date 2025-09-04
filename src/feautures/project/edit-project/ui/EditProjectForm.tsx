@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -30,6 +31,8 @@ export function EditProjectForm({ projectId }: { projectId: string }) {
 	const { editProjectMutation, isEditProjectLoading } = useUpdateProject()
 	const { currentProject, isProjectLoading } = useGetById(projectId)
 
+	const t = useTranslations()
+
 	const form = useForm<TypeEditProjectScheme>({
 		resolver: zodResolver(EditProjectScheme),
 		values: {
@@ -44,8 +47,8 @@ export function EditProjectForm({ projectId }: { projectId: string }) {
 
 	return (
 		<AuthWrapper
-			heading='Редактирование проекта'
-			description='Отредактируйте проект'
+			heading={t('EditProjectPage.title')}
+			description={t('EditProjectPage.description')}
 		>
 			{isProjectLoading ? (
 				<Loader />
@@ -60,10 +63,14 @@ export function EditProjectForm({ projectId }: { projectId: string }) {
 							name='title'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Название</FormLabel>
+									<FormLabel>
+										{t('EditProjectPage.projectName')}
+									</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='Название'
+											placeholder={t(
+												'EditProjectPage.projectName'
+											)}
 											type='text'
 											disabled={isEditProjectLoading}
 											{...field}
@@ -79,14 +86,20 @@ export function EditProjectForm({ projectId }: { projectId: string }) {
 							name='accessType'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Доступность</FormLabel>
+									<FormLabel>
+										{t('EditProjectPage.access')}
+									</FormLabel>
 									<FormControl>
 										<Select
 											onValueChange={field.onChange}
 											value={field.value}
 										>
 											<SelectTrigger className='w-[240px]'>
-												<SelectValue placeholder='Выберите доступ' />
+												<SelectValue
+													placeholder={t(
+														'EditProjectPage.accessDescription'
+													)}
+												/>
 											</SelectTrigger>
 											<SelectContent>
 												<SelectItem
@@ -94,14 +107,18 @@ export function EditProjectForm({ projectId }: { projectId: string }) {
 														ProjectAccessType.Public
 													}
 												>
-													{ProjectAccessType.Public}
+													{t(
+														`Access.${ProjectAccessType.Public}`
+													)}
 												</SelectItem>
 												<SelectItem
 													value={
 														ProjectAccessType.Private
 													}
 												>
-													{ProjectAccessType.Private}
+													{t(
+														`Access.${ProjectAccessType.Private}`
+													)}
 												</SelectItem>
 											</SelectContent>
 										</Select>
@@ -112,7 +129,7 @@ export function EditProjectForm({ projectId }: { projectId: string }) {
 						/>
 
 						<Button disabled={isEditProjectLoading} type='submit'>
-							Изменить
+							{t(`Actions.edit`)}
 						</Button>
 					</form>
 				</Form>

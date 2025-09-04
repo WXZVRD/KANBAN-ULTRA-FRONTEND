@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -9,14 +10,17 @@ import { toast } from 'sonner'
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 import { APP_ROUTES } from '@/shared/consts'
 
-import { useRegisterMutation } from '@/feautures/auth/hooks'
-import { RegisterScheme, TypeRegisterScheme } from '@/feautures/auth/schemes'
-import { AuthWrapper } from '@/feautures/auth/ui/common/AuthWrapper'
+import { AuthWrapper, RegisterScheme, TypeRegisterScheme, useRegisterMutation } from '@/feautures/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { useRouter } from 'next/navigation'
 
 export function RegisterForm() {
 	const [recaptcha, setRecaptcha] = useState<string | null>(null)
 	const { theme } = useTheme()
+	const router: AppRouterInstance = useRouter()
+
+	const t = useTranslations('Auth')
 
 	const form = useForm<TypeRegisterScheme>({
 		resolver: zodResolver(RegisterScheme),
@@ -28,22 +32,24 @@ export function RegisterForm() {
 		}
 	})
 
-	const { register, isLoadingRegister } = useRegisterMutation()
+	const { register, isLoadingRegister } = useRegisterMutation(() =>
+		router.push(APP_ROUTES.AUTH.LOGIN)
+	)
 
 	const onSubmit = (values: TypeRegisterScheme) => {
 		if (recaptcha) {
 			register({ values, recaptcha })
 		} else {
-			toast.error('Пожалуйста, завершите ReCAPTHA')
+			toast.error(t('recaptchaError'))
 			throw new Error('ReCAPTCHA флаг должен быть установлен')
 		}
 	}
 
 	return (
 		<AuthWrapper
-			heading='Регистрация'
-			description='Чтобы войти в аккаунт введите ваш email и пароль'
-			backButtonLabel='Уже есть аккаунт? Войти'
+			heading={t('register')}
+			description={t('description')}
+			backButtonLabel={t('haveAccount')}
 			backButtonHref={APP_ROUTES.AUTH.LOGIN}
 			isShowSocial
 		>
@@ -57,10 +63,10 @@ export function RegisterForm() {
 						name='name'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Имя</FormLabel>
+								<FormLabel>{t('name')}</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Имя'
+										placeholder={t('name')}
 										type='text'
 										disabled={isLoadingRegister}
 										{...field}
@@ -76,10 +82,10 @@ export function RegisterForm() {
 						name='email'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Почта</FormLabel>
+								<FormLabel>{t('email')}</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Почта'
+										placeholder={t('email')}
 										type='email'
 										disabled={isLoadingRegister}
 										{...field}
@@ -95,10 +101,10 @@ export function RegisterForm() {
 						name='password'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Пароль</FormLabel>
+								<FormLabel>{t('password')}</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Пароль'
+										placeholder={t('password')}
 										type='password'
 										disabled={isLoadingRegister}
 										{...field}
@@ -114,10 +120,10 @@ export function RegisterForm() {
 						name='passwordRepeat'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Повторите пароль</FormLabel>
+								<FormLabel>{t('repeatPassword')}</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Повторите пароль'
+										placeholder={t('repeatPassword')}
 										type='password'
 										disabled={isLoadingRegister}
 										{...field}
@@ -140,7 +146,7 @@ export function RegisterForm() {
 					</div>
 
 					<Button disabled={isLoadingRegister} type='submit'>
-						Подтвердить
+						{t('submit')}
 					</Button>
 				</form>
 			</Form>

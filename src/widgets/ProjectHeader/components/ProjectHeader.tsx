@@ -1,9 +1,11 @@
 'use client'
 
 import { BarChart3, LayoutGrid, Loader, Table } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { useEffect } from 'react'
 
 import { Button, Card, CardHeader, CardTitle, Separator } from '@/shared/components/ui'
-import { APP_ROUTES } from '@/shared/consts/routes'
+import { APP_ROUTES } from '@/shared/consts/routes.constant'
 import { useProjectView } from '@/shared/hooks/useProjectView.hook'
 
 import { useGetById } from '@/feautures/project/hooks/useGetById'
@@ -19,8 +21,30 @@ interface IProjectHeaderProps {
 export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 	const { currentProject, isProjectLoading } = useGetById(projectId)
 	const { setView } = useProjectView()
-
 	const route = useRouter()
+
+	useEffect(() => {
+		console.log('[ProjectHeader] mounted with projectId:', projectId)
+		return () => {
+			console.log('[ProjectHeader] unmounted')
+		}
+	}, [projectId])
+
+	useEffect(() => {
+		console.log('[ProjectHeader] isProjectLoading:', isProjectLoading)
+	}, [isProjectLoading])
+
+	useEffect(() => {
+		console.log('[ProjectHeader] currentProject:', currentProject)
+	}, [currentProject])
+
+	console.log('[ProjectHeader] render with props:', {
+		projectId,
+		isProjectLoading,
+		currentProject
+	})
+
+	const t = useTranslations()
 
 	if (isProjectLoading) {
 		return (
@@ -33,7 +57,7 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 	if (!currentProject) {
 		return (
 			<div className='text-muted-foreground flex items-center justify-center p-4'>
-				Проект не найден
+				{t('ProjectHeader.noData')}
 			</div>
 		)
 	}
@@ -55,23 +79,26 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 					size='sm'
 					variant='outline'
 					onClick={() => {
+						console.log('[ProjectHeader] switch to columns view')
 						route.push(APP_ROUTES.PROJECTS.CURRENT(projectId))
 						setView('columns')
 					}}
 				>
 					<LayoutGrid className='mr-1 h-4 w-4' />
-					Колонки
+					{t('ProjectHeader.columns')}
 				</Button>
+
 				<Button
 					size='sm'
 					variant='outline'
 					onClick={() => {
+						console.log('[ProjectHeader] switch to table view')
 						route.push(APP_ROUTES.PROJECTS.CURRENT(projectId))
 						setView('table')
 					}}
 				>
 					<Table className='mr-1 h-4 w-4' />
-					Таблица
+					{t('ProjectHeader.table')}
 				</Button>
 
 				<Separator orientation='vertical' className='h-6' />
@@ -79,13 +106,14 @@ export function ProjectHeader({ projectId }: IProjectHeaderProps) {
 				<Link href={APP_ROUTES.PROJECTS.STATISTIC(projectId)}>
 					<Button size='sm' variant='secondary'>
 						<BarChart3 className='mr-1 h-4 w-4' />
-						Статистика
+						{t('ProjectHeader.stats')}
 					</Button>
 				</Link>
+
 				<Link href={APP_ROUTES.PROJECTS.MEMBERS(projectId)}>
 					<Button size='sm' variant='secondary'>
 						<MdCardMembership className='mr-1 h-4 w-4' />
-						Управление участниками
+						{t('ProjectHeader.manager')}
 					</Button>
 				</Link>
 			</div>

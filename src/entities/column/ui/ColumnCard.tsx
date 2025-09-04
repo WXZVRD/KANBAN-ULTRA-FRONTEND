@@ -1,11 +1,9 @@
-import { useState } from 'react'
-
 import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
+import { useInputWithControls } from '@/shared/hooks'
 
-import { IColumn } from '@/entities/column/types/column.interface'
-import { ColumnCardSettings } from '@/entities/column/ui/ColumnCardSettings'
-import { useRenameColumn } from '@/feautures/projectColumn/rename-column/model/useRenameColumn'
-import { TaskColumnList } from '@/widgets/task/ui/TaskColumnList'
+import { ColumnCardSettings, IColumn } from '@/entities/column'
+import { useRenameColumn } from '@/feautures/projectColumn'
+import { TaskColumnList } from '@/widgets/task'
 import { Droppable } from '@hello-pangea/dnd'
 
 interface ColumnCardProps {
@@ -14,20 +12,18 @@ interface ColumnCardProps {
 
 export const ColumnCard = ({ column }: ColumnCardProps) => {
 	const { renameColumn } = useRenameColumn()
-	const { projectId, order, title, id: columnId } = column
+	const { projectId, title, id: columnId } = column
 
-	const [isEditing, setIsEditing] = useState(false)
-	const [newTitle, setNewTitle] = useState<string>(title)
-
-	const handleBlur = () => {
-		setIsEditing(false)
-		if (newTitle.trim() && newTitle !== title) {
-			renameColumn({ columnId, title: newTitle })
-		} else {
-			renameColumn({ columnId, title: newTitle })
-			setNewTitle(title)
-		}
-	}
+	const { value, setValue, isEditing, startEditing, handleSave } =
+		useInputWithControls({
+			initialValue: title,
+			onSave: (newTitle: string) => {
+				if (newTitle !== title) {
+					renameColumn({ columnId, title: newTitle })
+				}
+			},
+			onCancel: () => setValue(title)
+		})
 
 	return (
 		<Card className='flex h-full max-h-[100vh] w-full flex-shrink-0 flex-col'>
@@ -35,17 +31,17 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 				{isEditing ? (
 					<input
 						className='w-full rounded border px-2 py-1 text-sm'
-						value={newTitle}
+						value={value}
 						autoFocus
-						onChange={e => setNewTitle(e.target.value)}
-						onBlur={handleBlur}
+						onChange={e => setValue(e.target.value)}
+						onBlur={handleSave}
 					/>
 				) : (
 					<CardTitle
 						className='flex cursor-pointer items-center gap-2'
 						onClick={e => {
 							e.stopPropagation()
-							setIsEditing(true)
+							startEditing()
 						}}
 					>
 						{title}
@@ -62,7 +58,7 @@ export const ColumnCard = ({ column }: ColumnCardProps) => {
 				<ColumnCardSettings
 					title={title}
 					projectId={projectId}
-					columnId={column.id}
+					columnId={columnId}
 				/>
 			</CardHeader>
 

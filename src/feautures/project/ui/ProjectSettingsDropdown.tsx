@@ -1,4 +1,5 @@
 import { MoreVertical } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
 	DropdownMenu,
@@ -7,7 +8,7 @@ import {
 	DropdownMenuTrigger,
 	Separator
 } from '@/shared/components/ui'
-import { APP_ROUTES } from '@/shared/consts/routes'
+import { APP_ROUTES } from '@/shared/consts/routes.constant'
 
 import { AddMemberModal } from '@/feautures/member/add-member/ui/AddMemberModal'
 import { useDeleteProject } from '@/feautures/project/hooks/useDeleteProject'
@@ -25,7 +26,7 @@ export function ProjectSettingsDropdown({
 	const router = useRouter()
 
 	const { deleteProjectMutation } = useDeleteProject()
-
+	const t = useTranslations()
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -39,7 +40,7 @@ export function ProjectSettingsDropdown({
 						router.push(APP_ROUTES.PROJECTS.EDIT(projectId))
 					}
 				>
-					Редактировать
+					{t('Actions.edit')}
 				</DropdownMenuItem>
 				{showAddMemberButton && (
 					<DropdownMenuItem onClick={e => e.preventDefault()}>
@@ -50,7 +51,7 @@ export function ProjectSettingsDropdown({
 				<DropdownMenuItem
 					onClick={() => deleteProjectMutation(projectId)}
 				>
-					Удалить
+					{t('Actions.delete')}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

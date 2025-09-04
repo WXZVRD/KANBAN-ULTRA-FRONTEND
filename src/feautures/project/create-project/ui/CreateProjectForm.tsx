@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -30,6 +31,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 export function CreateProjectForm() {
 	const { createProjectMutation, isCreateProjectLoading } = useCreateProject()
 
+	const t = useTranslations()
+
 	const form = useForm<TypeCreateProjectScheme>({
 		resolver: zodResolver(CreateProjectScheme),
 		defaultValues: {
@@ -44,8 +47,8 @@ export function CreateProjectForm() {
 
 	return (
 		<AuthWrapper
-			heading='Создание проекта'
-			description='Создайте свой проект и настройте его'
+			heading={t('CreateProjectPage.title')}
+			description={t('CreateProjectPage.description')}
 		>
 			<Form {...form}>
 				<form
@@ -57,10 +60,14 @@ export function CreateProjectForm() {
 						name='title'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Имя</FormLabel>
+								<FormLabel>
+									{t('CreateProjectPage.projectName')}
+								</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Название'
+										placeholder={t(
+											'CreateProjectPage.projectName'
+										)}
 										type='text'
 										disabled={isCreateProjectLoading}
 										{...field}
@@ -76,27 +83,37 @@ export function CreateProjectForm() {
 						name='accessType'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Доступность</FormLabel>
+								<FormLabel>
+									{t('CreateProjectPage.access')}
+								</FormLabel>
 								<FormControl>
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
 									>
 										<SelectTrigger className='w-[240px]'>
-											<SelectValue placeholder='Select access type' />
+											<SelectValue
+												placeholder={t(
+													'CreateProjectPage.accessDescription'
+												)}
+											/>
 										</SelectTrigger>
 										<SelectContent>
 											<SelectItem
 												value={ProjectAccessType.Public}
 											>
-												{ProjectAccessType.Public}
+												{t(
+													`Access.${ProjectAccessType.Public}`
+												)}
 											</SelectItem>
 											<SelectItem
 												value={
 													ProjectAccessType.Private
 												}
 											>
-												{ProjectAccessType.Private}
+												{t(
+													`Access.${ProjectAccessType.Private}`
+												)}
 											</SelectItem>
 										</SelectContent>
 									</Select>
@@ -107,7 +124,7 @@ export function CreateProjectForm() {
 					/>
 
 					<Button disabled={isCreateProjectLoading} type='submit'>
-						Создать
+						{t('Actions.create')}
 					</Button>
 				</form>
 			</Form>

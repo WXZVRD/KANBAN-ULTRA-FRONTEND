@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui'
 
 import { IUser } from '@/entities/user/types/user.interface'
@@ -7,6 +9,8 @@ interface ITaskAuthorCard {
 }
 
 export function TaskAuthorCard({ assignee }: ITaskAuthorCard) {
+	const t = useTranslations()
+
 	return (
 		<div className='flex items-center gap-2'>
 			<Avatar>
@@ -27,7 +31,7 @@ export function TaskAuthorCard({ assignee }: ITaskAuthorCard) {
 			</Avatar>
 
 			<span className='text-muted-foreground text-sm font-medium'>
-				{assignee?.displayName ?? 'Не назначен'}
+				{assignee?.displayName ?? t('User.unassigned')}
 			</span>
 		</div>
 	)

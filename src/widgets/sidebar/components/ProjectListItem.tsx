@@ -1,4 +1,4 @@
-import { APP_ROUTES } from '@/shared/consts/routes'
+import { APP_ROUTES } from '@/shared/consts/routes.constant'
 
 import { ProjectSettingsDropdown } from '@/feautures/project/ui/ProjectSettingsDropdown'
 import Link from 'next/link'

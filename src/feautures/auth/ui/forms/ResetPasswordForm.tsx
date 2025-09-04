@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -9,14 +10,13 @@ import { toast } from 'sonner'
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 import { APP_ROUTES } from '@/shared/consts'
 
-import { useResetPasswordMutation } from '@/feautures/auth/hooks'
-import { ResetPasswordScheme, TypeResetPasswordScheme } from '@/feautures/auth/schemes'
-import { AuthWrapper } from '@/feautures/auth/ui/common/AuthWrapper'
+import { AuthWrapper, ResetPasswordScheme, TypeResetPasswordScheme, useResetPasswordMutation } from '@/feautures/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export function ResetPasswordForm() {
 	const [recaptcha, setRecaptcha] = useState<string | null>(null)
 	const { theme } = useTheme()
+	const t = useTranslations('Auth')
 
 	const form = useForm<TypeResetPasswordScheme>({
 		resolver: zodResolver(ResetPasswordScheme),
@@ -31,16 +31,16 @@ export function ResetPasswordForm() {
 		if (recaptcha) {
 			reset({ values, recaptcha })
 		} else {
-			toast.error('Пожалуйста, завершите ReCAPTHA')
+			toast.error(t('recaptchaError'))
 			throw new Error('ReCAPTCHA флаг должен быть установлен')
 		}
 	}
 
 	return (
 		<AuthWrapper
-			heading='Сброс пароля'
-			description='Для сброса пароля введите свою почту'
-			backButtonLabel='Войти в аккаунт'
+			heading={t('passwordReset.title')}
+			description={t('passwordReset.description')}
+			backButtonLabel={t('passwordReset.backButtonTitle')}
 			backButtonHref={APP_ROUTES.AUTH.LOGIN}
 		>
 			<Form {...form}>
@@ -53,10 +53,12 @@ export function ResetPasswordForm() {
 						name='email'
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Почта</FormLabel>
+								<FormLabel>
+									{t('passwordReset.email')}
+								</FormLabel>
 								<FormControl>
 									<Input
-										placeholder='Почта'
+										placeholder={t('passwordReset.email')}
 										type='email'
 										disabled={isLoadingReset}
 										{...field}
@@ -79,7 +81,7 @@ export function ResetPasswordForm() {
 					</div>
 
 					<Button disabled={isLoadingReset} type='submit'>
-						Сбросить пароль
+						{t('passwordReset.title')}
 					</Button>
 				</form>
 			</Form>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -51,6 +52,8 @@ export function UpdateTaskModal({
 
 	const [open, setOpen] = useState(false)
 
+	const t = useTranslations()
+
 	const form = useForm<TypeUpdateTaskScheme>({
 		resolver: zodResolver(updateTaskScheme),
 		values: {
@@ -80,15 +83,15 @@ export function UpdateTaskModal({
 					size='sm'
 					variant='ghost'
 				>
-					Редактировать задачу
+					{t('TaskUpdateModal.title')}
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Редактировать задачу</DialogTitle>
+					<DialogTitle>{t('TaskUpdateModal.title')}</DialogTitle>
 					<DialogDescription>
-						Измените данные задачи и сохраните.
+						{t('TaskUpdateModal.description')}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -102,10 +105,14 @@ export function UpdateTaskModal({
 							name='title'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Название</FormLabel>
+									<FormLabel>
+										{t('TaskUpdateModal.name')}
+									</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='Например: Купить хлеб'
+											placeholder={t(
+												'TaskUpdateModal.nameDescription'
+											)}
 											{...field}
 										/>
 									</FormControl>
@@ -119,7 +126,9 @@ export function UpdateTaskModal({
 							name='assigneeId'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Исполнитель</FormLabel>
+									<FormLabel>
+										{t('TaskUpdateModal.assignee')}
+									</FormLabel>
 									<FormControl>
 										<ProjectMemberSelector
 											projectId={projectId}
@@ -137,14 +146,20 @@ export function UpdateTaskModal({
 							name='priority'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Приоритет</FormLabel>
+									<FormLabel>
+										{t('TaskUpdateModal.priority')}
+									</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										value={field.value}
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder='Выберите приоритет' />
+												<SelectValue
+													placeholder={t(
+														'TaskUpdateModal.priorityDescription'
+													)}
+												/>
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -166,7 +181,7 @@ export function UpdateTaskModal({
 						/>
 
 						<Button type='submit' className='w-full'>
-							Сохранить изменения
+							{t('TaskUpdateModal.submit')}
 						</Button>
 					</form>
 				</Form>

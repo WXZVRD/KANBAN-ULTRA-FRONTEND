@@ -1,4 +1,5 @@
 import { MoreVertical } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
 	DropdownMenu,
@@ -24,6 +25,8 @@ export function ColumnCardSettings({
 }: IColumnCardSettings) {
 	const { deleteColumnMutation } = useDeleteColumn()
 
+	const t = useTranslations()
+
 	function handleDelete(): void {
 		deleteColumnMutation({
 			title,
@@ -44,7 +47,7 @@ export function ColumnCardSettings({
 				</DropdownMenuItem>
 				<Separator />
 				<DropdownMenuItem onClick={() => handleDelete()}>
-					Удалить
+					{t('Actions.delete')}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

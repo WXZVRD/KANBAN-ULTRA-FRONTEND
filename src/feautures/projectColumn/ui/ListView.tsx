@@ -1,27 +1,29 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui'
-import { PriorityBadge } from '@/shared/components/ui/priority-badge'
+import { useTranslations } from 'next-intl'
 
-import { IColumn } from '@/entities/column/types/column.interface'
-import { TaskAuthorCard } from '@/entities/task/ui/TaskAuthorCard'
-import { TaskSettingsDropdown } from '@/feautures/task/ui/TaskSettingsDropdown'
+import { PriorityBadge, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui'
+
+import { IColumn } from '@/entities/column'
+import { TaskAuthorCard } from '@/entities/task'
+import { TaskSettingsDropdown } from '@/feautures/task'
 
 interface IListView {
 	columns: IColumn[]
 }
 
 export function ListView({ columns }: IListView) {
+	const t = useTranslations('ListView')
+
 	return (
 		<>
 			<Table>
 				<TableHeader>
 					<TableRow>
 						<TableHead className='w-[40%]'>
-							Название задачи
+							{t('taskTitle')}
 						</TableHead>
-						<TableHead>Автор</TableHead>
-						<TableHead>Приоритет</TableHead>
-						<TableHead>Дата создания</TableHead>
-						<TableHead></TableHead>
+						<TableHead>{t('author')}</TableHead>
+						<TableHead>{t('priority')}</TableHead>
+						<TableHead>{t('createdAt')}</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>

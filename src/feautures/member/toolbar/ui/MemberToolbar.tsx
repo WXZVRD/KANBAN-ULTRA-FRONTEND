@@ -1,4 +1,5 @@
 import { Filter, Search, Trash2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
 	Button,
@@ -28,12 +29,14 @@ export function MembersToolbar({
 	hasSelected,
 	onDeleteSelected
 }: MembersToolbarProps) {
+	const t = useTranslations()
+
 	return (
 		<div className='flex items-center justify-between gap-2 border-b p-2'>
 			<div className='flex items-center gap-2'>
 				<Search className='text-muted-foreground h-4 w-4' />
 				<Input
-					placeholder='Поиск участников...'
+					placeholder={t('TableData.memberSearch')}
 					value={search}
 					onChange={e => onSearchChange(e.target.value)}
 					className='h-8 w-[200px]'
@@ -45,26 +48,26 @@ export function MembersToolbar({
 					<DropdownMenuTrigger asChild>
 						<Button variant='outline' size='sm'>
 							<Filter className='mr-1 h-4 w-4' />
-							{roleFilter ?? 'Все роли'}
+							{roleFilter ?? t('Roles.title')}
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>
 						<DropdownMenuItem
 							onClick={() => onRoleFilterChange(null)}
 						>
-							Все
+							{t('Roles.all')}
 						</DropdownMenuItem>
 						<DropdownMenuItem
 							onClick={() => onRoleFilterChange(MemberRole.ADMIN)}
 						>
-							Админ
+							{t('Roles.admin')}
 						</DropdownMenuItem>
 						<DropdownMenuItem
 							onClick={() =>
 								onRoleFilterChange(MemberRole.MEMBER)
 							}
 						>
-							Участник
+							{t('Roles.member')}
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
@@ -76,7 +79,7 @@ export function MembersToolbar({
 					onClick={onDeleteSelected}
 				>
 					<Trash2 className='mr-1 h-4 w-4' />
-					Удалить
+					{t('Actions.delete')}
 				</Button>
 			</div>
 		</div>

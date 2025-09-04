@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import { ColumnCard, IColumn } from '@/entities/column/'
 import { AddColumnButton, useMoveColumn } from '@/feautures/projectColumn'
 import { useUpdateTask } from '@/feautures/task'
@@ -14,8 +12,6 @@ export function ColumnView({ columns }: IColumnView) {
 	const params = useParams<{ projectId: string }>()
 	const { moveColumn } = useMoveColumn()
 	const { updateTaskMutation } = useUpdateTask()
-
-	const columnsId = useMemo(() => columns.map(col => col.id), [columns])
 
 	function onDragEnd(result: DropResult) {
 		const { source, destination, draggableId, type } = result

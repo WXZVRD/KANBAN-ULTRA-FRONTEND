@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -9,16 +10,19 @@ import { toast } from 'sonner'
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/components/ui'
 import { APP_ROUTES } from '@/shared/consts'
 
-import { useLoginMutation } from '@/feautures/auth/model/mutations/useLogin.mutation'
-import { LoginScheme, TypeLoginScheme } from '@/feautures/auth/schemes/login.scheme'
-import { AuthWrapper } from '@/feautures/auth/ui/common/AuthWrapper'
+import { AuthWrapper, LoginScheme, TypeLoginScheme, useLoginMutation } from '@/feautures/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export function LoginForm() {
 	const [recaptcha, setRecaptcha] = useState<string | null>(null)
 	const { theme } = useTheme()
-	const [isShowTwoFactor, setIsShowTwoFactor] = useState(false)
+	const [isShowTwoFactor, setIsShowTwoFactor] = useState<boolean>(false)
+
+	const t = useTranslations('Auth')
+	const router: AppRouterInstance = useRouter()
 
 	const form = useForm<TypeLoginScheme>({
 		resolver: zodResolver(LoginScheme),
@@ -28,23 +32,25 @@ export function LoginForm() {
 		}
 	})
 
-	const { login, isLoadingLogin } = useLoginMutation(setIsShowTwoFactor)
+	const { login, isLoadingLogin } = useLoginMutation(setIsShowTwoFactor, () =>
+		router.push(APP_ROUTES.DASHBOARD_SETTINGS)
+	)
 
-	const onSubmit = (values: TypeLoginScheme) => {
+	const onSubmit = (values: TypeLoginScheme): void => {
 		console.log(isShowTwoFactor)
 		if (recaptcha) {
 			login({ values, recaptcha })
 		} else {
-			toast.error('Пожалуйста, завершите ReCAPTHA')
+			toast.error(t('recaptchaError'))
 			throw new Error('ReCAPTCHA флаг должен быть установлен')
 		}
 	}
 
 	return (
 		<AuthWrapper
-			heading='Войти'
-			description='Чтобы войти в аккаунт введите ваш email и пароль'
-			backButtonLabel='Еще нет аккаунта? Регистрация'
+			heading={t('login')}
+			description={t('description')}
+			backButtonLabel={t('noAccount')}
 			backButtonHref={APP_ROUTES.AUTH.REGISTER}
 			isShowSocial
 		>
@@ -59,11 +65,11 @@ export function LoginForm() {
 							name='code'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Код</FormLabel>
+									<FormLabel>{t('twoFactorCode')}</FormLabel>
 									<FormControl>
 										<Input
 											disabled={isLoadingLogin}
-											placeholder='123456'
+											placeholder='667788'
 											{...field}
 										/>
 									</FormControl>
@@ -79,11 +85,11 @@ export function LoginForm() {
 								name='email'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Почта</FormLabel>
+										<FormLabel>{t('email')}</FormLabel>
 										<FormControl>
 											<Input
 												disabled={isLoadingLogin}
-												placeholder='Почта'
+												placeholder='jhon@gmail.com'
 												type='email'
 												{...field}
 											/>
@@ -99,7 +105,9 @@ export function LoginForm() {
 								render={({ field }) => (
 									<FormItem>
 										<div className='item-center flex justify-between'>
-											<FormLabel>Пароль</FormLabel>
+											<FormLabel>
+												{t('password')}
+											</FormLabel>
 											<Link
 												href={
 													APP_ROUTES.AUTH
@@ -107,13 +115,13 @@ export function LoginForm() {
 												}
 												className='ml-auto inline-block text-sm underline'
 											>
-												Забыли пароль?
+												{t('forgotPassword')}
 											</Link>
 										</div>
 										<FormControl>
 											<Input
 												disabled={isLoadingLogin}
-												placeholder='Пароль'
+												placeholder={t('password')}
 												type='password'
 												{...field}
 											/>
@@ -137,7 +145,7 @@ export function LoginForm() {
 					</div>
 
 					<Button disabled={isLoadingLogin} type='submit'>
-						Войти
+						{t('login')}
 					</Button>
 				</form>
 			</Form>

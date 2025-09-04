@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import {
 	Loader,
 	Select,
@@ -25,18 +27,22 @@ export function ProjectMemberSelector({
 }: IProjectMemberSelector) {
 	const { projectMembers, isProjectMembersLoading } =
 		useGetProjectMembersQuery(projectId)
-
+	const t = useTranslations()
 	return (
 		<Select value={value} onValueChange={onChange}>
 			<SelectTrigger className='w-[280px]'>
-				<SelectValue placeholder='Выбери исполнителя' />
+				<SelectValue
+					placeholder={t('TaskCreateModal.assigneeDescription')}
+				/>
 			</SelectTrigger>
 			<SelectContent>
 				{isProjectMembersLoading ? (
 					<Loader />
 				) : projectMembers && projectMembers.length > 0 ? (
 					<SelectGroup>
-						<SelectLabel>Участники проекта</SelectLabel>
+						<SelectLabel>
+							{t('TaskCreateModal.assigneeTitle')}
+						</SelectLabel>
 						{projectMembers
 							.filter(member => !!member.user)
 							.map(member => (

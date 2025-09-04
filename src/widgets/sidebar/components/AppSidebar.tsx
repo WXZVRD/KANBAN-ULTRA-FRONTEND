@@ -1,6 +1,7 @@
 'use client'
 
 import { ChevronDown, Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import {
 	Button,
@@ -18,17 +19,19 @@ import {
 	SidebarMenuItem,
 	SidebarMenuSkeleton
 } from '@/shared/components/ui'
-import { APP_ROUTES } from '@/shared/consts/routes'
+import { APP_ROUTES } from '@/shared/consts/routes.constant'
 
-import { UserCard } from '@/entities/user/ui/UserCard'
-import { useAuth } from '@/feautures/auth/hooks/useAuth'
-import { useGetAllUserProjects } from '@/feautures/member/project-member-selector/model/useGetProjectByMemberApi.query'
+import { UserCard } from '@/entities/user'
+import { useAuth } from '@/feautures/auth'
+import { useGetAllUserProjects } from '@/feautures/member'
 import { ProjectListItem } from '@/widgets/sidebar/components/ProjectListItem'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
 export function AppSidebar() {
 	const { user } = useAuth()
+
+	const t = useTranslations()
 
 	const params = useParams<{ projectId: string }>()
 
@@ -45,7 +48,7 @@ export function AppSidebar() {
 					<SidebarGroup>
 						<SidebarGroupLabel asChild>
 							<CollapsibleTrigger>
-								Projects
+								{t('SideBar.title')}
 								<ChevronDown className='ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180' />
 							</CollapsibleTrigger>
 						</SidebarGroupLabel>
@@ -65,7 +68,7 @@ export function AppSidebar() {
 
 									{!isProjectsLoading && !projects && (
 										<span className='text-muted-foreground mt-3 mb-5 text-sm'>
-											You have no projects yet
+											{t('Messages.noProjects')}
 										</span>
 									)}
 
@@ -85,7 +88,7 @@ export function AppSidebar() {
 									>
 										<Plus className='h-4 w-4' />
 										<Link href={APP_ROUTES.PROJECTS.CREATE}>
-											Create project
+											{t('Actions.createProject')}
 										</Link>
 									</Button>
 								</div>

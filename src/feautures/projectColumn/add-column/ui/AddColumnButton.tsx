@@ -1,4 +1,5 @@
 import { Check, Plus, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Button, Input } from '@/shared/components/ui'
 import { useInputWithControls } from '@/shared/hooks/useInputWithControls.hook'
@@ -13,6 +14,8 @@ interface IAddColumnButtonProps {
 export const AddColumnButton = ({ columnsLength }: IAddColumnButtonProps) => {
 	const params = useParams<{ projectId: string }>()
 	const { addColumn, isColumnAdding } = useAddColumn()
+
+	const t = useTranslations()
 
 	const {
 		value: title,
@@ -38,7 +41,7 @@ export const AddColumnButton = ({ columnsLength }: IAddColumnButtonProps) => {
 				<div className='flex w-full flex-col gap-2'>
 					<Input
 						className='min-w-[200px]'
-						placeholder='Название колонки'
+						placeholder={t('CreateColumn.title')}
 						value={title}
 						onChange={e => setTitle(e.target.value)}
 						autoFocus

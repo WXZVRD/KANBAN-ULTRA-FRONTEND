@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -43,6 +44,8 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 	const projectId = params.projectId
 	const { createTaskMutation } = useAddTaskMutation()
 
+	const t = useTranslations()
+
 	const [open, setOpen] = useState(false)
 
 	const form = useForm<TypeCreateTaskScheme>({
@@ -71,14 +74,16 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button size='sm' variant='ghost'>
-					Создать задачу
+					{t('Actions.createTask')}
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Новая задача</DialogTitle>
-					<DialogDescription>Впишите новую задачу.</DialogDescription>
+					<DialogTitle>{t('TaskCreateModal.title')}</DialogTitle>
+					<DialogDescription>
+						{t('TaskCreateModal.description')}
+					</DialogDescription>
 				</DialogHeader>
 
 				<Form {...form}>
@@ -91,10 +96,14 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 							name='title'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Название</FormLabel>
+									<FormLabel>
+										{t('TaskCreateModal.name')}
+									</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='Например: Купить хлеб'
+											placeholder={t(
+												'TaskCreateModal.nameDescription'
+											)}
 											{...field}
 										/>
 									</FormControl>
@@ -108,7 +117,9 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 							name='assigneeId'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Исполнитель</FormLabel>
+									<FormLabel>
+										{t('TaskCreateModal.assignee')}
+									</FormLabel>
 									<FormControl>
 										<ProjectMemberSelector
 											projectId={projectId}
@@ -126,14 +137,20 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 							name='priority'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Приоритет</FormLabel>
+									<FormLabel>
+										{t('TaskCreateModal.priority')}
+									</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										value={field.value}
 									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder='Выберите приоритет' />
+												<SelectValue
+													placeholder={t(
+														'TaskCreateModal.priorityDescription'
+													)}
+												/>
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -143,7 +160,9 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 														key={priority}
 														value={priority}
 													>
-														{priority}
+														{t(
+															`Priority.${priority}`
+														)}
 													</SelectItem>
 												)
 											)}
@@ -155,7 +174,7 @@ export function CreateTaskModal({ columnId }: CreateTaskModalProps) {
 						/>
 
 						<Button type='submit' className='w-full'>
-							Создать
+							{t('Actions.create')}
 						</Button>
 					</form>
 				</Form>
